@@ -12,7 +12,7 @@ def funcionImprimirValoresLlaves(n):
 
     while i <= n:
         llave = input(f"Ingrese la llave {i}: ")
-        valor = int(input(f"Ingrese el valor de llave {i}: "))
+        valor = int(input(f"Ingrese el valor numerico de la llave {i}: "))
 
         llaves[llave] = valor
         i+=1

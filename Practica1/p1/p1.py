@@ -12,12 +12,20 @@ def calcular_producto_y_suma(*args):
 # Solicitar al usuario la entrada de números separados por comas
 entrada = input("Ingresa números separados por comas: ")
 
-# Convertir la entrada en una lista de números
-numeros = [float(numero) for numero in entrada.split(',')]
+try:
+    # Convertir la entrada en una lista de números
+    numeros = [float(numero) for numero in entrada.split(',')]
+except TypeError:
+    print("Introdujiste un numero distinto a un numero")
+except ValueError:
+    print("Introdujiste un numero distinto a un numero")
+except Exception as e:
+    print(f"Ocurrió un error inesperado: {e}")
+else:
+    # Llamar a la función con los números proporcionados
 
-# Llamar a la función con los números proporcionados
-producto, suma = calcular_producto_y_suma(*numeros)
+    producto, suma = calcular_producto_y_suma(*numeros)
 
-# Mostrar los resultados
-print(f"El producto total es: {producto}")
-print(f"La suma total es: {suma}")
+    # Mostrar los resultados
+    print(f"El producto total es: {producto}")
+    print(f"La suma total es: {suma}")
