@@ -6,6 +6,9 @@
 # Josué Daniel García Maldonado         19100182
 # Rogelio Zamarripa Treviño             18100248
 
+#Instalar modulo
+# pip install num2words
+
 # Importar las dependencias necesarias
 from num2words import num2words
 
