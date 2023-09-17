@@ -4,7 +4,7 @@ nombre_completo = input("Introduce tu nombre: ")
 nombre_inverso = ""
 mayuscula = True
 
-for letra in nombre_completo:
+for letra in nombre_completo.lower():
     if letra.isalpha():
         if mayuscula:
             nombre_inverso += letra.upper()
