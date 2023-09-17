@@ -15,7 +15,7 @@ while cond:
     try:
         arreglo = entrada.split(" - ")
         semestre = int(arreglo[0])
-        materia  = arreglo[1]
+        materia  = arreglo[1].strip().lower()
         creditos = int(arreglo[2])
     except ValueError:
         print("El valor entero no es valido.")
