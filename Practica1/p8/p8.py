@@ -97,6 +97,7 @@ def Iniciar():
                 break
     return
 
+#menu 
 while True:
     res = int(input('Menu\n1.-Registro\n2.-Inicio de sesion\n3.-Salida\nseleccion: '))
     if res == 1:
