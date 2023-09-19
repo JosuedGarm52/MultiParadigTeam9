@@ -8,14 +8,37 @@ def LLenarAuto(n):
         print("El numero debe estar entre 2 y 10")
 
 def LlenarCararol(listaA,listaB):
-    for i in range(len(listaA[0])):
-        listaB[0][i] = listaA[0][i]
-    for i in range(len(listaA)-1):
-        for j in range(len(listaA[1])):
-            if i == len(listaA):
-                listaB[i][-1] = listaA[1][j]
-    
+    n = len(listaA)
+    m = len(listaA[0])
 
+    # Inicializar variables para las direcciones del recorrido en espiral
+    arriba, abajo, izquierda, derecha = 0, n - 1, 0, m - 1
+
+    valor = 1  # Valor inicial
+    while valor <= n * m:
+        # Llenar la fila superior
+        for j in range(izquierda, derecha + 1):
+            listaB[arriba][j] = valor
+            valor += 1
+        arriba += 1
+
+        # Llenar la columna derecha
+        for i in range(arriba, abajo + 1):
+            listaB[i][derecha] = valor
+            valor += 1
+        derecha -= 1
+
+        # Llenar la fila inferior
+        for j in range(derecha, izquierda - 1, -1):
+            listaB[abajo][j] = valor
+            valor += 1
+        abajo -= 1
+
+        # Llenar la columna izquierda
+        for i in range(abajo, arriba - 1, -1):
+            listaB[i][izquierda] = valor
+            valor += 1
+        izquierda += 1
     return listaB
 try:
     numero = int(input('Introduce un numero entre 2~10: '))
