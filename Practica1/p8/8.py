@@ -1,7 +1,4 @@
-#libreria random
 import random
-
-#clase para crear usuarios
 
 class Usuario:
     def __init__(self, usuario, contrasena, rol, nombre, curp, ciudad) -> None:
@@ -11,7 +8,8 @@ class Usuario:
         self._nombre = nombre
         self._curp = curp
         self._ciudad = ciudad
-#propiedades necesarias para la comprobacion de informacion, solo mostrar
+
+    #propiedades esenciales para comparaciones    
     @property
     def usuario(self):
         return self._usuario
@@ -21,11 +19,14 @@ class Usuario:
     @property
     def rol(self):
         return self._rol
+    
+    #sobre-escritura del str (regresa todos los valores en una cadena)
     def __str__(self) -> str:
         return f"{self._usuario}, {self._contrasena}, {self._rol}, {self._nombre}, {self._curp}, {self._ciudad}"
 
 #self, usuario, contrasena, rol, nombre, curp, ciudad
-#usuarios base para iniciar el admin y un cliente
+
+#empleamos un diccionario para controlar las cuentas por claves (key) randomizadas
 miUsuario = Usuario("alex", "nan", "admin", "alejandro", "DIM", "NLD")
 dicUsuarios = {0:miUsuario,}
 miUsuario = Usuario("ella", "nan", "cliente", "alejandro", "DIMas", "NLD")
@@ -36,20 +37,28 @@ def registrar():
         usuario = input('Ingresa tu nuevo usuario: ')
         contrasena = input('Ingresa tu nueva contrasena: ')
         nombre = input('ingresa el nombre del usuario: ')
-        while True:
+        bandera = 0
+        while bandera == 0:
             curp = input('ingresa la CURP del usuario: ')
-            if curp in dicUsuarios:
-                print('El usuario ya existe')
+            for k,v in dicUsuarios.items():
+                if v._curp == curp:
+                    print('El usuario ya existe')
+                    bandera=0
+                    break
+                else:
+                    bandera = 1
+        ciudad = input('ingresa la ciudad del usuario: ')
+        # print(usuario, contrasena, nombre, curp, ciudad)
+        if (usuario == None or contrasena == None or nombre == None or curp == None or ciudad == None) or (usuario == ''  or nombre == '' or curp == '' or ciudad == ''):
+            print('\n      datos incorrectos!!!!\n')  
+            res = int(input('deseas volver a registrarte?\n1.-Si\n2.-No\nSeleccion: '))
+            if res == 1:
                 continue
             else:
                 break
-        ciudad = input('ingresa la ciudad del usuario: ')
-        print(usuario, contrasena, nombre, curp, ciudad)
-        if usuario != None and contrasena != None and nombre != None and curp != None and ciudad != None:
+        else:
             miUsuario = Usuario(usuario, contrasena, "cliente", nombre, curp, ciudad)
             key = 0
-			#asignacion de llave para el diccionario random y evita repetidos 
-			#para no modificar el valor
             while True:
                 numRamdom = random.randint(0,100)
                 if numRamdom in dicUsuarios:
@@ -59,35 +68,27 @@ def registrar():
                     break
             dicUsuarios[key] = miUsuario
             break
-        else:
-            print('datos incorrectos')  
-            res = int(input('deseas volver a registrarte?\n1.-Si\n2.-No'))
-            if res == 1:
-                continue
-            else:
-                break
 
 def Iniciar():
-    for k,v in dicUsuarios.items():
-        print(k,v,"\n")
     bandera = True
     while bandera == True:
         usu = input('ingresa usuario: ')
         cont = input('ingresa contrasena: ')
-        for k,v in dicUsuarios.items(): #primer ciclado para recorrer las cuentas
-            if usu == v.usuario and cont == v.contrasena:
-                if v.rol == 'admin':
-                    for k2,v2 in dicUsuarios.items():#segundo diccionario para imprimir
-						#en caso de ingresar con la cuenta admin
-                        print(v2,"\n")
+        for k,v in dicUsuarios.items():
+            if usu == v.usuario and cont == v.contrasena: 
+                if v.rol == 'admin':        #chequeo (admin o no)
+                    print()
+                    for k2,v2 in dicUsuarios.items(): #imprime valores mediante str
+                        print(v2)
                     bandera = False
+                    print()
                     break
-                else:
-					#mensaje de ingreso
+                else: #usuario cliente imprime su informacion
+                    print(v)
                     print(f'el usuario  "{v.usuario}"  ha logrado ingresar')
                     bandera = False
                     break
-        if bandera == True:
+        if bandera == True: #en caso de error mostrar menu
             res = int(input('quieres volver a intentar\n1.-Si\n2.-No\nSeleccion: '))
             if res == 1:
                 bandera = True
@@ -97,12 +98,17 @@ def Iniciar():
                 break
     return
 
-#menu para incio
+#ciclado para recibir unicamente 3 respuestas
 while True:
-    res = int(input('Menu\n1.-Registro\n2.-Inicio de sesion\n3.-Salida\nseleccion: '))
-    if res == 1:
-        registrar()
-    elif res == 2:
-        Iniciar()
-    else:
-        quit()
+    try:
+        res = int(input('Menu\n1.-Registro\n2.-Inicio de sesion\n3.-Salida\nseleccion: '))
+        if res == 1:
+            registrar()
+        elif res == 2:
+            Iniciar()
+        elif res == 3:
+            quit()
+    except TypeError as err:
+        print('ingrese unicamente valores del 1 al 3')
+    except Exception as err:
+        print(err)
