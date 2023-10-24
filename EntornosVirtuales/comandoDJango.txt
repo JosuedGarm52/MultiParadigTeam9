@@ -1,0 +1,53 @@
+python -m pip install django 
+
+django-admin startproject <nombredelproyecto>
+
+python manage.py migrate --solo ver migraciones
+python manage.py migrate showmigrations
+
+python manage.py startapp <webapp> --nombre de la carpeta
+
+#segundo paso
+--agregar la carpeta templates
+
+python manage.py runserver --correr el server 
+
+#agregar en el installed_app
+
+#Solo se mueve al archivo view, urls y settings 
+
+#siguiente paso instalar psycopg2
+pip install psycopg2
+
+#ejecutar migraciones 
+python manage.py migrate 
+
+#showmigrations
+
+#crear 
+python manage.py createsuperuser
+
+#help 
+python manage.py help 
+
+usuario: admin 
+correo: cualsea jaccob@gmail.com
+contra: admin
+
+#otra aplicacion
+python manage.py startapp persona
+
+runserver 
+
+#agregarlo en settings -> installed_app
+
+python manage.py runserver
+
+python manage.py makemigrations
+
+.. migrate
+
+# como agrego esa identidad al panel de administracion 
+admin.py -aqui 
+-- de la carpeta creada /persona 
+

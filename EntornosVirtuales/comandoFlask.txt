@@ -1,0 +1,24 @@
+#comando instalar flask 
+pip install flask
+
+#comando para correr el app.py
+flask run
+
+#comandos para proyecto
+# 4 librerias 
+pip install flask-sqlalchemy
+pip install flask-migrate
+pip install psycopg2
+pip install flask-wtf
+
+#comando 
+flask db init
+--crear migraciones
+flask db migrate
+
+flask db upgrade
+
+39,env.py from models import Persona,Producto,Images
+
+ruta
+http://localhost:5000/
