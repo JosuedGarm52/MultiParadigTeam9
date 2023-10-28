@@ -3,7 +3,7 @@ python -m pip install django
 django-admin startproject <nombredelproyecto>
 
 python manage.py migrate --solo ver migraciones
-python manage.py migrate showmigrations
+python manage.py migrate showmigrations ##error
 
 python manage.py startapp <webapp> --nombre de la carpeta
 
