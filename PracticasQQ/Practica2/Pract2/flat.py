@@ -52,3 +52,17 @@
 
 #quise agregar a admin.py para que salieran en cada carpeta corresponidente
 # segun no es necesario ponerlo todo en pract2
+
+# movi layout a pract2/templates
+# modifique myapp/settings.py el templates[ dir: [] ] y agregue from os
+# agregue los demas a en el html pract2/templates/bienvenido.html
+
+# copie y modifique los templates en las demas carpetas
+
+# me esta dando problemas las referencas a los templates del carro
+# el error era esto
+    #<td><a href="editarCoche">Editar</a></td>
+    #<td><a href="editarCoche/{{coche.id}}">Editar</a></td> faltaba el coche id
+#y
+    #<a href="nuevoCoche.html">Agregar</a>
+    #<a href="nuevoCoche">Agregar</a>

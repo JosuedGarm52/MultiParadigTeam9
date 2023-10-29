@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block body%}
+<div>
+    <h1>Lista de marca de carros</h1>
+    <a href="nuevoMarcaCoche">Agregar</a>
+    <table border="1">
+        <thead>
+            <tr>
+                <td>ID</td>  
+                <td>Nombre</td>
+                <td>Pais de origen</td>
+                <td>Año de fundacion</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for coche in marcacoches %}
+                <tr>
+                    <td>{{ coche.id }}</td>  
+                    <td>{{ coche.nombre }}</td>
+                    <td>{{ coche.paisorigen }}</td>
+                    <td>{{ coche.year_fundacion }}</td>
+                    <td><a href="editarMarcaCoche/{{coche.id}}">Editar</a></td>
+                    <td><a href="detalleMarcaCoche/{{coche.id}}">Detalle</a></td>
+                    <td><a href="eliminarMarcaCoche/{{coche.id}}">Eliminar</a></td>
+                </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+    <a href="/">Regresar a la página de inicio</a>
+</div>
+{%endblock%}

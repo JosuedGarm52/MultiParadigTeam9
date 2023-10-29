@@ -16,10 +16,39 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from pract2.views import index, indexConductor
+from pract2.views import *
+from Conductor.views import *
+from Coche.views import *
+from MarcaCoche.views import *
+from ServicioMantenimiento.views import *
+from Vendedor.views import * 
+from VentaCoche.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',index),
     path('ListadoConductor',indexConductor, name='ListadoConductor'),
+    path('nuevoConductor',nuevoConductor),
+    path('detalleConductor/<int:id>',detalleConductor),
+    path('editarConductor/<int:id>',editarConductor),
+    path('eliminarConductor/<int:id>',eliminarConductor),
+
+    path('ListadoCoche',indexCoche, name='ListadoCoche'),
+    path('nuevoCoche',nuevoCoche),
+    path('detalleCoche/<int:id>',detalleCoche),
+    path('editarCoche/<int:id>',editarCoche),
+    path('eliminarCoche/<int:id>',eliminarCoche),
+    
+    path('ListadoMarcaCoche',indexMarcaCoche, name='ListadoMarcaCoche'),
+    path('nuevoMarcaCoche',nuevoMarcaCoche),
+    path('detalleMarcaCoche/<int:id>',detalleMarcaCoche),
+    path('editarMarcaCoche/<int:id>',editarMarcaCoche),
+    path('eliminarMarcaCoche/<int:id>',eliminarMarcaCoche),
+
+    path('ListadoServicioMantenimiento',indexServicioMantenimiento, name='ListadoServicioMantenimiento'),
+
+    path('ListadoVendedor',indexVendedor, name='ListadoVendedor'),
+
+    path('ListadoVentaCoche',indexVentaCoche, name='ListadoVentaCoche'),
+
 ]

@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block body%}
+<div>
+    <h1>Detalle Coche </h1> <br>
+    <h1>
+        {{ marcacoche.id }}  
+        {{ marcacoche.nombre }}
+        {{ marcacoche.paisorigen }}
+        {{ marcacoche.year_fundacion }}
+    </h1>
+    <a href="{% url 'ListadoMarcaCoche' %}">Regresar</a>
+    <a href="/">Regresar a la página de inicio</a>
+</div>
+{%endblock%}

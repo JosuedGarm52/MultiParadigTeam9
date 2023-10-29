@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+{% block body%}
+<div>
+    <h1>
+        {{ conductor.id }}  
+        {{ conductor.nombre }}
+        {{ conductor.clave_licencia }}
+        {{ conductor.edad }}
+        {{ conductor.direccion }}
+    </h1>
+    <a href="{% url 'ListadoConductor' %}">Regresar</a>
+</div>
+{%endblock%}
