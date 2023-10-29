@@ -47,3 +47,8 @@
 #        model = Coche
 #        fields = "__all__"
 
+# agruegue el templeates de conductor y tambien puse en url con el path
+# templeates puse el indexConductor y layout html
+
+#quise agregar a admin.py para que salieran en cada carpeta corresponidente
+# segun no es necesario ponerlo todo en pract2

@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block body%}
+<div>
+    <h1>Lista de conductores</h1>
+    <a href="nuevoConductor">Agregar</a>
+    <table border="1">
+        <thead>
+            <tr>
+                <td>ID</td>
+                <td>Nombre</td>
+                <td>Clave de Licencia</td>
+                <td>Edad</td>
+                <td>Dirección</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for conductor in conductores %}
+                <tr>
+                    <td>{{ conductor.id }}</td>  
+                    <td>{{ conductor.nombre }}</td>
+                    <td>{{ conductor.clave_licencia }}</td>
+                    <td>{{ conductor.edad }}</td>
+                    <td>{{ conductor.direccion }}</td>
+                    <td><a href="editarConductor/{{conductor.id}}">Editar</a></td>
+                    <td><a href="detalleConductor/{{conductor.id}}">Detalle</a></td>
+                    <td><a href="eliminarConductor/{{conductor.id}}">Eliminar</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{%endblock%}
