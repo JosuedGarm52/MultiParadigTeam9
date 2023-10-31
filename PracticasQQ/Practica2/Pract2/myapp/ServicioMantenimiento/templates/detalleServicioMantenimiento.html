@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block body%}
+<div>
+    <h1>
+        {{ coche.id }}  
+        {{ coche.marca }}
+        {{ coche.modelo }}
+        {{ coche.year_fabricacion }}
+        {{ coche.numeroplaca }}
+        {{ coche.color }}
+        {{ coche.precio }}
+    </h1>
+    <a href="{% url 'ListadoConductor' %}">Regresar</a>
+</div>
+{%endblock%}

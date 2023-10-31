@@ -1,0 +1,54 @@
+"""
+URL configuration for myapp project.
+
+The `urlpatterns` list routes URLs to views. For more information please see:
+    https://docs.djangoproject.com/en/4.2/topics/http/urls/
+Examples:
+Function views
+    1. Add an import:  from my_app import views
+    2. Add a URL to urlpatterns:  path('', views.home, name='home')
+Class-based views
+    1. Add an import:  from other_app.views import Home
+    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
+Including another URLconf
+    1. Import the include() function: from django.urls import include, path
+    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+"""
+from django.contrib import admin
+from django.urls import path
+from pract2.views import *
+from Conductor.views import *
+from Coche.views import *
+from MarcaCoche.views import *
+from ServicioMantenimiento.views import *
+from Vendedor.views import * 
+from VentaCoche.views import *
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('',index),
+    path('ListadoConductor',indexConductor, name='ListadoConductor'),
+    path('nuevoConductor',nuevoConductor),
+    path('detalleConductor/<int:id>',detalleConductor),
+    path('editarConductor/<int:id>',editarConductor),
+    path('eliminarConductor/<int:id>',eliminarConductor),
+
+    path('ListadoCoche',indexCoche, name='ListadoCoche'),
+    path('nuevoCoche',nuevoCoche),
+    path('detalleCoche/<int:id>',detalleCoche),
+    path('editarCoche/<int:id>',editarCoche),
+    path('eliminarCoche/<int:id>',eliminarCoche),
+    
+    path('ListadoMarcaCoche',indexMarcaCoche, name='ListadoMarcaCoche'),
+    path('nuevoMarcaCoche',nuevoMarcaCoche),
+    path('detalleMarcaCoche/<int:id>',detalleMarcaCoche),
+    path('editarMarcaCoche/<int:id>',editarMarcaCoche),
+    path('eliminarMarcaCoche/<int:id>',eliminarMarcaCoche),
+
+    path('ListadoServicioMantenimiento',indexServicioMantenimiento, name='ListadoServicioMantenimiento'),
+
+    path('ListadoVendedor',indexVendedor, name='ListadoVendedor'),
+
+    path('ListadoVentaCoche',indexVentaCoche, name='ListadoVentaCoche'),
+
+]

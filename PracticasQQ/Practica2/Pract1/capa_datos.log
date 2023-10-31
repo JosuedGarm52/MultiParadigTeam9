@@ -1,0 +1,266 @@
+09:27:03 PM : DEBUG [Conexion.py]:28 Creacion del Pool: <psycopg2.pool.SimpleConnectionPool object at 0x000001E324D4BA50>
+09:27:03 PM : DEBUG [Conexion.py]:39 Conexion obtenida <connection object at 0x000001E324D41250; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+09:27:03 PM : DEBUG [Conexion.py]:39 Conexion obtenida <connection object at 0x000001E324D41360; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+09:27:04 PM : DEBUG [Conexion.py]:39 Conexion obtenida <connection object at 0x000001E324D41470; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+09:27:04 PM : DEBUG [Conexion.py]:39 Conexion obtenida <connection object at 0x000001E324D41580; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+09:27:04 PM : DEBUG [Conexion.py]:39 Conexion obtenida <connection object at 0x000001E324D41690; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+09:27:41 PM : DEBUG [Conexion.py]:28 Creacion del Pool: <psycopg2.pool.SimpleConnectionPool object at 0x0000024313F4D210>
+09:27:42 PM : DEBUG [Conexion.py]:39 Conexion obtenida <connection object at 0x0000024313F39250; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+09:27:42 PM : DEBUG [Conexion.py]:39 Conexion obtenida <connection object at 0x0000024313F39360; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+09:27:42 PM : DEBUG [Conexion.py]:39 Conexion obtenida <connection object at 0x0000024313F39470; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+09:27:42 PM : DEBUG [Conexion.py]:39 Conexion obtenida <connection object at 0x0000024313F39580; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+09:27:42 PM : DEBUG [Conexion.py]:39 Conexion obtenida <connection object at 0x0000024313F39690; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+09:28:04 PM : DEBUG [cursorDelPool.py]:11 Inicio bloque with 
+09:28:04 PM : DEBUG [Conexion.py]:28 Creacion del Pool: <psycopg2.pool.SimpleConnectionPool object at 0x0000016E95E000D0>
+09:28:04 PM : DEBUG [Conexion.py]:39 Conexion obtenida <connection object at 0x0000016E97822240; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+09:28:04 PM : DEBUG [cursorDelPool.py]:27 Bloque with
+09:28:04 PM : DEBUG [cursorDelPool.py]:17 Se ejecuta exit
+09:28:04 PM : DEBUG [Conexion.py]:45 Conexion regresada <connection object at 0x0000016E97822240; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+09:31:55 PM : DEBUG [cursorDelPool.py]:11 Inicio bloque with 
+09:31:55 PM : DEBUG [Conexion.py]:28 Creacion del Pool: <psycopg2.pool.SimpleConnectionPool object at 0x0000023C63F6E090>
+09:31:55 PM : DEBUG [Conexion.py]:39 Conexion obtenida <connection object at 0x0000023C6599E240; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+09:31:55 PM : DEBUG [cursorDelPool.py]:27 Bloque with
+09:31:55 PM : DEBUG [cursorDelPool.py]:17 Se ejecuta exit
+09:31:55 PM : DEBUG [Conexion.py]:45 Conexion regresada <connection object at 0x0000023C6599E240; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+07:20:56 PM : DEBUG [cursorDelPool.py]:11 Inicio bloque with 
+07:20:57 PM : DEBUG [Conexion.py]:28 Creacion del Pool: <psycopg2.pool.SimpleConnectionPool object at 0x0000019CD906EDD0>
+07:20:57 PM : DEBUG [Conexion.py]:39 Conexion obtenida <connection object at 0x0000019CD8F9A570; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+07:20:58 PM : DEBUG [cursorDelPool.py]:17 Se ejecuta exit
+07:20:58 PM : DEBUG [Conexion.py]:45 Conexion regresada <connection object at 0x0000019CD8F9A570; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+07:20:58 PM : DEBUG [personadao.py]:44 Personas agregadas: 1
+07:20:58 PM : DEBUG [cursorDelPool.py]:11 Inicio bloque with 
+07:20:58 PM : DEBUG [Conexion.py]:39 Conexion obtenida <connection object at 0x0000019CD8F9A570; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+07:20:59 PM : DEBUG [cursorDelPool.py]:17 Se ejecuta exit
+07:20:59 PM : DEBUG [Conexion.py]:45 Conexion regresada <connection object at 0x0000019CD8F9A570; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+07:20:59 PM : DEBUG [personadao.py]:47 Personas Actualizadas: 0
+07:20:59 PM : DEBUG [cursorDelPool.py]:11 Inicio bloque with 
+07:20:59 PM : DEBUG [Conexion.py]:39 Conexion obtenida <connection object at 0x0000019CD8F9A570; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+07:20:59 PM : DEBUG [cursorDelPool.py]:17 Se ejecuta exit
+07:20:59 PM : DEBUG [Conexion.py]:45 Conexion regresada <connection object at 0x0000019CD8F9A570; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+07:20:59 PM : DEBUG [personadao.py]:49 Personas Eliminadas: 0
+07:20:59 PM : DEBUG [cursorDelPool.py]:11 Inicio bloque with 
+07:20:59 PM : DEBUG [Conexion.py]:39 Conexion obtenida <connection object at 0x0000019CD8F9A570; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+07:20:59 PM : DEBUG [cursorDelPool.py]:17 Se ejecuta exit
+07:20:59 PM : DEBUG [Conexion.py]:45 Conexion regresada <connection object at 0x0000019CD8F9A570; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+07:20:59 PM : DEBUG [personadao.py]:52 
+            ID PERSONA 1, Nombre: Juan,
+            Apellido: Perez, Email: dg@gmail.com,
+            Telefono: 787492
+        
+08:26:51 PM : DEBUG [cursorDelPool.py]:11 Inicio bloque with 
+08:26:51 PM : DEBUG [Conexion.py]:28 Creacion del Pool: <psycopg2.pool.SimpleConnectionPool object at 0x000001C966CC6A90>
+08:26:51 PM : DEBUG [Conexion.py]:39 Conexion obtenida <connection object at 0x000001C9686E2350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+08:26:51 PM : DEBUG [cursorDelPool.py]:17 Se ejecuta exit
+08:26:51 PM : DEBUG [Conexion.py]:45 Conexion regresada <connection object at 0x000001C9686E2350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+08:28:30 PM : DEBUG [cursorDelPool.py]:11 Inicio bloque with 
+08:28:30 PM : DEBUG [Conexion.py]:28 Creacion del Pool: <psycopg2.pool.SimpleConnectionPool object at 0x000001F90050E9D0>
+08:28:30 PM : DEBUG [Conexion.py]:39 Conexion obtenida <connection object at 0x000001F901F3A350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+08:28:30 PM : DEBUG [cursorDelPool.py]:17 Se ejecuta exit
+08:28:30 PM : DEBUG [Conexion.py]:45 Conexion regresada <connection object at 0x000001F901F3A350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+08:32:16 PM : DEBUG [cursorDelPool.py]:11 Inicio bloque with 
+08:32:17 PM : DEBUG [Conexion.py]:28 Creacion del Pool: <psycopg2.pool.SimpleConnectionPool object at 0x000002040D3FE9D0>
+08:32:17 PM : DEBUG [Conexion.py]:39 Conexion obtenida <connection object at 0x000002040EE5A350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+08:32:17 PM : DEBUG [cursorDelPool.py]:17 Se ejecuta exit
+08:32:17 PM : DEBUG [Conexion.py]:45 Conexion regresada <connection object at 0x000002040EE5A350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+08:32:17 PM : DEBUG [ProductoDAO.py]:44 Personas agregadas: 1
+08:32:17 PM : DEBUG [cursorDelPool.py]:11 Inicio bloque with 
+08:32:17 PM : DEBUG [Conexion.py]:39 Conexion obtenida <connection object at 0x000002040EE5A350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+08:32:17 PM : DEBUG [cursorDelPool.py]:17 Se ejecuta exit
+08:32:17 PM : DEBUG [Conexion.py]:45 Conexion regresada <connection object at 0x000002040EE5A350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+08:41:32 PM : DEBUG [cursorDelPool.py]:11 Inicio bloque with 
+08:41:32 PM : DEBUG [Conexion.py]:28 Creacion del Pool: <psycopg2.pool.SimpleConnectionPool object at 0x00000295CBE2E9D0>
+08:41:32 PM : DEBUG [Conexion.py]:39 Conexion obtenida <connection object at 0x00000295CD85A350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+08:41:32 PM : DEBUG [cursorDelPool.py]:17 Se ejecuta exit
+08:41:32 PM : DEBUG [Conexion.py]:45 Conexion regresada <connection object at 0x00000295CD85A350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+08:41:45 PM : DEBUG [cursorDelPool.py]:11 Inicio bloque with 
+08:41:45 PM : DEBUG [Conexion.py]:28 Creacion del Pool: <psycopg2.pool.SimpleConnectionPool object at 0x000001C12BA2E9D0>
+08:41:45 PM : DEBUG [Conexion.py]:39 Conexion obtenida <connection object at 0x000001C12D45A350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+08:41:45 PM : DEBUG [cursorDelPool.py]:17 Se ejecuta exit
+08:41:45 PM : DEBUG [Conexion.py]:45 Conexion regresada <connection object at 0x000001C12D45A350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+08:41:45 PM : DEBUG [ProductoDAO.py]:44 Personas agregadas: 1
+08:41:45 PM : DEBUG [cursorDelPool.py]:11 Inicio bloque with 
+08:41:45 PM : DEBUG [Conexion.py]:39 Conexion obtenida <connection object at 0x000001C12D45A350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+08:41:45 PM : DEBUG [cursorDelPool.py]:17 Se ejecuta exit
+08:41:45 PM : DEBUG [Conexion.py]:45 Conexion regresada <connection object at 0x000001C12D45A350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+08:42:34 PM : DEBUG [cursorDelPool.py]:11 Inicio bloque with 
+08:42:34 PM : DEBUG [Conexion.py]:28 Creacion del Pool: <psycopg2.pool.SimpleConnectionPool object at 0x0000024C5BC7CC90>
+08:42:34 PM : DEBUG [Conexion.py]:39 Conexion obtenida <connection object at 0x0000024C5D68A350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+08:42:34 PM : DEBUG [cursorDelPool.py]:17 Se ejecuta exit
+08:42:34 PM : DEBUG [Conexion.py]:45 Conexion regresada <connection object at 0x0000024C5D68A350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+08:42:34 PM : DEBUG [ProductoDAO.py]:45 Personas agregadas: 1
+08:42:34 PM : DEBUG [cursorDelPool.py]:11 Inicio bloque with 
+08:42:34 PM : DEBUG [Conexion.py]:39 Conexion obtenida <connection object at 0x0000024C5D68A350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+08:42:34 PM : DEBUG [cursorDelPool.py]:17 Se ejecuta exit
+08:42:34 PM : DEBUG [Conexion.py]:45 Conexion regresada <connection object at 0x0000024C5D68A350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+08:42:56 PM : DEBUG [cursorDelPool.py]:11 Inicio bloque with 
+08:42:56 PM : DEBUG [Conexion.py]:28 Creacion del Pool: <psycopg2.pool.SimpleConnectionPool object at 0x00000128D567BF90>
+08:42:56 PM : DEBUG [Conexion.py]:39 Conexion obtenida <connection object at 0x00000128D55CA350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+08:42:56 PM : DEBUG [cursorDelPool.py]:17 Se ejecuta exit
+08:42:56 PM : DEBUG [Conexion.py]:45 Conexion regresada <connection object at 0x00000128D55CA350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+08:42:56 PM : DEBUG [ProductoDAO.py]:46 Personas agregadas: 1
+08:43:09 PM : DEBUG [cursorDelPool.py]:11 Inicio bloque with 
+08:43:09 PM : DEBUG [Conexion.py]:28 Creacion del Pool: <psycopg2.pool.SimpleConnectionPool object at 0x000001D0D459E9D0>
+08:43:09 PM : DEBUG [Conexion.py]:39 Conexion obtenida <connection object at 0x000001D0D5FCA350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+08:43:09 PM : DEBUG [cursorDelPool.py]:17 Se ejecuta exit
+08:43:09 PM : DEBUG [Conexion.py]:45 Conexion regresada <connection object at 0x000001D0D5FCA350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+08:43:09 PM : DEBUG [ProductoDAO.py]:45 Personas agregadas: 1
+08:43:09 PM : DEBUG [cursorDelPool.py]:11 Inicio bloque with 
+08:43:09 PM : DEBUG [Conexion.py]:39 Conexion obtenida <connection object at 0x000001D0D5FCA350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+08:43:09 PM : DEBUG [cursorDelPool.py]:17 Se ejecuta exit
+08:43:09 PM : DEBUG [Conexion.py]:45 Conexion regresada <connection object at 0x000001D0D5FCA350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+08:49:46 PM : DEBUG [cursorDelPool.py]:11 Inicio bloque with 
+08:49:46 PM : DEBUG [Conexion.py]:28 Creacion del Pool: <psycopg2.pool.SimpleConnectionPool object at 0x0000015F696CE9D0>
+08:49:46 PM : DEBUG [Conexion.py]:39 Conexion obtenida <connection object at 0x0000015F6B0FA350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+08:49:46 PM : DEBUG [cursorDelPool.py]:17 Se ejecuta exit
+08:49:46 PM : DEBUG [Conexion.py]:45 Conexion regresada <connection object at 0x0000015F6B0FA350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+08:49:46 PM : DEBUG [ProductoDAO.py]:45 Personas agregadas: 1
+08:49:46 PM : DEBUG [cursorDelPool.py]:11 Inicio bloque with 
+08:49:46 PM : DEBUG [Conexion.py]:39 Conexion obtenida <connection object at 0x0000015F6B0FA350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+08:49:46 PM : DEBUG [cursorDelPool.py]:17 Se ejecuta exit
+08:49:46 PM : DEBUG [Conexion.py]:45 Conexion regresada <connection object at 0x0000015F6B0FA350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+08:49:46 PM : DEBUG [ProductoDAO.py]:48 Personas Actualizadas: 1
+08:49:46 PM : DEBUG [cursorDelPool.py]:11 Inicio bloque with 
+08:49:46 PM : DEBUG [Conexion.py]:39 Conexion obtenida <connection object at 0x0000015F6B0FA350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+08:49:46 PM : DEBUG [cursorDelPool.py]:17 Se ejecuta exit
+08:49:46 PM : DEBUG [Conexion.py]:45 Conexion regresada <connection object at 0x0000015F6B0FA350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+08:49:46 PM : DEBUG [ProductoDAO.py]:50 Personas Eliminadas: 1
+08:49:46 PM : DEBUG [cursorDelPool.py]:11 Inicio bloque with 
+08:49:46 PM : DEBUG [Conexion.py]:39 Conexion obtenida <connection object at 0x0000015F6B0FA350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+08:49:46 PM : DEBUG [cursorDelPool.py]:17 Se ejecuta exit
+08:49:46 PM : DEBUG [Conexion.py]:45 Conexion regresada <connection object at 0x0000015F6B0FA350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+08:49:46 PM : DEBUG [ProductoDAO.py]:53 
+            ID PERSONA 1, Nombre: Juan,
+            Valor: 12, Descripcion: Producto lacteo
+        
+08:49:46 PM : DEBUG [ProductoDAO.py]:53 
+            ID PERSONA 2, Nombre: Miel,
+            Valor: 15, Descripcion: Alimento
+        
+08:49:46 PM : DEBUG [ProductoDAO.py]:53 
+            ID PERSONA 4, Nombre: Juan,
+            Valor: 12, Descripcion: Producto lacteo
+        
+08:49:46 PM : DEBUG [ProductoDAO.py]:53 
+            ID PERSONA 5, Nombre: Juan,
+            Valor: 12, Descripcion: Producto lacteo
+        
+08:49:46 PM : DEBUG [ProductoDAO.py]:53 
+            ID PERSONA 6, Nombre: Juan,
+            Valor: 12, Descripcion: Producto lacteo
+        
+08:49:46 PM : DEBUG [ProductoDAO.py]:53 
+            ID PERSONA 7, Nombre: Juan,
+            Valor: 12, Descripcion: Producto lacteo
+        
+10:16:28 PM : DEBUG [cursorDelPool.py]:11 Inicio bloque with 
+10:16:28 PM : DEBUG [Conexion.py]:28 Creacion del Pool: <psycopg2.pool.SimpleConnectionPool object at 0x000001EA6BF96A90>
+10:16:28 PM : DEBUG [Conexion.py]:39 Conexion obtenida <connection object at 0x000001EA6DCD2350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+10:16:28 PM : DEBUG [cursorDelPool.py]:17 Se ejecuta exit
+10:16:28 PM : DEBUG [Conexion.py]:45 Conexion regresada <connection object at 0x000001EA6DCD2350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+10:16:28 PM : DEBUG [VentaDAO.py]:44 Productos agregadas: 1
+10:16:28 PM : DEBUG [cursorDelPool.py]:11 Inicio bloque with 
+10:16:28 PM : DEBUG [Conexion.py]:39 Conexion obtenida <connection object at 0x000001EA6DCD2350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+10:16:28 PM : DEBUG [cursorDelPool.py]:17 Se ejecuta exit
+10:16:28 PM : DEBUG [Conexion.py]:45 Conexion regresada <connection object at 0x000001EA6DCD2350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+10:16:28 PM : DEBUG [VentaDAO.py]:47 Productos Actualizadas: 0
+10:16:28 PM : DEBUG [cursorDelPool.py]:11 Inicio bloque with 
+10:16:28 PM : DEBUG [Conexion.py]:39 Conexion obtenida <connection object at 0x000001EA6DCD2350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+10:16:28 PM : DEBUG [cursorDelPool.py]:17 Se ejecuta exit
+10:16:28 PM : DEBUG [Conexion.py]:45 Conexion regresada <connection object at 0x000001EA6DCD2350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+10:16:28 PM : DEBUG [VentaDAO.py]:49 Productos Eliminadas: 0
+10:16:28 PM : DEBUG [cursorDelPool.py]:11 Inicio bloque with 
+10:16:28 PM : DEBUG [Conexion.py]:39 Conexion obtenida <connection object at 0x000001EA6DCD2350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+10:16:28 PM : DEBUG [cursorDelPool.py]:17 Se ejecuta exit
+10:16:28 PM : DEBUG [Conexion.py]:45 Conexion regresada <connection object at 0x000001EA6DCD2350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+10:16:28 PM : DEBUG [VentaDAO.py]:52 
+            ID VENTA 1, ID Persona: 1,
+            ID producto: 1, Cantidad: 1
+        
+10:22:21 PM : DEBUG [cursorDelPool.py]:11 Inicio bloque with 
+10:22:21 PM : DEBUG [Conexion.py]:28 Creacion del Pool: <psycopg2.pool.SimpleConnectionPool object at 0x000001D906C904D0>
+10:22:21 PM : DEBUG [Conexion.py]:39 Conexion obtenida <connection object at 0x000001D906BAA350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+10:22:21 PM : DEBUG [cursorDelPool.py]:17 Se ejecuta exit
+10:22:21 PM : DEBUG [Conexion.py]:45 Conexion regresada <connection object at 0x000001D906BAA350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+10:22:21 PM : DEBUG [VentaDAO.py]:44 Productos agregadas: 1
+10:22:21 PM : DEBUG [cursorDelPool.py]:11 Inicio bloque with 
+10:22:21 PM : DEBUG [Conexion.py]:39 Conexion obtenida <connection object at 0x000001D906BAA350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+10:22:21 PM : DEBUG [cursorDelPool.py]:17 Se ejecuta exit
+10:22:21 PM : DEBUG [Conexion.py]:45 Conexion regresada <connection object at 0x000001D906BAA350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+10:22:21 PM : DEBUG [VentaDAO.py]:47 Productos Actualizadas: 0
+10:22:21 PM : DEBUG [cursorDelPool.py]:11 Inicio bloque with 
+10:22:21 PM : DEBUG [Conexion.py]:39 Conexion obtenida <connection object at 0x000001D906BAA350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+10:22:21 PM : DEBUG [cursorDelPool.py]:17 Se ejecuta exit
+10:22:21 PM : DEBUG [Conexion.py]:45 Conexion regresada <connection object at 0x000001D906BAA350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+10:22:21 PM : DEBUG [VentaDAO.py]:49 Productos Eliminadas: 0
+10:22:21 PM : DEBUG [cursorDelPool.py]:11 Inicio bloque with 
+10:22:21 PM : DEBUG [Conexion.py]:39 Conexion obtenida <connection object at 0x000001D906BAA350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+10:22:21 PM : DEBUG [cursorDelPool.py]:17 Se ejecuta exit
+10:22:21 PM : DEBUG [Conexion.py]:45 Conexion regresada <connection object at 0x000001D906BAA350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+10:22:21 PM : DEBUG [VentaDAO.py]:52 
+            ID VENTA 1, ID Persona: 1,
+            ID producto: 1, Cantidad: 1
+        
+10:22:21 PM : DEBUG [VentaDAO.py]:52 
+            ID VENTA 2, ID Persona: 1,
+            ID producto: 1, Cantidad: 1
+        
+10:22:24 PM : DEBUG [cursorDelPool.py]:11 Inicio bloque with 
+10:22:24 PM : DEBUG [Conexion.py]:28 Creacion del Pool: <psycopg2.pool.SimpleConnectionPool object at 0x0000023F301104D0>
+10:22:24 PM : DEBUG [Conexion.py]:39 Conexion obtenida <connection object at 0x0000023F3002A350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+10:22:24 PM : DEBUG [cursorDelPool.py]:17 Se ejecuta exit
+10:22:24 PM : DEBUG [Conexion.py]:45 Conexion regresada <connection object at 0x0000023F3002A350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+10:22:24 PM : DEBUG [VentaDAO.py]:44 Productos agregadas: 1
+10:22:24 PM : DEBUG [cursorDelPool.py]:11 Inicio bloque with 
+10:22:24 PM : DEBUG [Conexion.py]:39 Conexion obtenida <connection object at 0x0000023F3002A350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+10:22:24 PM : DEBUG [cursorDelPool.py]:17 Se ejecuta exit
+10:22:24 PM : DEBUG [Conexion.py]:45 Conexion regresada <connection object at 0x0000023F3002A350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+10:22:24 PM : DEBUG [VentaDAO.py]:47 Productos Actualizadas: 1
+10:22:24 PM : DEBUG [cursorDelPool.py]:11 Inicio bloque with 
+10:22:24 PM : DEBUG [Conexion.py]:39 Conexion obtenida <connection object at 0x0000023F3002A350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+10:22:24 PM : DEBUG [cursorDelPool.py]:17 Se ejecuta exit
+10:22:24 PM : DEBUG [Conexion.py]:45 Conexion regresada <connection object at 0x0000023F3002A350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+10:22:24 PM : DEBUG [VentaDAO.py]:49 Productos Eliminadas: 1
+10:22:24 PM : DEBUG [cursorDelPool.py]:11 Inicio bloque with 
+10:22:24 PM : DEBUG [Conexion.py]:39 Conexion obtenida <connection object at 0x0000023F3002A350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+10:22:24 PM : DEBUG [cursorDelPool.py]:17 Se ejecuta exit
+10:22:24 PM : DEBUG [Conexion.py]:45 Conexion regresada <connection object at 0x0000023F3002A350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+10:22:24 PM : DEBUG [VentaDAO.py]:52 
+            ID VENTA 1, ID Persona: 1,
+            ID producto: 1, Cantidad: 1
+        
+10:22:24 PM : DEBUG [VentaDAO.py]:52 
+            ID VENTA 2, ID Persona: 1,
+            ID producto: 1, Cantidad: 1
+        
+10:23:35 PM : DEBUG [cursorDelPool.py]:11 Inicio bloque with 
+10:23:35 PM : DEBUG [Conexion.py]:28 Creacion del Pool: <psycopg2.pool.SimpleConnectionPool object at 0x000001DEF37004D0>
+10:23:35 PM : DEBUG [Conexion.py]:39 Conexion obtenida <connection object at 0x000001DEF361A350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+10:23:35 PM : DEBUG [cursorDelPool.py]:17 Se ejecuta exit
+10:23:35 PM : DEBUG [Conexion.py]:45 Conexion regresada <connection object at 0x000001DEF361A350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+10:23:35 PM : DEBUG [VentaDAO.py]:44 Productos agregadas: 1
+10:23:35 PM : DEBUG [cursorDelPool.py]:11 Inicio bloque with 
+10:23:35 PM : DEBUG [Conexion.py]:39 Conexion obtenida <connection object at 0x000001DEF361A350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+10:23:35 PM : DEBUG [cursorDelPool.py]:17 Se ejecuta exit
+10:23:35 PM : DEBUG [Conexion.py]:45 Conexion regresada <connection object at 0x000001DEF361A350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+10:23:35 PM : DEBUG [VentaDAO.py]:47 Productos Actualizadas: 1
+10:23:35 PM : DEBUG [cursorDelPool.py]:11 Inicio bloque with 
+10:23:35 PM : DEBUG [Conexion.py]:39 Conexion obtenida <connection object at 0x000001DEF361A350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+10:23:35 PM : DEBUG [cursorDelPool.py]:17 Se ejecuta exit
+10:23:35 PM : DEBUG [Conexion.py]:45 Conexion regresada <connection object at 0x000001DEF361A350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+10:23:35 PM : DEBUG [VentaDAO.py]:49 Productos Eliminadas: 1
+10:23:35 PM : DEBUG [cursorDelPool.py]:11 Inicio bloque with 
+10:23:35 PM : DEBUG [Conexion.py]:39 Conexion obtenida <connection object at 0x000001DEF361A350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+10:23:35 PM : DEBUG [cursorDelPool.py]:17 Se ejecuta exit
+10:23:35 PM : DEBUG [Conexion.py]:45 Conexion regresada <connection object at 0x000001DEF361A350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+10:23:35 PM : DEBUG [VentaDAO.py]:52 
+            ID VENTA 1, ID Persona: 1,
+            ID producto: 1, Cantidad: 1
+        
+10:23:35 PM : DEBUG [VentaDAO.py]:52 
+            ID VENTA 2, ID Persona: 1,
+            ID producto: 1, Cantidad: 1
+        
+10:23:35 PM : DEBUG [VentaDAO.py]:52 
+            ID VENTA 4, ID Persona: 1,
+            ID producto: 1, Cantidad: 1
+        
