@@ -8,6 +8,12 @@
 # fui a al archivo myapp/settings.py
     # fui ala seccion INSTALLED_APPS
         #coloque pract2
+
+#Habia olvidado configurar la bd xd
+    # ve a settings.py 
+    # cambia database
+    # Host y port
+
 #(JosuePepDJango) C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\
 #PracticasQQ\Practica2\Pract2\myapp>python manage.py migrate
     # aplique el comando -- python manage.py makemigrations
@@ -66,3 +72,5 @@
 #y
     #<a href="nuevoCoche.html">Agregar</a>
     #<a href="nuevoCoche">Agregar</a>
+
+#Por ultimo, solo deje 3 views y llene 3 datos a cada tabla

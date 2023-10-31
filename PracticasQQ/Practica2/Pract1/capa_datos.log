@@ -264,3 +264,112 @@
             ID VENTA 4, ID Persona: 1,
             ID producto: 1, Cantidad: 1
         
+03:03:40 PM : DEBUG [cursorDelPool.py]:11 Inicio bloque with 
+03:03:40 PM : DEBUG [Conexion.py]:28 Creacion del Pool: <psycopg2.pool.SimpleConnectionPool object at 0x00000254B9C4DFD0>
+03:03:40 PM : DEBUG [Conexion.py]:39 Conexion obtenida <connection object at 0x00000254BB9CA570; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+03:03:41 PM : DEBUG [cursorDelPool.py]:17 Se ejecuta exit
+03:03:41 PM : DEBUG [Conexion.py]:45 Conexion regresada <connection object at 0x00000254BB9CA570; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+03:03:41 PM : DEBUG [PersonaDAO.py]:44 Personas agregadas: 1
+03:03:41 PM : DEBUG [cursorDelPool.py]:11 Inicio bloque with 
+03:03:41 PM : DEBUG [Conexion.py]:39 Conexion obtenida <connection object at 0x00000254BB9CA570; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+03:03:41 PM : DEBUG [cursorDelPool.py]:17 Se ejecuta exit
+03:03:41 PM : DEBUG [Conexion.py]:45 Conexion regresada <connection object at 0x00000254BB9CA570; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+03:03:41 PM : DEBUG [PersonaDAO.py]:47 Personas Actualizadas: 1
+03:03:41 PM : DEBUG [cursorDelPool.py]:11 Inicio bloque with 
+03:03:41 PM : DEBUG [Conexion.py]:39 Conexion obtenida <connection object at 0x00000254BB9CA570; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+03:03:41 PM : DEBUG [cursorDelPool.py]:17 Se ejecuta exit
+03:03:41 PM : DEBUG [Conexion.py]:45 Conexion regresada <connection object at 0x00000254BB9CA570; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+03:03:41 PM : DEBUG [PersonaDAO.py]:49 Personas Eliminadas: 1
+03:03:41 PM : DEBUG [cursorDelPool.py]:11 Inicio bloque with 
+03:03:41 PM : DEBUG [Conexion.py]:39 Conexion obtenida <connection object at 0x00000254BB9CA570; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+03:03:41 PM : DEBUG [cursorDelPool.py]:17 Se ejecuta exit
+03:03:41 PM : DEBUG [Conexion.py]:45 Conexion regresada <connection object at 0x00000254BB9CA570; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+03:03:41 PM : DEBUG [PersonaDAO.py]:52 
+            ID PERSONA 1, Nombre: Juan,
+            Apellido: Perez, Email: dg@gmail.com,
+            Telefono: 787492
+        
+03:04:29 PM : DEBUG [cursorDelPool.py]:11 Inicio bloque with 
+03:04:29 PM : DEBUG [Conexion.py]:28 Creacion del Pool: <psycopg2.pool.SimpleConnectionPool object at 0x000001CE4BCC6A90>
+03:04:29 PM : DEBUG [Conexion.py]:39 Conexion obtenida <connection object at 0x000001CE4D702350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+03:04:29 PM : DEBUG [cursorDelPool.py]:17 Se ejecuta exit
+03:04:29 PM : DEBUG [Conexion.py]:45 Conexion regresada <connection object at 0x000001CE4D702350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+03:04:29 PM : DEBUG [ProductoDAO.py]:44 Productos agregadas: 1
+03:04:29 PM : DEBUG [cursorDelPool.py]:11 Inicio bloque with 
+03:04:29 PM : DEBUG [Conexion.py]:39 Conexion obtenida <connection object at 0x000001CE4D702350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+03:04:29 PM : DEBUG [cursorDelPool.py]:17 Se ejecuta exit
+03:04:29 PM : DEBUG [Conexion.py]:45 Conexion regresada <connection object at 0x000001CE4D702350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+03:04:29 PM : DEBUG [ProductoDAO.py]:47 Productos Actualizadas: 0
+03:04:29 PM : DEBUG [cursorDelPool.py]:11 Inicio bloque with 
+03:04:29 PM : DEBUG [Conexion.py]:39 Conexion obtenida <connection object at 0x000001CE4D702350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+03:04:29 PM : DEBUG [cursorDelPool.py]:17 Se ejecuta exit
+03:04:29 PM : DEBUG [Conexion.py]:45 Conexion regresada <connection object at 0x000001CE4D702350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+03:04:29 PM : DEBUG [ProductoDAO.py]:49 Productos Eliminadas: 0
+03:04:29 PM : DEBUG [cursorDelPool.py]:11 Inicio bloque with 
+03:04:29 PM : DEBUG [Conexion.py]:39 Conexion obtenida <connection object at 0x000001CE4D702350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+03:04:29 PM : DEBUG [cursorDelPool.py]:17 Se ejecuta exit
+03:04:29 PM : DEBUG [Conexion.py]:45 Conexion regresada <connection object at 0x000001CE4D702350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+03:04:29 PM : DEBUG [ProductoDAO.py]:52 
+            ID PRODUCTO 1, Nombre: Juan,
+            Valor: 12, Descripcion: Producto lacteo
+        
+03:04:29 PM : DEBUG [ProductoDAO.py]:52 
+            ID PRODUCTO 2, Nombre: Miel,
+            Valor: 15, Descripcion: Alimento
+        
+03:04:29 PM : DEBUG [ProductoDAO.py]:52 
+            ID PRODUCTO 4, Nombre: Juan,
+            Valor: 12, Descripcion: Producto lacteo
+        
+03:04:29 PM : DEBUG [ProductoDAO.py]:52 
+            ID PRODUCTO 5, Nombre: Juan,
+            Valor: 12, Descripcion: Producto lacteo
+        
+03:04:29 PM : DEBUG [ProductoDAO.py]:52 
+            ID PRODUCTO 6, Nombre: Juan,
+            Valor: 12, Descripcion: Producto lacteo
+        
+03:04:29 PM : DEBUG [ProductoDAO.py]:52 
+            ID PRODUCTO 7, Nombre: Juan,
+            Valor: 12, Descripcion: Producto lacteo
+        
+03:04:29 PM : DEBUG [ProductoDAO.py]:52 
+            ID PRODUCTO 8, Nombre: Leche,
+            Valor: 12, Descripcion: Producto lacteo
+        
+03:05:20 PM : DEBUG [cursorDelPool.py]:11 Inicio bloque with 
+03:05:20 PM : DEBUG [Conexion.py]:28 Creacion del Pool: <psycopg2.pool.SimpleConnectionPool object at 0x0000026E7F8304D0>
+03:05:20 PM : DEBUG [Conexion.py]:39 Conexion obtenida <connection object at 0x0000026E7F74A350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+03:05:20 PM : DEBUG [cursorDelPool.py]:17 Se ejecuta exit
+03:05:20 PM : DEBUG [Conexion.py]:45 Conexion regresada <connection object at 0x0000026E7F74A350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+03:05:20 PM : DEBUG [VentaDAO.py]:44 Productos agregadas: 1
+03:05:20 PM : DEBUG [cursorDelPool.py]:11 Inicio bloque with 
+03:05:20 PM : DEBUG [Conexion.py]:39 Conexion obtenida <connection object at 0x0000026E7F74A350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+03:05:20 PM : DEBUG [cursorDelPool.py]:17 Se ejecuta exit
+03:05:20 PM : DEBUG [Conexion.py]:45 Conexion regresada <connection object at 0x0000026E7F74A350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+03:05:20 PM : DEBUG [VentaDAO.py]:47 Productos Actualizadas: 0
+03:05:20 PM : DEBUG [cursorDelPool.py]:11 Inicio bloque with 
+03:05:20 PM : DEBUG [Conexion.py]:39 Conexion obtenida <connection object at 0x0000026E7F74A350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+03:05:20 PM : DEBUG [cursorDelPool.py]:17 Se ejecuta exit
+03:05:20 PM : DEBUG [Conexion.py]:45 Conexion regresada <connection object at 0x0000026E7F74A350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+03:05:20 PM : DEBUG [VentaDAO.py]:49 Productos Eliminadas: 0
+03:05:20 PM : DEBUG [cursorDelPool.py]:11 Inicio bloque with 
+03:05:20 PM : DEBUG [Conexion.py]:39 Conexion obtenida <connection object at 0x0000026E7F74A350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+03:05:20 PM : DEBUG [cursorDelPool.py]:17 Se ejecuta exit
+03:05:20 PM : DEBUG [Conexion.py]:45 Conexion regresada <connection object at 0x0000026E7F74A350; dsn: 'user=postgres password=xxx dbname=pract1 host=127.0.0.1 port=5433', closed: 0>
+03:05:20 PM : DEBUG [VentaDAO.py]:52 
+            ID VENTA 1, ID Persona: 1,
+            ID producto: 1, Cantidad: 1
+        
+03:05:20 PM : DEBUG [VentaDAO.py]:52 
+            ID VENTA 2, ID Persona: 1,
+            ID producto: 1, Cantidad: 1
+        
+03:05:20 PM : DEBUG [VentaDAO.py]:52 
+            ID VENTA 4, ID Persona: 1,
+            ID producto: 1, Cantidad: 1
+        
+03:05:20 PM : DEBUG [VentaDAO.py]:52 
+            ID VENTA 5, ID Persona: 1,
+            ID producto: 1, Cantidad: 1
+        

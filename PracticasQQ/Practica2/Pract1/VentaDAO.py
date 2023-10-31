@@ -3,7 +3,7 @@ from Conexion import Conexion
 from cursorDelPool import CursorDelPool
 from logger_base import log 
 
-class ProductoDao:
+class VentaDao:
     _SELECCIONAR = "select id_venta, id_persona, id_producto, cantidad from venta order by id_venta"
     _INSERTAR = "INSERT INTO venta (id_persona, id_producto, cantidad) VALUES(%s,%s,%s)"
     _ACTUALIZAR = "UPDATE venta SET id_persona = %s,id_producto=%s, cantidad = %s WHERE id_venta=%s"
@@ -40,13 +40,13 @@ class ProductoDao:
         
 if __name__ == "__main__":
     venta1 = Venta(id_persona=1,id_producto=1,cantidad=1)
-    insercion = ProductoDao.insertar(venta1)
+    insercion = VentaDao.insertar(venta1)
     log.debug(f"Productos agregadas: {insercion}")
     venta1.idVenta = 3
-    actualizacion = ProductoDao.actualizar(venta1)
+    actualizacion = VentaDao.actualizar(venta1)
     log.debug(f"Productos Actualizadas: {actualizacion}")
-    eliminacion = ProductoDao.eliminar(venta1)
+    eliminacion = VentaDao.eliminar(venta1)
     log.debug(f"Productos Eliminadas: {eliminacion}")
-    personas = ProductoDao().seleccionar()
+    personas = VentaDao().seleccionar()
     for p in personas:
         log.debug(p)
