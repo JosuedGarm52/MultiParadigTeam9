@@ -16,9 +16,9 @@ Realizar una aplicación utilizando el Framework DJANGO y que contenga lo siguie
 7. Realizar el listado de al menos 3 entidades 
 ## Practica #3
 Realizar una aplicación utilizando Framework Flask
-1. Conexión a base de datos postgresql con SQLAlchemy 
+1. Conexión a base de datos postgresql con SQLAlchemy y
 2. Al menos un formulario con estilo css
-3. Utilizar app logging
+3. Utilizar app logging y
 4. Utilizar al menos 3 entidades
 5. CRUD con pantallas de 2 entidades 
 6. CRUD de al menos 2 entidad utilizando peticiones HTTP
