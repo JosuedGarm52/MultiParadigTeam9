@@ -11,9 +11,9 @@
     <title>Pagina Principal</title>
 </head>
 <body>
-    <h1>Listado de clientes</h1>
+    <h1>Listado de vendedores</h1>
     <div>
-        <a href="{{ url_for('appcliente.agregar') }}">Agregar</a>
+        <a href="{{ url_for('appvendedor.agregar') }}">Agregar</a>
     </div>
     <div>
         <table border="1">
@@ -22,27 +22,30 @@
                     <th>ID</th>
                     <th>Nombre</th>
                     <th>Apellido</th>
-                    <th>Direccion</th>
-                    <th>Edad</th>
+                    <th>Numero de identificacion de venta</th>
+                    <th>Fecha inicio de servicios</th>
+                    <th>Numero de telefono</th>
                     <th>Editar</th>
                     <th>Eliminar</th>
                 </tr>
             </thead>
             <tbody>
-                {% for cliente in clientes %}
+                {% for vendedor in vendedores %}
                 <tr>
-                    <td>{{ cliente.id }}</td>
-                    <td>{{ cliente.nombre }}</td>
-                    <td>{{ cliente.apellido }}</td>
-                    <td>{{ cliente.direccion }}</td>
-                    <td>{{ cliente.edad }}</td>
-                    <td><a href="{{ url_for('appcliente.editar', id=cliente.id) }}">Editar</a></td>
-                    <td><a href="{{ url_for('appcliente.eliminar', id=cliente.id) }}">Eliminar</a></td>
+                    <td>{{ vendedor.id }}</td>
+                    <td>{{ vendedor.nombre }}</td>
+                    <td>{{ vendedor.apellido }}</td>
+                    <td>{{ vendedor.num_iden_ven }}</td>
+                    <td>{{ vendedor.fecha_inicio }}</td>
+                    <td>{{ vendedor.num_telefono }}</td>
+                    
+                    <td><a href="{{ url_for('appvendedor.editar', id=vendedor.id) }}">Editar</a></td>
+                    <td><a href="{{ url_for('appvendedor.eliminar', id=vendedor.id) }}">Eliminar</a></td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
-        <a href="/vendedor">vendedor</a>
+        <a href="/cliente">cliente</a>
         <a href="/venta">venta</a>
     </div>
 </body>

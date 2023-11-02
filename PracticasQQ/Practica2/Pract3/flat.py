@@ -26,6 +26,6 @@
 # despues de crear cliente se ejecuto los comandos:
     # flask db init
     # flask db migrate
-    # flask db migrate
+    # flask db upgrade
 # registre en app.py el appCliente
 # despues lo probe con flask run

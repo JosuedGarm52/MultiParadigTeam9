@@ -8,10 +8,13 @@ APP_BASE = 'cliente'
 
 @appCliente.route('/')
 @appCliente.route('/index')
+@appCliente.route('/cliente')
+@appCliente.route('/cliente/index')
 def inicial():
     clientes = Cliente.query.all()
     return render_template('index.html',clientes=clientes)
 
+@appCliente.route('/cliente/agregar',methods = ["GET","POST"])
 @appCliente.route('/agregar',methods = ["GET","POST"])
 def agregar():
     cliente = Cliente()
@@ -24,6 +27,7 @@ def agregar():
             return redirect(url_for(f'app{APP_BASE}.inicial'))
     return render_template('agregar.html',forma=clienteForm)
 
+@appCliente.route("/cliente/editar/<int:id>",methods=["GET","POST"])
 @appCliente.route("/editar/<int:id>",methods=["GET","POST"])
 def editar(id):
     persona = Cliente.query.get_or_404(id)
@@ -35,6 +39,7 @@ def editar(id):
             return redirect(url_for(f'app{APP_BASE}.inicial'))
     return render_template('editar.html',forma=personaForm)
 
+@appCliente.route("/cliente/eliminar/<int:id>")
 @appCliente.route("/eliminar/<int:id>")
 def eliminar(id):
     cliente = Cliente.query.get_or_404(id)
