@@ -4,3 +4,31 @@ INFO:werkzeug:[33mPress CTRL+C to quit[0m
 INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
  * Running on http://127.0.0.1:5000
 INFO:werkzeug:[33mPress CTRL+C to quit[0m
+ERROR:flask_migrate:Error: Directory migrations already exists and is not empty
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [01/Nov/2023 21:53:04] "[33mGET / HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [01/Nov/2023 21:53:08] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [01/Nov/2023 21:53:21] "[33mGET / HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [01/Nov/2023 21:53:22] "[33mGET / HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [01/Nov/2023 21:53:22] "[33mGET / HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [01/Nov/2023 21:53:22] "[33mGET / HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [01/Nov/2023 21:53:22] "[33mGET / HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [01/Nov/2023 21:53:27] "[33mGET /index HTTP/1.1[0m" 404 -
+ERROR:flask_migrate:Error: Directory migrations already exists and is not empty
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [01/Nov/2023 22:28:28] "GET /index HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [01/Nov/2023 22:28:38] "GET /agregar HTTP/1.1" 200 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [01/Nov/2023 23:03:26] "GET /agregar HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [01/Nov/2023 23:03:58] "[32mPOST /agregar HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [01/Nov/2023 23:03:58] "GET /index HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [01/Nov/2023 23:04:03] "GET /editar/1 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [01/Nov/2023 23:04:09] "[32mPOST /editar/1 HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [01/Nov/2023 23:04:10] "GET /index HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [01/Nov/2023 23:04:24] "GET /index HTTP/1.1" 200 -

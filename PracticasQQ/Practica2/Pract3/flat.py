@@ -22,3 +22,10 @@
 # ejecute flask db init
 # ejec flask db migrate, para comprobar si hay conexion y otra vez cuando tenga los modelos
 
+# llene los modelos y formas ademas de agregar el templates con index, agregar y editar
+# despues de crear cliente se ejecuto los comandos:
+    # flask db init
+    # flask db migrate
+    # flask db migrate
+# registre en app.py el appCliente
+# despues lo probe con flask run
