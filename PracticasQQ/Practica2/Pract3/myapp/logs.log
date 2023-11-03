@@ -1,15 +1,4 @@
-INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
- * Running on http://127.0.0.1:5000
-INFO:werkzeug:[33mPress CTRL+C to quit[0m
-ERROR:app:Exception on / [GET]
-Traceback (most recent call last):
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\orm\mapper.py", line 2505, in get_property
-    return self._props[key]
-           ~~~~~~~~~~~^^^^^
-KeyError: 'ventas'
-
-The above exception was the direct cause of the following exception:
-
+ERROR:app:Exception on /agencia/agregar [GET]
 Traceback (most recent call last):
   File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\flask\app.py", line 1455, in wsgi_app
     response = self.full_dispatch_request()
@@ -23,65 +12,43 @@ Traceback (most recent call last):
   File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\flask\app.py", line 852, in dispatch_request
     return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\PracticasQQ\Practica2\Pract3\myapp\rutas\cliente\clientes.py", line 14, in inicial
-    clientes = Cliente.query.all()
-               ^^^^^^^^^^^^^
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\flask_sqlalchemy\model.py", line 22, in __get__
-    return cls.query_class(
-           ^^^^^^^^^^^^^^^^
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\orm\query.py", line 276, in __init__
-    self._set_entities(entities)
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\orm\query.py", line 288, in _set_entities
-    self._raw_columns = [
-                        ^
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\orm\query.py", line 289, in <listcomp>
-    coercions.expect(
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\sql\coercions.py", line 406, in expect
-    insp._post_inspect
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 1253, in __get__
-    obj.__dict__[self.__name__] = result = self.fget(obj)
-                                           ^^^^^^^^^^^^^^
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\orm\mapper.py", line 2707, in _post_inspect
-    self._check_configure()
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\orm\mapper.py", line 2386, in _check_configure
-    _configure_registries({self.registry}, cascade=True)
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\orm\mapper.py", line 4199, in _configure_registries
-    _do_configure_registries(registries, cascade)
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\orm\mapper.py", line 4240, in _do_configure_registries
-    mapper._post_configure_properties()
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\orm\mapper.py", line 2403, in _post_configure_properties
-    prop.init()
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\orm\interfaces.py", line 579, in init
-    self.do_init()
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\orm\relationships.py", line 1640, in do_init
-    self._generate_backref()
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\orm\relationships.py", line 2129, in _generate_backref
-    self._add_reverse_property(self.back_populates)
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\orm\relationships.py", line 1571, in _add_reverse_property
-    other = self.mapper.get_property(key, _configure_mappers=False)
-            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\orm\mapper.py", line 2507, in get_property
-    raise sa_exc.InvalidRequestError(
-sqlalchemy.exc.InvalidRequestError: Mapper 'Mapper[Cliente(cliente)]' has no property 'ventas'.  If this property was indicated from other mappers or configure events, ensure registry.configure() has been called.
-INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 01:11:19] "[35m[1mGET / HTTP/1.1[0m" 500 -
-ERROR:flask_migrate:Error: Directory migrations already exists and is not empty
+  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\PracticasQQ\Practica2\Pract3\myapp\rutas\agencia\agencias.py", line 25, in agregar
+    return render_template(f'agregar{APP_BASE}.html',forma=agenciaForm)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\flask\templating.py", line 152, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\flask\templating.py", line 133, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\jinja2\environment.py", line 1301, in render
+    self.environment.handle_exception()
+  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\jinja2\environment.py", line 936, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\PracticasQQ\Practica2\Pract3\myapp\rutas\agencia\templates\agregaragencia.html", line 23, in top-level template code
+    {{forma.enviar()}}
+  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\jinja2\utils.py", line 83, in from_obj
+    if hasattr(obj, "jinja_pass_arg"):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+jinja2.exceptions.UndefinedError: 'forms.AgenciaForm object' has no attribute 'enviar'
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:30:17] "[35m[1mGET /agencia/agregar HTTP/1.1[0m" 500 -
 INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
  * Running on http://127.0.0.1:5000
 INFO:werkzeug:[33mPress CTRL+C to quit[0m
-ERROR:app:Exception on / [GET]
-Traceback (most recent call last):
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\orm\relationships.py", line 2419, in _determine_joins
-    self.primaryjoin = join_condition(
-                       ^^^^^^^^^^^^^^^
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\sql\util.py", line 123, in join_condition
-    return Join._join_condition(
-           ^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\sql\selectable.py", line 1358, in _join_condition
-    raise exc.NoForeignKeysError(
-sqlalchemy.exc.NoForeignKeysError: Can't find any foreign key relationships between 'vendedor' and 'venta'.
-
-The above exception was the direct cause of the following exception:
-
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:33:11] "GET /agencia/agregar HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:33:46] "GET /vendedor/agregar HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:34:01] "[32mPOST /vendedor/agregar HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:34:01] "GET /vendedor/indexvendedor HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:34:03] "GET /venta/ HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:34:05] "GET /agencia/ HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:34:07] "GET /agencia/agregar HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:34:19] "[32mPOST /agencia/agregar HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:34:19] "GET /agencia/indexagencia HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:34:21] "GET /venta/ HTTP/1.1" 200 -
+ERROR:app:Exception on /venta/agregar [GET]
 Traceback (most recent call last):
   File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\flask\app.py", line 1455, in wsgi_app
     response = self.full_dispatch_request()
@@ -95,52 +62,31 @@ Traceback (most recent call last):
   File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\flask\app.py", line 852, in dispatch_request
     return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\PracticasQQ\Practica2\Pract3\myapp\rutas\cliente\clientes.py", line 14, in inicial
-    clientes = Cliente.query.all()
-               ^^^^^^^^^^^^^
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\flask_sqlalchemy\model.py", line 22, in __get__
-    return cls.query_class(
-           ^^^^^^^^^^^^^^^^
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\orm\query.py", line 276, in __init__
-    self._set_entities(entities)
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\orm\query.py", line 288, in _set_entities
-    self._raw_columns = [
-                        ^
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\orm\query.py", line 289, in <listcomp>
-    coercions.expect(
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\sql\coercions.py", line 406, in expect
-    insp._post_inspect
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 1253, in __get__
-    obj.__dict__[self.__name__] = result = self.fget(obj)
-                                           ^^^^^^^^^^^^^^
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\orm\mapper.py", line 2707, in _post_inspect
-    self._check_configure()
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\orm\mapper.py", line 2386, in _check_configure
-    _configure_registries({self.registry}, cascade=True)
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\orm\mapper.py", line 4199, in _configure_registries
-    _do_configure_registries(registries, cascade)
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\orm\mapper.py", line 4240, in _do_configure_registries
-    mapper._post_configure_properties()
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\orm\mapper.py", line 2403, in _post_configure_properties
-    prop.init()
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\orm\interfaces.py", line 579, in init
-    self.do_init()
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\orm\relationships.py", line 1637, in do_init
-    self._setup_join_conditions()
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\orm\relationships.py", line 1882, in _setup_join_conditions
-    self._join_condition = jc = JoinCondition(
-                                ^^^^^^^^^^^^^^
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\orm\relationships.py", line 2306, in __init__
-    self._determine_joins()
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\orm\relationships.py", line 2440, in _determine_joins
-    raise sa_exc.NoForeignKeysError(
-sqlalchemy.exc.NoForeignKeysError: Could not determine join condition between parent/child tables on relationship Vendedor.ventas - there are no foreign keys linking these tables.  Ensure that referencing columns are associated with a ForeignKey or ForeignKeyConstraint, or specify a 'primaryjoin' expression.
-INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 01:42:41] "[35m[1mGET / HTTP/1.1[0m" 500 -
-ERROR:flask_migrate:Error: Directory migrations already exists and is not empty
+  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\PracticasQQ\Practica2\Pract3\myapp\rutas\venta\ventas.py", line 25, in agregar
+    return render_template(f'agregar{APP_BASE}.html',forma=ventaForm)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\flask\templating.py", line 152, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\flask\templating.py", line 133, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\jinja2\environment.py", line 1301, in render
+    self.environment.handle_exception()
+  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\jinja2\environment.py", line 936, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\PracticasQQ\Practica2\Pract3\myapp\rutas\venta\templates\agregarventa.html", line 15, in top-level template code
+    {{forma.nombre.label}}<br/>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\jinja2\environment.py", line 485, in getattr
+    return getattr(obj, attribute)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+jinja2.exceptions.UndefinedError: 'forms.VentaForm object' has no attribute 'nombre'
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:34:22] "[35m[1mGET /venta/agregar HTTP/1.1[0m" 500 -
 INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
  * Running on http://127.0.0.1:5000
 INFO:werkzeug:[33mPress CTRL+C to quit[0m
-ERROR:app:Exception on / [GET]
+ERROR:app:Exception on /venta/agregar [GET]
 Traceback (most recent call last):
   File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\flask\app.py", line 1455, in wsgi_app
     response = self.full_dispatch_request()
@@ -154,56 +100,29 @@ Traceback (most recent call last):
   File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\flask\app.py", line 852, in dispatch_request
     return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\PracticasQQ\Practica2\Pract3\myapp\rutas\cliente\clientes.py", line 14, in inicial
-    clientes = Cliente.query.all()
-               ^^^^^^^^^^^^^
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\flask_sqlalchemy\model.py", line 22, in __get__
-    return cls.query_class(
-           ^^^^^^^^^^^^^^^^
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\orm\query.py", line 276, in __init__
-    self._set_entities(entities)
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\orm\query.py", line 288, in _set_entities
-    self._raw_columns = [
-                        ^
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\orm\query.py", line 289, in <listcomp>
-    coercions.expect(
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\sql\coercions.py", line 406, in expect
-    insp._post_inspect
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 1253, in __get__
-    obj.__dict__[self.__name__] = result = self.fget(obj)
-                                           ^^^^^^^^^^^^^^
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\orm\mapper.py", line 2707, in _post_inspect
-    self._check_configure()
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\orm\mapper.py", line 2386, in _check_configure
-    _configure_registries({self.registry}, cascade=True)
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\orm\mapper.py", line 4199, in _configure_registries
-    _do_configure_registries(registries, cascade)
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\orm\mapper.py", line 4240, in _do_configure_registries
-    mapper._post_configure_properties()
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\orm\mapper.py", line 2403, in _post_configure_properties
-    prop.init()
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\orm\interfaces.py", line 579, in init
-    self.do_init()
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\orm\relationships.py", line 1634, in do_init
-    self._process_dependent_arguments()
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\orm\relationships.py", line 1675, in _process_dependent_arguments
-    rel_arg._resolve_against_registry(self._clsregistry_resolvers[1])
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\orm\relationships.py", line 265, in _resolve_against_registry
-    self.resolved = clsregistry_resolver(
-                    ^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\orm\clsregistry.py", line 532, in __call__
-    x = eval(self.arg, globals(), self._dict)
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "<string>", line 1, in <module>
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\orm\clsregistry.py", line 367, in __getattr__
-    raise AttributeError(
-AttributeError: Class <class 'models.Venta'> does not have a mapped column named 'vendedor_id'
-INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 01:47:51] "[35m[1mGET / HTTP/1.1[0m" 500 -
-ERROR:flask_migrate:Error: Directory migrations already exists and is not empty
-INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
- * Running on http://127.0.0.1:5000
-INFO:werkzeug:[33mPress CTRL+C to quit[0m
-ERROR:app:Exception on / [GET]
+  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\PracticasQQ\Practica2\Pract3\myapp\rutas\venta\ventas.py", line 25, in agregar
+    return render_template(f'agregar{APP_BASE}.html',forma=ventaForm)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\flask\templating.py", line 152, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\flask\templating.py", line 133, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\jinja2\environment.py", line 1301, in render
+    self.environment.handle_exception()
+  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\jinja2\environment.py", line 936, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\PracticasQQ\Practica2\Pract3\myapp\rutas\venta\templates\agregarventa.html", line 15, in top-level template code
+    {{forma.nombr_eproducto.label}}<br/>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\jinja2\environment.py", line 485, in getattr
+    return getattr(obj, attribute)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+jinja2.exceptions.UndefinedError: 'forms.VentaForm object' has no attribute 'nombr_eproducto'
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:36:53] "[35m[1mGET /venta/agregar HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:36:56] "GET /venta/ HTTP/1.1" 200 -
+ERROR:app:Exception on /venta/agregar [GET]
 Traceback (most recent call last):
   File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\flask\app.py", line 1455, in wsgi_app
     response = self.full_dispatch_request()
@@ -217,48 +136,32 @@ Traceback (most recent call last):
   File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\flask\app.py", line 852, in dispatch_request
     return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\PracticasQQ\Practica2\Pract3\myapp\rutas\cliente\clientes.py", line 14, in inicial
-    clientes = Cliente.query.all()
-               ^^^^^^^^^^^^^
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\flask_sqlalchemy\model.py", line 22, in __get__
-    return cls.query_class(
-           ^^^^^^^^^^^^^^^^
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\orm\query.py", line 276, in __init__
-    self._set_entities(entities)
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\orm\query.py", line 288, in _set_entities
-    self._raw_columns = [
-                        ^
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\orm\query.py", line 289, in <listcomp>
-    coercions.expect(
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\sql\coercions.py", line 406, in expect
-    insp._post_inspect
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 1253, in __get__
-    obj.__dict__[self.__name__] = result = self.fget(obj)
-                                           ^^^^^^^^^^^^^^
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\orm\mapper.py", line 2707, in _post_inspect
-    self._check_configure()
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\orm\mapper.py", line 2386, in _check_configure
-    _configure_registries({self.registry}, cascade=True)
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\orm\mapper.py", line 4199, in _configure_registries
-    _do_configure_registries(registries, cascade)
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\orm\mapper.py", line 4240, in _do_configure_registries
-    mapper._post_configure_properties()
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\orm\mapper.py", line 2403, in _post_configure_properties
-    prop.init()
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\orm\interfaces.py", line 579, in init
-    self.do_init()
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\orm\relationships.py", line 1637, in do_init
-    self._setup_join_conditions()
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\orm\relationships.py", line 1882, in _setup_join_conditions
-    self._join_condition = jc = JoinCondition(
-                                ^^^^^^^^^^^^^^
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\orm\relationships.py", line 2315, in __init__
-    self._check_foreign_cols(self.primaryjoin, True)
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\orm\relationships.py", line 2958, in _check_foreign_cols
-    raise sa_exc.ArgumentError(err)
-sqlalchemy.exc.ArgumentError: Could not locate any relevant foreign key columns for primary join condition 'vendedor.id = venta.id' on relationship Vendedor.ventas.  Ensure that referencing columns are associated with a ForeignKey or ForeignKeyConstraint, or are annotated in the join condition with the foreign() annotation.
-INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 01:49:41] "[35m[1mGET / HTTP/1.1[0m" 500 -
-ERROR:app:Exception on / [GET]
+  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\PracticasQQ\Practica2\Pract3\myapp\rutas\venta\ventas.py", line 25, in agregar
+    return render_template(f'agregar{APP_BASE}.html',forma=ventaForm)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\flask\templating.py", line 152, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\flask\templating.py", line 133, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\jinja2\environment.py", line 1301, in render
+    self.environment.handle_exception()
+  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\jinja2\environment.py", line 936, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\PracticasQQ\Practica2\Pract3\myapp\rutas\venta\templates\agregarventa.html", line 15, in top-level template code
+    {{forma.nombr_eproducto.label}}<br/>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\jinja2\environment.py", line 485, in getattr
+    return getattr(obj, attribute)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+jinja2.exceptions.UndefinedError: 'forms.VentaForm object' has no attribute 'nombr_eproducto'
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:36:57] "[35m[1mGET /venta/agregar HTTP/1.1[0m" 500 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:37:25] "GET /venta/ HTTP/1.1" 200 -
+ERROR:app:Exception on /venta/agregar [GET]
 Traceback (most recent call last):
   File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\flask\app.py", line 1455, in wsgi_app
     response = self.full_dispatch_request()
@@ -272,73 +175,131 @@ Traceback (most recent call last):
   File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\flask\app.py", line 852, in dispatch_request
     return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\PracticasQQ\Practica2\Pract3\myapp\rutas\cliente\clientes.py", line 14, in inicial
-    clientes = Cliente.query.all()
-               ^^^^^^^^^^^^^
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\flask_sqlalchemy\model.py", line 22, in __get__
-    return cls.query_class(
-           ^^^^^^^^^^^^^^^^
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\orm\query.py", line 276, in __init__
-    self._set_entities(entities)
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\orm\query.py", line 288, in _set_entities
-    self._raw_columns = [
-                        ^
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\orm\query.py", line 289, in <listcomp>
-    coercions.expect(
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\sql\coercions.py", line 406, in expect
-    insp._post_inspect
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 1253, in __get__
-    obj.__dict__[self.__name__] = result = self.fget(obj)
-                                           ^^^^^^^^^^^^^^
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\orm\mapper.py", line 2707, in _post_inspect
-    self._check_configure()
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\orm\mapper.py", line 2386, in _check_configure
-    _configure_registries({self.registry}, cascade=True)
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\orm\mapper.py", line 4199, in _configure_registries
-    _do_configure_registries(registries, cascade)
-  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\sqlalchemy\orm\mapper.py", line 4236, in _do_configure_registries
-    raise e
-sqlalchemy.exc.InvalidRequestError: One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[Vendedor(vendedor)]'. Original exception was: Could not locate any relevant foreign key columns for primary join condition 'vendedor.id = venta.id' on relationship Vendedor.ventas.  Ensure that referencing columns are associated with a ForeignKey or ForeignKeyConstraint, or are annotated in the join condition with the foreign() annotation.
-INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 01:49:41] "[35m[1mGET / HTTP/1.1[0m" 500 -
-ERROR:flask_migrate:Error: Directory migrations already exists and is not empty
+  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\PracticasQQ\Practica2\Pract3\myapp\rutas\venta\ventas.py", line 25, in agregar
+    return render_template(f'agregar{APP_BASE}.html',forma=ventaForm)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\flask\templating.py", line 152, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\flask\templating.py", line 133, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\jinja2\environment.py", line 1301, in render
+    self.environment.handle_exception()
+  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\jinja2\environment.py", line 936, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\PracticasQQ\Practica2\Pract3\myapp\rutas\venta\templates\agregarventa.html", line 19, in top-level template code
+    {{forma.apellido.label}}<br/>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\jinja2\environment.py", line 485, in getattr
+    return getattr(obj, attribute)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+jinja2.exceptions.UndefinedError: 'forms.VentaForm object' has no attribute 'apellido'
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:37:26] "[35m[1mGET /venta/agregar HTTP/1.1[0m" 500 -
 INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
  * Running on http://127.0.0.1:5000
 INFO:werkzeug:[33mPress CTRL+C to quit[0m
-INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 01:50:35] "GET / HTTP/1.1" 200 -
-INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 01:50:42] "GET /agregar HTTP/1.1" 200 -
-INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 01:50:58] "[32mPOST /agregar HTTP/1.1[0m" 302 -
-INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 01:50:58] "GET /cliente/index HTTP/1.1" 200 -
-INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 01:51:00] "GET /editar/2 HTTP/1.1" 200 -
-INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 01:51:04] "[32mPOST /editar/2 HTTP/1.1[0m" 302 -
-INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 01:51:04] "GET /cliente/index HTTP/1.1" 200 -
-INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 01:51:07] "[32mGET /eliminar/2 HTTP/1.1[0m" 302 -
-INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 01:51:07] "GET /cliente/index HTTP/1.1" 200 -
-INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 01:51:09] "[32mGET /vendedor HTTP/1.1[0m" 308 -
-INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 01:51:09] "GET /vendedor/ HTTP/1.1" 200 -
-INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 01:51:12] "GET /agregar HTTP/1.1" 200 -
-INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 01:52:37] "[32mPOST /agregar HTTP/1.1[0m" 302 -
-INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 01:52:37] "GET /cliente/index HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:39:10] "GET /venta/ HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:39:10] "GET /venta/agregar HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:39:17] "[32mPOST /venta/agregar HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:39:17] "GET /venta/indexventa HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:39:58] "GET /agencia/ HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:39:59] "GET /venta/ HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:40:58] "GET /agencia/ HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:40:59] "GET /venta/ HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:40:59] "GET /agencia/ HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:41:00] "GET /agencia/ HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:41:01] "GET /agencia/ HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:41:02] "GET /agencia/ HTTP/1.1" 200 -
 INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
  * Running on http://127.0.0.1:5000
 INFO:werkzeug:[33mPress CTRL+C to quit[0m
-INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 01:53:05] "GET /cliente/index HTTP/1.1" 200 -
-INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 01:53:05] "GET /cliente/index HTTP/1.1" 200 -
-INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 01:53:11] "GET /vendedor/ HTTP/1.1" 200 -
 INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
  * Running on http://127.0.0.1:5000
 INFO:werkzeug:[33mPress CTRL+C to quit[0m
-INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 01:53:40] "GET /vendedor/ HTTP/1.1" 200 -
-INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 01:53:43] "GET /agregar HTTP/1.1" 200 -
-INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 01:53:46] "GET /vendedor/ HTTP/1.1" 200 -
-INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 01:53:53] "GET /vendedor/ HTTP/1.1" 200 -
-INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 01:53:54] "GET /vendedor/ HTTP/1.1" 200 -
-INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 01:53:54] "GET /vendedor/ HTTP/1.1" 200 -
-INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 01:53:54] "GET /vendedor/ HTTP/1.1" 200 -
-INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 01:53:55] "GET /vendedor/ HTTP/1.1" 200 -
-INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 01:53:55] "GET /vendedor/ HTTP/1.1" 200 -
-INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 01:53:55] "GET /vendedor/ HTTP/1.1" 200 -
-INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 01:54:15] "GET /agregar HTTP/1.1" 200 -
-INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 01:54:29] "[32mPOST /agregar HTTP/1.1[0m" 302 -
-INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 01:54:29] "GET /cliente/index HTTP/1.1" 200 -
-INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 01:54:32] "[32mGET /eliminar/4 HTTP/1.1[0m" 302 -
-INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 01:54:32] "GET /cliente/index HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:42:36] "GET /agencia/editar/1 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:42:39] "GET /agencia/ HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:42:41] "GET /agencia/ HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:42:42] "GET /agencia/ HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:42:42] "GET /agencia/ HTTP/1.1" 200 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:45:35] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:45:36] "GET /agencia/ HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:45:38] "GET /vendedor/ HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:45:39] "GET /venta/ HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:45:40] "GET /agencia/ HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:45:41] "GET /venta/ HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:45:43] "GET /venta/editar/1 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:45:45] "GET /venta/agregar HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:45:52] "[32mPOST /venta/agregar HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:45:52] "GET /venta/indexventa HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:45:59] "GET /venta/editar/2 HTTP/1.1" 200 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:46:50] "GET /venta/indexventa HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:46:53] "GET /venta/editar/1 HTTP/1.1" 200 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:47:12] "GET /venta/indexventa HTTP/1.1" 200 -
+ERROR:app:Exception on /venta/agregar [GET]
+Traceback (most recent call last):
+  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\flask\app.py", line 1455, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\flask\app.py", line 869, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\flask\app.py", line 867, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\flask\app.py", line 852, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\PracticasQQ\Practica2\Pract3\myapp\rutas\venta\ventas.py", line 25, in agregar
+    return render_template(f'agregar{APP_BASE}.html',forma=ventaForm)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\flask\templating.py", line 152, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\flask\templating.py", line 133, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\jinja2\environment.py", line 1301, in render
+    self.environment.handle_exception()
+  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\jinja2\environment.py", line 936, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\PracticasQQ\Practica2\Pract3\myapp\rutas\venta\templates\agregarventa.html", line 23, in top-level template code
+    {{forma.venta.label}}<br/>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jacco\OneDrive\Documentos\Repositorios\MultiParadigTeam9\EntornosVirtuales\JosuePepFlask\Lib\site-packages\jinja2\environment.py", line 485, in getattr
+    return getattr(obj, attribute)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+jinja2.exceptions.UndefinedError: 'forms.VentaForm object' has no attribute 'venta'
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:47:14] "[35m[1mGET /venta/agregar HTTP/1.1[0m" 500 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:48:05] "GET /venta/indexventa HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:48:06] "GET /venta/agregar HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:48:09] "GET /venta/editar/1 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:48:12] "[32mPOST /venta/editar/1 HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:48:12] "GET /venta/indexventa HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:48:17] "[32mGET /venta/eliminar/2 HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:48:17] "GET /venta/indexventa HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:48:21] "GET /agencia/ HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:48:23] "GET /agencia/agregar HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:48:28] "[32mPOST /agencia/agregar HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:48:28] "GET /agencia/indexagencia HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:48:29] "[32mGET /agencia/eliminar/2 HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:48:29] "GET /agencia/indexagencia HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:48:31] "GET /agencia/editar/1 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:48:36] "[32mPOST /agencia/editar/1 HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:48:36] "GET /agencia/indexagencia HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:48:37] "GET /venta/ HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:48:41] "GET /venta/editar/1 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:48:43] "[32mPOST /venta/editar/1 HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [02/Nov/2023 20:48:43] "GET /venta/indexventa HTTP/1.1" 200 -

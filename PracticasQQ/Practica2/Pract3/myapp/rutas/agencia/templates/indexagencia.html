@@ -9,43 +9,50 @@
         crossorigin="anonymous">
 
     <title>Pagina Principal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        h1{
+            color: red;
+        }
+        body {
+            background-color: lightblue;
+        }
+    </style>
 </head>
 <body>
-    <h1>Listado de ventas</h1>
+    <h1>Listado de agencia</h1>
     <div>
-        <a href="{{ url_for('appcliente.agregar') }}">Agregar</a>
+        <a href="{{ url_for('appagencia.agregar') }}">Agregar</a>
     </div>
     <div>
         <table border="1">
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Nombre del producto </th>
-                    <th>Valor</th>
-                    <th>Categoria</th>
-                    <th>Fecha</th>
-                    <th>Cantidad</th>
+                    <th>Nombre</th>
+                    <th>Numero de telefono</th>
                     <th>Editar</th>
                     <th>Eliminar</th>
                 </tr>
             </thead>
             <tbody>
-                {% for venta in ventas %}
+                {% for agencia in agencias %}
                 <tr>
-                    <td>{{ venta.id }}</td>
-                    <td>{{ venta.nombre_producto }}</td>
-                    <td>{{ venta.valor }}</td>
-                    <td>{{ venta.categoria }}</td>
-                    <td>{{ venta.fecha }}</td>
-                    <td>{{ venta.cantidad }}</td>
-                    <td><a href="{{ url_for('appventa.editar', id=venta.id) }}">Editar</a></td>
-                    <td><a href="{{ url_for('appventa.eliminar', id=venta.id) }}">Eliminar</a></td>
+                    <td>{{ agencia.id }}</td>
+                    <td>{{ agencia.nombre }}</td>
+                    <td>{{ agencia.num_telef }}</td>
+                    
+                    <td><a href="{{ url_for('appagencia.editar', id=agencia.id) }}">Editar</a></td>
+                    <td><a href="{{ url_for('appagencia.eliminar', id=agencia.id) }}">Eliminar</a></td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
-        <a href="/cliente">cliente</a>
         <a href="/vendedor">vendedor</a>
+        <a href="/venta">venta</a>
     </div>
 </body>
 </html>

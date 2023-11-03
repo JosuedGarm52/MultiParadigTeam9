@@ -9,6 +9,18 @@
         crossorigin="anonymous">
 
     <title>Pagina Principal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        h1{
+            color: red;
+        }
+        body {
+            background-color: lightblue;
+        }
+    </style>
 </head>
 <body>
     <h1>Listado de clientes</h1>
@@ -36,6 +48,7 @@
                     <td>{{ cliente.apellido }}</td>
                     <td>{{ cliente.direccion }}</td>
                     <td>{{ cliente.edad }}</td>
+                    
                     <td><a href="{{ url_for('appcliente.editar', id=cliente.id) }}">Editar</a></td>
                     <td><a href="{{ url_for('appcliente.eliminar', id=cliente.id) }}">Eliminar</a></td>
                 </tr>

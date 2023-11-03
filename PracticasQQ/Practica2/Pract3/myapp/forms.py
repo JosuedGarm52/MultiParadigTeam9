@@ -23,5 +23,9 @@ class VentaForm(FlaskForm):
     categoria = StringField('Categoría')
     fecha = DateField('Fecha') 
     cantidad = IntegerField('Cantidad', validators=[DataRequired()])
-    cliente_id = IntegerField('ID del Cliente', validators=[DataRequired()])
+    enviar = SubmitField("Enviar")
+
+class AgenciaForm(FlaskForm):
+    nombre = StringField('Nombre del Producto', validators=[DataRequired()])
+    num_telef = IntegerField('Numero del telefono', validators=[DataRequired()])
     enviar = SubmitField("Enviar")

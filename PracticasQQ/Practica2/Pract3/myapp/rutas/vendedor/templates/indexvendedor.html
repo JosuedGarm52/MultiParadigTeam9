@@ -9,6 +9,18 @@
         crossorigin="anonymous">
 
     <title>Pagina Principal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        h1{
+            color: red;
+        }
+        body {
+            background-color: lightblue;
+        }
+    </style>
 </head>
 <body>
     <h1>Listado de vendedores</h1>
@@ -22,7 +34,7 @@
                     <th>ID</th>
                     <th>Nombre</th>
                     <th>Apellido</th>
-                    <th>Numero de identificacion de venta</th>
+                    <th>Numero de <br>identificacion <br>de venta</th>
                     <th>Fecha inicio de servicios</th>
                     <th>Numero de telefono</th>
                     <th>Editar</th>
@@ -45,7 +57,7 @@
                 {% endfor %}
             </tbody>
         </table>
-        <a href="/cliente">cliente</a>
+        <a href="/agencia">agencia</a>
         <a href="/venta">venta</a>
     </div>
 </body>

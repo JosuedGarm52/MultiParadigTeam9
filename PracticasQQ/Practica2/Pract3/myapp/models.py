@@ -24,3 +24,8 @@ class Venta(db.Model):
     fecha = db.Column(db.DateTime)
     cantidad = db.Column(db.Integer)
     
+
+class Agencia(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    nombre = db.Column(db.String(250))
+    num_telef = db.Column(db.String(250))
