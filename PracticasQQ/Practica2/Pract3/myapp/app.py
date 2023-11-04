@@ -6,13 +6,15 @@ from rutas.cliente.clientes import appCliente
 from rutas.vendedor.vendedores import appVendedor
 from rutas.venta.ventas import appVenta
 from rutas.agencia.agencias import appAgencia
+from rutas.viaje.viajes import appViaje
 import logging
 
 app = Flask(__name__)
 app.register_blueprint(appCliente)
 app.register_blueprint(appVendedor)
 app.register_blueprint(appVenta,url_prefix='/venta')
-app.register_blueprint(appAgencia,url_prefix='/agencia')
+app.register_blueprint(appAgencia)
+app.register_blueprint(appViaje)
 app.config.from_object(BasicConf)
 db.init_app(app)
 migrate = Migrate(app, db)

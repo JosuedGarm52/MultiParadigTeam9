@@ -1,43 +1,57 @@
-from flask import Blueprint,request,redirect,render_template,url_for
+from flask import Blueprint,request,redirect,render_template,url_for, jsonify
 from models import Agencia
-from forms import AgenciaForm
 from app import db
 
 appAgencia = Blueprint('appagencia', __name__, template_folder="templates")
 APP_BASE = 'agencia'
 
-@appAgencia.route(f'/')
-@appAgencia.route(f'/index{APP_BASE}')
-def inicial():
-    agencias = Agencia.query.all()
-    return render_template(f'index{APP_BASE}.html',agencias=agencias)
-
-@appAgencia.route(f'/agregar',methods = ["GET","POST"])
+@appAgencia.route(f'/{APP_BASE}/agregar',methods = ["GET","POST"])
 def agregar():
-    agencia = Agencia()
-    agenciaForm = AgenciaForm(obj=agencia)
-    if request.method == "POST":
-        if agenciaForm.validate_on_submit():
-            agenciaForm.populate_obj(agencia)
-            db.session.add(agencia)
-            db.session.commit()
-            return redirect(url_for(f'app{APP_BASE}.inicial'))
-    return render_template(f'agregar{APP_BASE}.html',forma=agenciaForm)
+    try:
+        json = request.get_json()
+        agencia = Agencia()
+        agencia.nombre = json['nombre']
+        agencia.num_telef = json['num_telef']
+        db.session.add(agencia)
+        db.session.commit()
+        return jsonify({"status":200,"mensaje":"Agencia"})
+    except Exception as ex:
+        return jsonify({"status":400,"mensaje":ex})
 
-@appAgencia.route(f"/editar/<int:id>",methods=["GET","POST"])
-def editar(id):
-    agencia = Agencia.query.get_or_404(id)
-    agenciaForm = AgenciaForm(obj=agencia)
-    if request.method == "POST":
-        if agenciaForm.validate_on_submit():
-            agenciaForm.populate_obj(agencia)
-            db.session.commit()
-            return redirect(url_for(f'app{APP_BASE}.inicial'))
-    return render_template(f'editar{APP_BASE}.html',forma=agenciaForm)
+@appAgencia.route(f"/{APP_BASE}/editar",methods=["POST"])
+def editar():
+    try:
+        json = request.get_json()
+        agencia = Agencia.query.get_or_404(json["id"])
+        agencia.nombre = json['nombre']
+        agencia.num_telef = json['num_telef']
+        db.session.commit()
+        return jsonify({"status":200,"mensaje":"Agencia modificar"})
+    except Exception as ex:
+        return jsonify({"status":400,"mensaje":ex})
 
-@appAgencia.route(f"/eliminar/<int:id>")
-def eliminar(id):
-    agencia = Agencia.query.get_or_404(id)
-    db.session.delete(agencia)
-    db.session.commit()
-    return redirect(url_for(f'app{APP_BASE}.inicial'))
+@appAgencia.route(f"/{APP_BASE}/eliminar",methods=["POST"])
+def eliminar():
+    try:
+        json = request.get_json()
+        agencia = Agencia.query.get_or_404(json["id"])
+        db.session.delete(agencia)
+        db.session.commit()
+        return jsonify({"status":200,"mensaje":"Agencia eliminado"})
+    except Exception as ex:
+        return jsonify({"status":400,"mensaje":ex})
+
+@appAgencia.route(f'/{APP_BASE}/obtener',methods=["GET"])
+def obtenerAgencia():
+    try:
+        agencias = Agencia.query.all()
+        listaAgencias = []
+        for p in agencias:
+                lagencia = {}
+                lagencia["id"] = p.id
+                lagencia["nombre"] = p.nombre
+                lagencia["num_telef"] = p.num_telef
+                listaAgencias.append(lagencia)
+        return jsonify({"producto":listaAgencias})
+    except Exception as ex:
+        return jsonify({"status":400,"mensaje":ex})

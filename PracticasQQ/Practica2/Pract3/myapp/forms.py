@@ -29,3 +29,4 @@ class AgenciaForm(FlaskForm):
     nombre = StringField('Nombre del Producto', validators=[DataRequired()])
     num_telef = IntegerField('Numero del telefono', validators=[DataRequired()])
     enviar = SubmitField("Enviar")
+
