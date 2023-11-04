@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" 
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" 
+        crossorigin="anonymous">
+
+    <title>Pagina Principal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        h1{
+            color: red;
+        }
+        body {
+            background-color: lightblue;
+        }
+    </style>
+</head>
+<body>
+    <h1>Listado de agencia</h1>
+    <div>
+        <a href="{{ url_for('appagencia.agregar') }}">Agregar</a>
+    </div>
+    <div>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Numero de telefono</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for agencia in agencias %}
+                <tr>
+                    <td>{{ agencia.id }}</td>
+                    <td>{{ agencia.nombre }}</td>
+                    <td>{{ agencia.num_telef }}</td>
+                    
+                    <td><a href="{{ url_for('appagencia.editar', id=agencia.id) }}">Editar</a></td>
+                    <td><a href="{{ url_for('appagencia.eliminar', id=agencia.id) }}">Eliminar</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="/vendedor">vendedor</a>
+        <a href="/venta">venta</a>
+    </div>
+</body>
+</html>

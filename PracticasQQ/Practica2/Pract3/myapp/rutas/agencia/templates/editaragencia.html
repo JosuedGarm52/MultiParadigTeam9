@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Agencia</title>
+</head>
+<body>
+    <h1>Editar Agencia</h1>
+
+    <form method="POST">
+        {{forma.csrf_token}}
+        <p>
+            {{forma.nombre.label}}<br/>
+            {{forma.nombre(size=30)}}
+        </p>
+        <p>
+            {{forma.num_telef.label}}<br/>
+            {{forma.num_telef(size=30)}}
+        </p>
+        <p>
+            {{forma.enviar()}}
+        </p>
+    </form>
+</body>
+</html>

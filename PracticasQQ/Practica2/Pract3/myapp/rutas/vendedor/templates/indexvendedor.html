@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" 
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" 
+        crossorigin="anonymous">
+
+    <title>Pagina Principal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        h1{
+            color: red;
+        }
+        body {
+            background-color: lightblue;
+        }
+    </style>
+</head>
+<body>
+    <h1>Listado de vendedores</h1>
+    <div>
+        <a href="{{ url_for('appvendedor.agregar') }}">Agregar</a>
+    </div>
+    <div>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Numero de <br>identificacion <br>de venta</th>
+                    <th>Fecha inicio de servicios</th>
+                    <th>Numero de telefono</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for vendedor in vendedores %}
+                <tr>
+                    <td>{{ vendedor.id }}</td>
+                    <td>{{ vendedor.nombre }}</td>
+                    <td>{{ vendedor.apellido }}</td>
+                    <td>{{ vendedor.num_iden_ven }}</td>
+                    <td>{{ vendedor.fecha_inicio }}</td>
+                    <td>{{ vendedor.num_telefono }}</td>
+                    
+                    <td><a href="{{ url_for('appvendedor.editar', id=vendedor.id) }}">Editar</a></td>
+                    <td><a href="{{ url_for('appvendedor.eliminar', id=vendedor.id) }}">Eliminar</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="/">Home</a>
+        <a href="/venta">venta</a>
+    </div>
+</body>
+</html>

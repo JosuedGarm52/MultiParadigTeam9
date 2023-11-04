@@ -1,0 +1,12 @@
+flask 
+mayoria de las cosas en el app.py
+configuracion copiada 
+base datos ya hecha 
+
+-comprobar que se puedan hacer las migraciones
+
+agregar con json 
+solo 1 sera formulario 
+
+"editar/<int:id>
+editar(id)  deben coincidir

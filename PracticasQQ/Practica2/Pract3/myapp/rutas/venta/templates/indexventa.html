@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" 
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" 
+        crossorigin="anonymous">
+
+    <title>Pagina Principal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        h1{
+            color: red;
+        }
+        body {
+            background-color: lightblue;
+        }
+    </style>
+</head>
+<body>
+    <h1>Listado de ventas</h1>
+    <div>
+        <a href="{{ url_for('appventa.agregar') }}">Agregar</a>
+    </div>
+    <div>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre del producto</th>
+                    <th>Valor</th>
+                    <th>Categoria</th>
+                    <th>Fecha de venta</th>
+                    <th>Cantidad</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for venta in ventas %}
+                <tr>
+                    <td>{{ venta.id }}</td>
+                    <td>{{ venta.nombre_producto }}</td>
+                    <td>{{ venta.valor }}</td>
+                    <td>{{ venta.categoria }}</td>
+                    <td>{{ venta.fecha }}</td>
+                    <td>{{ venta.cantidad }}</td>
+                    
+                    <td><a href="{{ url_for('appventa.editar', id=venta.id) }}">Editar</a></td>
+                    <td><a href="{{ url_for('appventa.eliminar', id=venta.id) }}">Eliminar</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="/">Home</a>
+        <a href="/vendedor">vendedor</a>
+    </div>
+</body>
+</html>

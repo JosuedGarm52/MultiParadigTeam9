@@ -22,3 +22,6 @@ flask db upgrade
 
 ruta
 http://localhost:5000/
+
+flask db migrate
+flask db upgrade
