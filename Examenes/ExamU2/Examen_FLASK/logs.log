@@ -1,0 +1,199 @@
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [06/Nov/2023 11:31:14] "POST /ciudad/agregar HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [06/Nov/2023 11:32:20] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [06/Nov/2023 11:32:22] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [06/Nov/2023 11:33:20] "GET /index HTTP/1.1" 200 -
+ERROR:app:Exception on /agregar [GET]
+Traceback (most recent call last):
+  File "c:\Users\ROGELIO ZAMARRIPA\Documents\2022 08-12 SEMESTRE XI\Multiparadigma\Unidad2\Examen_FLASK\.venv\Lib\site-packages\flask\app.py", line 1455, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\ROGELIO ZAMARRIPA\Documents\2022 08-12 SEMESTRE XI\Multiparadigma\Unidad2\Examen_FLASK\.venv\Lib\site-packages\flask\app.py", line 869, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\ROGELIO ZAMARRIPA\Documents\2022 08-12 SEMESTRE XI\Multiparadigma\Unidad2\Examen_FLASK\.venv\Lib\site-packages\flask\app.py", line 867, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\ROGELIO ZAMARRIPA\Documents\2022 08-12 SEMESTRE XI\Multiparadigma\Unidad2\Examen_FLASK\.venv\Lib\site-packages\flask\app.py", line 852, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ROGELIO ZAMARRIPA\Documents\2022 08-12 SEMESTRE XI\Multiparadigma\Unidad2\Examen_FLASK\routes\juguete\juguetes.py", line 16, in agregar
+    juguete = juguete() #Instanciar un objeto de la clase persona
+              ^^^^^^^
+UnboundLocalError: cannot access local variable 'juguete' where it is not associated with a value
+INFO:werkzeug:127.0.0.1 - - [06/Nov/2023 11:33:37] "[35m[1mGET /agregar HTTP/1.1[0m" 500 -
+ERROR:app:Exception on /agregar [POST]
+Traceback (most recent call last):
+  File "c:\Users\ROGELIO ZAMARRIPA\Documents\2022 08-12 SEMESTRE XI\Multiparadigma\Unidad2\Examen_FLASK\.venv\Lib\site-packages\flask\app.py", line 1455, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\ROGELIO ZAMARRIPA\Documents\2022 08-12 SEMESTRE XI\Multiparadigma\Unidad2\Examen_FLASK\.venv\Lib\site-packages\flask\app.py", line 869, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\ROGELIO ZAMARRIPA\Documents\2022 08-12 SEMESTRE XI\Multiparadigma\Unidad2\Examen_FLASK\.venv\Lib\site-packages\flask\app.py", line 867, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\ROGELIO ZAMARRIPA\Documents\2022 08-12 SEMESTRE XI\Multiparadigma\Unidad2\Examen_FLASK\.venv\Lib\site-packages\flask\app.py", line 852, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ROGELIO ZAMARRIPA\Documents\2022 08-12 SEMESTRE XI\Multiparadigma\Unidad2\Examen_FLASK\routes\juguete\juguetes.py", line 16, in agregar
+    juguete = juguete() #Instanciar un objeto de la clase persona
+              ^^^^^^^
+UnboundLocalError: cannot access local variable 'juguete' where it is not associated with a value
+INFO:werkzeug:127.0.0.1 - - [06/Nov/2023 11:35:06] "[35m[1mPOST /agregar HTTP/1.1[0m" 500 -
+ERROR:app:Exception on /agregar [GET]
+Traceback (most recent call last):
+  File "c:\Users\ROGELIO ZAMARRIPA\Documents\2022 08-12 SEMESTRE XI\Multiparadigma\Unidad2\Examen_FLASK\.venv\Lib\site-packages\flask\app.py", line 1455, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\ROGELIO ZAMARRIPA\Documents\2022 08-12 SEMESTRE XI\Multiparadigma\Unidad2\Examen_FLASK\.venv\Lib\site-packages\flask\app.py", line 869, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\ROGELIO ZAMARRIPA\Documents\2022 08-12 SEMESTRE XI\Multiparadigma\Unidad2\Examen_FLASK\.venv\Lib\site-packages\flask\app.py", line 867, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\ROGELIO ZAMARRIPA\Documents\2022 08-12 SEMESTRE XI\Multiparadigma\Unidad2\Examen_FLASK\.venv\Lib\site-packages\flask\app.py", line 852, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ROGELIO ZAMARRIPA\Documents\2022 08-12 SEMESTRE XI\Multiparadigma\Unidad2\Examen_FLASK\routes\juguete\juguetes.py", line 16, in agregar
+    juguete = juguete() #Instanciar un objeto de la clase persona
+              ^^^^^^^
+UnboundLocalError: cannot access local variable 'juguete' where it is not associated with a value
+INFO:werkzeug:127.0.0.1 - - [06/Nov/2023 11:35:15] "[35m[1mGET /agregar HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [06/Nov/2023 11:35:18] "[33mGET /agregar.html HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [06/Nov/2023 11:35:21] "[33mGET /agregar/ HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [06/Nov/2023 11:35:25] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [06/Nov/2023 11:40:25] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [06/Nov/2023 11:40:25] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+ERROR:app:Exception on /agregar [GET]
+Traceback (most recent call last):
+  File "c:\Users\ROGELIO ZAMARRIPA\Documents\2022 08-12 SEMESTRE XI\Multiparadigma\Unidad2\Examen_FLASK\.venv\Lib\site-packages\flask\app.py", line 1455, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\ROGELIO ZAMARRIPA\Documents\2022 08-12 SEMESTRE XI\Multiparadigma\Unidad2\Examen_FLASK\.venv\Lib\site-packages\flask\app.py", line 869, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\ROGELIO ZAMARRIPA\Documents\2022 08-12 SEMESTRE XI\Multiparadigma\Unidad2\Examen_FLASK\.venv\Lib\site-packages\flask\app.py", line 867, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\ROGELIO ZAMARRIPA\Documents\2022 08-12 SEMESTRE XI\Multiparadigma\Unidad2\Examen_FLASK\.venv\Lib\site-packages\flask\app.py", line 852, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ROGELIO ZAMARRIPA\Documents\2022 08-12 SEMESTRE XI\Multiparadigma\Unidad2\Examen_FLASK\routes\juguete\juguetes.py", line 16, in agregar
+    juguete = juguete() #Instanciar un objeto de la clase persona
+              ^^^^^^^
+UnboundLocalError: cannot access local variable 'juguete' where it is not associated with a value
+INFO:werkzeug:127.0.0.1 - - [06/Nov/2023 11:40:27] "[35m[1mGET /agregar HTTP/1.1[0m" 500 -
+ERROR:app:Exception on /agregar [POST]
+Traceback (most recent call last):
+  File "c:\Users\ROGELIO ZAMARRIPA\Documents\2022 08-12 SEMESTRE XI\Multiparadigma\Unidad2\Examen_FLASK\.venv\Lib\site-packages\flask\app.py", line 1455, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\ROGELIO ZAMARRIPA\Documents\2022 08-12 SEMESTRE XI\Multiparadigma\Unidad2\Examen_FLASK\.venv\Lib\site-packages\flask\app.py", line 869, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\ROGELIO ZAMARRIPA\Documents\2022 08-12 SEMESTRE XI\Multiparadigma\Unidad2\Examen_FLASK\.venv\Lib\site-packages\flask\app.py", line 867, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\ROGELIO ZAMARRIPA\Documents\2022 08-12 SEMESTRE XI\Multiparadigma\Unidad2\Examen_FLASK\.venv\Lib\site-packages\flask\app.py", line 852, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ROGELIO ZAMARRIPA\Documents\2022 08-12 SEMESTRE XI\Multiparadigma\Unidad2\Examen_FLASK\routes\juguete\juguetes.py", line 16, in agregar
+    juguete = juguete() #Instanciar un objeto de la clase persona
+              ^^^^^^^
+UnboundLocalError: cannot access local variable 'juguete' where it is not associated with a value
+INFO:werkzeug:127.0.0.1 - - [06/Nov/2023 11:42:09] "[35m[1mPOST /agregar HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [06/Nov/2023 11:42:21] "[31m[1mPOST / HTTP/1.1[0m" 405 -
+INFO:werkzeug:127.0.0.1 - - [06/Nov/2023 11:42:27] "GET / HTTP/1.1" 200 -
+ERROR:app:Exception on /agregar [GET]
+Traceback (most recent call last):
+  File "c:\Users\ROGELIO ZAMARRIPA\Documents\2022 08-12 SEMESTRE XI\Multiparadigma\Unidad2\Examen_FLASK\.venv\Lib\site-packages\flask\app.py", line 1455, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\ROGELIO ZAMARRIPA\Documents\2022 08-12 SEMESTRE XI\Multiparadigma\Unidad2\Examen_FLASK\.venv\Lib\site-packages\flask\app.py", line 869, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\ROGELIO ZAMARRIPA\Documents\2022 08-12 SEMESTRE XI\Multiparadigma\Unidad2\Examen_FLASK\.venv\Lib\site-packages\flask\app.py", line 867, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\ROGELIO ZAMARRIPA\Documents\2022 08-12 SEMESTRE XI\Multiparadigma\Unidad2\Examen_FLASK\.venv\Lib\site-packages\flask\app.py", line 852, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ROGELIO ZAMARRIPA\Documents\2022 08-12 SEMESTRE XI\Multiparadigma\Unidad2\Examen_FLASK\routes\juguete\juguetes.py", line 16, in agregar
+    juguete = juguete() #Instanciar un objeto de la clase persona
+              ^^^^^^^
+UnboundLocalError: cannot access local variable 'juguete' where it is not associated with a value
+INFO:werkzeug:127.0.0.1 - - [06/Nov/2023 11:42:33] "[35m[1mGET /agregar HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [06/Nov/2023 11:42:37] "[33mGET /agregar/ HTTP/1.1[0m" 404 -
+ERROR:app:Exception on /agregar [GET]
+Traceback (most recent call last):
+  File "c:\Users\ROGELIO ZAMARRIPA\Documents\2022 08-12 SEMESTRE XI\Multiparadigma\Unidad2\Examen_FLASK\.venv\Lib\site-packages\flask\app.py", line 1455, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\ROGELIO ZAMARRIPA\Documents\2022 08-12 SEMESTRE XI\Multiparadigma\Unidad2\Examen_FLASK\.venv\Lib\site-packages\flask\app.py", line 869, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\ROGELIO ZAMARRIPA\Documents\2022 08-12 SEMESTRE XI\Multiparadigma\Unidad2\Examen_FLASK\.venv\Lib\site-packages\flask\app.py", line 867, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\ROGELIO ZAMARRIPA\Documents\2022 08-12 SEMESTRE XI\Multiparadigma\Unidad2\Examen_FLASK\.venv\Lib\site-packages\flask\app.py", line 852, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ROGELIO ZAMARRIPA\Documents\2022 08-12 SEMESTRE XI\Multiparadigma\Unidad2\Examen_FLASK\routes\juguete\juguetes.py", line 16, in agregar
+    juguete = juguete() #Instanciar un objeto de la clase persona
+              ^^^^^^^
+UnboundLocalError: cannot access local variable 'juguete' where it is not associated with a value
+INFO:werkzeug:127.0.0.1 - - [06/Nov/2023 11:42:38] "[35m[1mGET /agregar HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [06/Nov/2023 11:42:39] "[33mGET /agrega HTTP/1.1[0m" 404 -
+ERROR:app:Exception on /agregar [GET]
+Traceback (most recent call last):
+  File "c:\Users\ROGELIO ZAMARRIPA\Documents\2022 08-12 SEMESTRE XI\Multiparadigma\Unidad2\Examen_FLASK\.venv\Lib\site-packages\flask\app.py", line 1455, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\ROGELIO ZAMARRIPA\Documents\2022 08-12 SEMESTRE XI\Multiparadigma\Unidad2\Examen_FLASK\.venv\Lib\site-packages\flask\app.py", line 869, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\ROGELIO ZAMARRIPA\Documents\2022 08-12 SEMESTRE XI\Multiparadigma\Unidad2\Examen_FLASK\.venv\Lib\site-packages\flask\app.py", line 867, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\ROGELIO ZAMARRIPA\Documents\2022 08-12 SEMESTRE XI\Multiparadigma\Unidad2\Examen_FLASK\.venv\Lib\site-packages\flask\app.py", line 852, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ROGELIO ZAMARRIPA\Documents\2022 08-12 SEMESTRE XI\Multiparadigma\Unidad2\Examen_FLASK\routes\juguete\juguetes.py", line 16, in agregar
+    juguete = juguete() #Instanciar un objeto de la clase persona
+              ^^^^^^^
+UnboundLocalError: cannot access local variable 'juguete' where it is not associated with a value
+INFO:werkzeug:127.0.0.1 - - [06/Nov/2023 11:42:40] "[35m[1mGET /agregar HTTP/1.1[0m" 500 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [06/Nov/2023 11:48:01] "GET / HTTP/1.1" 200 -
+ERROR:app:Exception on /agregar [GET]
+Traceback (most recent call last):
+  File "c:\Users\ROGELIO ZAMARRIPA\Documents\2022 08-12 SEMESTRE XI\Multiparadigma\Unidad2\Examen_FLASK\.venv\Lib\site-packages\flask\app.py", line 1455, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\ROGELIO ZAMARRIPA\Documents\2022 08-12 SEMESTRE XI\Multiparadigma\Unidad2\Examen_FLASK\.venv\Lib\site-packages\flask\app.py", line 869, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\ROGELIO ZAMARRIPA\Documents\2022 08-12 SEMESTRE XI\Multiparadigma\Unidad2\Examen_FLASK\.venv\Lib\site-packages\flask\app.py", line 867, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\ROGELIO ZAMARRIPA\Documents\2022 08-12 SEMESTRE XI\Multiparadigma\Unidad2\Examen_FLASK\.venv\Lib\site-packages\flask\app.py", line 852, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ROGELIO ZAMARRIPA\Documents\2022 08-12 SEMESTRE XI\Multiparadigma\Unidad2\Examen_FLASK\routes\juguete\juguetes.py", line 17, in agregar
+    juguete = juguete() #Instanciar un objeto de la clase persona
+              ^^^^^^^
+UnboundLocalError: cannot access local variable 'juguete' where it is not associated with a value
+INFO:werkzeug:127.0.0.1 - - [06/Nov/2023 11:48:02] "[35m[1mGET /agregar HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [06/Nov/2023 11:48:02] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [06/Nov/2023 11:48:11] "[33mGET /editar/1 HTTP/1.1[0m" 404 -
