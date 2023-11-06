@@ -605,3 +605,9 @@
             ID DOCTOR 1, 
             Servicio: consulta contra cancer de mama, Costo: 530.69
         
+11:27:29 AM : DEBUG [cursorDelPool.py]:11 Inicio bloque with 
+11:27:30 AM : DEBUG [Conexion.py]:28 Creacion del Pool: <psycopg2.pool.SimpleConnectionPool object at 0x000002CB07A54D50>
+11:27:30 AM : DEBUG [Conexion.py]:39 Conexion obtenida <connection object at 0x000002CB09AB9470; dsn: 'user=postgres password=xxx dbname=exam1 host=127.0.0.1 port=5433', closed: 0>
+11:27:30 AM : DEBUG [cursorDelPool.py]:17 Se ejecuta exit
+11:27:30 AM : DEBUG [Conexion.py]:45 Conexion regresada <connection object at 0x000002CB09AB9470; dsn: 'user=postgres password=xxx dbname=exam1 host=127.0.0.1 port=5433', closed: 0>
+11:27:30 AM : DEBUG [consola.py]:26 Personas agregadas: 1
