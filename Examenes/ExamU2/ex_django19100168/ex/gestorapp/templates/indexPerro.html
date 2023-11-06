@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block body%}
+<div>
+    <h1>Lista de coche</h1>
+    <a href="nuevoCoche">Agregar</a>
+    <table border="1">
+        <thead>
+            <tr>
+                <td>nombre</td>
+                <td>raza</td>
+                <td>edad</td>
+                
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for perro in perros %}
+                <tr>
+                    <td>{{ perro.nombre }}</td>  
+                    <td>{{ perro.raza }}</td>
+                    <td>{{ perro.edad }}</td>
+                    
+                    <td><a href="editarCoche/{{coche.id}}">Editar</a></td>
+                    <td><a href="detalleCoche/{{coche.id}}">Detalle</a></td>
+                    <td><a href="eliminarCoche/{{coche.id}}">Eliminar</a></td>
+                </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+    <a href="/">Regresar a la página de inicio</a>
+</div>
+{%endblock%}

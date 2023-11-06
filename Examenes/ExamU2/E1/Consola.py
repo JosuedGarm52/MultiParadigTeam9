@@ -76,7 +76,8 @@ class Consola:
             registros=cursor.fetchall()
             consulta = []
             for r in registros:
-                consulta.append(Consulta(r[0]),r[1])
+                registro_str = f"Animal ID: {r[0]}, Doctor ID: {r[1]}, Servicio: {r[2]}, Costo: {r[3]}"
+                consulta.append(registro_str)
             return consulta
     @classmethod
     def Query5(cls):

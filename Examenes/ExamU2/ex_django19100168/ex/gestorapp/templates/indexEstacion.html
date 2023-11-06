@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+{% block body%}
+<div>
+    <h1>Lista de Estacion</h1>
+    <a href="nuevoCoche">Agregar</a>
+    <table border="1">
+        <thead>
+            <tr>
+                <td>Puesto</td>
+                <td>Pais</td>
+                <td>Ciudad</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for estacion in estaciones %}
+                <tr>
+                    <td>{{ estacion.puesto }}</td>  
+                    <td>{{ estacion.pais }}</td>
+                    <td>{{ estacion.ciudad }}</td>
+                    
+                    <td><a href="editarCoche/{{coche.id}}">Editar</a></td>
+                    <td><a href="detalleCoche/{{coche.id}}">Detalle</a></td>
+                    <td><a href="eliminarCoche/{{coche.id}}">Eliminar</a></td>
+                </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+    <a href="/">Regresar a la página de inicio</a>
+</div>
+{%endblock%}

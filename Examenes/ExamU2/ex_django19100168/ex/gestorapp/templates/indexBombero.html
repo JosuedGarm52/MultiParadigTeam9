@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% block body%}
+<div>
+    <h1>Lista de bomberos</h1>
+    <a href="nuevoCoche">Agregar</a>
+    <table border="1">
+        <thead>
+            <tr>
+                <td>nombre</td>
+                <td>no Empleado</td>
+                <!-- <td>Modelo</td>
+                <td>Año de fabricacion</td>
+                <td>Numero de placa</td>
+                <td>Color</td>
+                <td>Precio</td> -->
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for bombero in bomberos %}
+                <tr>
+                    <td>{{ bombero.nombre }}</td>  
+                    <td>{{ bombero.no_empleado }}</td>
+                    <td><a href="editarCoche/{{coche.id}}">Editar</a></td>
+                    <td><a href="detalleCoche/{{coche.id}}">Detalle</a></td>
+                    <td><a href="eliminarCoche/{{coche.id}}">Eliminar</a></td>
+                </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+    <a href="/">Regresar a la página de inicio</a>
+</div>
+{%endblock%}
