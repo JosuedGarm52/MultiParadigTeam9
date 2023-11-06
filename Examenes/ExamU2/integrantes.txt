@@ -1,0 +1,8 @@
+postgresql
+Josue Garcia
+
+django
+Alejandro Diaz
+
+flask 
+Rogelio Zamaripa
