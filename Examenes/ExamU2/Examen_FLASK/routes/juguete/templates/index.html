@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de Juguetes</title>
+</head>
+<body>
+    <h1>Listado de Juguetes</h1>
+    <div>
+        <a href="{{ url_for('appjuguete.agregar') }}">Agregar Nuevo Juguete</a>
+    </div>
+    <div>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Juguete</th>
+                    <th>Proveedor</th>
+                    <th>Precio de Venta</th>
+                    <th>Cant. de Unidades Vendidas</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for juguete in juguetes %}
+                <tr>
+                    <td>{{juguete.id}}</td>
+                    <td>{{juguete.nombrejuguete}}</td>
+                    <td>{{juguete.nombreproveedor}}</td>
+                    <td>{{juguete.precioventa}}</td>
+                    <td>{{juguete.cantprodvendidos}}</td>
+                    <td><a href="editar/{{juguete.id}}">Editar</a></td>
+                    <td><a href="eliminar/{{juguete.id}}">Eliminar</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
