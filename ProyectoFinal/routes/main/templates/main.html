@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tu Página</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo1.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #f0f0f0;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        header img {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+
+        header h1 {
+            display: inline-block;
+            margin: 0;
+        }
+
+        header a {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+
+        nav {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .options {
+            display: flex;
+            justify-content: space-around;
+            padding: 20px;
+        }
+
+        .image-slider {
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .image-slider img {
+            width: 100%;
+            display: inline-block;
+            animation: slide 5s infinite;
+        }
+
+        @keyframes slide {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .info-box {
+            text-align: center;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <!-- Enlaces de Login y Register en la esquina derecha -->
+        <a href="#">Login</a>
+        <a href="#">Register</a>
+
+        <!-- Texto "Logo" en el centro -->
+        <h1>Logo</h1>
+
+        <!-- Espacio para el logo -->
+        <img src="tu_logo.png" alt="Tu Logo">
+    </header>
+
+    <nav>
+        <!-- Recuadro con varias opciones -->
+        <div class="options">
+            <a href="#">Opción 1</a>
+            <a href="#">Opción 2</a>
+            <a href="#">Opción 3</a>
+        </div>
+    </nav>
+
+    <!-- Zona de imágenes que cambian tipo cinta -->
+    <div class="image-slider">
+        <img src="imagen1.jpg" alt="Imagen 1">
+        <img src="imagen2.jpg" alt="Imagen 2">
+        <img src="imagen3.jpg" alt="Imagen 3">
+        <!-- Agrega más imágenes según sea necesario -->
+    </div>
+
+    <!-- Recuadro con imagen y texto -->
+    <div class="info-box">
+        <img src="otra_imagen.jpg" alt="Otra Imagen">
+        <p>Texto descriptivo aquí.</p>
+    </div>
+</body>
+</html>
