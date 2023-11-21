@@ -3,88 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tu Página</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo1.css') }}">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-
-        header {
-            background-color: #f0f0f0;
-            text-align: center;
-            padding: 20px;
-            position: relative;
-        }
-
-        header img {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-        }
-
-        header h1 {
-            display: inline-block;
-            margin: 0;
-        }
-
-        header a {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            text-decoration: none;
-            color: #333;
-            font-weight: bold;
-        }
-
-        nav {
-            background-color: #333;
-            color: white;
-            text-align: center;
-            padding: 10px;
-        }
-
-        .options {
-            display: flex;
-            justify-content: space-around;
-            padding: 20px;
-        }
-
-        .image-slider {
-            overflow: hidden;
-            white-space: nowrap;
-        }
-
-        .image-slider img {
-            width: 100%;
-            display: inline-block;
-            animation: slide 5s infinite;
-        }
-
-        @keyframes slide {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
-        }
-
-        .info-box {
-            text-align: center;
-            padding: 20px;
-        }
-    </style>
+    <title>AmorGlobalConnect: Encuentra tu pareja fuera de la burbuja</title>
+    <link rel="stylesheet" href="{{ url_for('main.static', filename='css/estilo1.css') }}">
 </head>
 <body>
     <header>
-        <!-- Enlaces de Login y Register en la esquina derecha -->
-        <a id = "login"href="#">Login</a>
-        <a id = "reg" href="#">Register</a>
+        <h1>AmorGlobalConnect</h1>
 
-        <!-- Texto "Logo" en el centro -->
-        <h1>Logo</h1>
-
-        <!-- Espacio para el logo -->
-        <img src="tu_logo.png" alt="Tu Logo">
+        <div id="cont-log">
+            <a href="#">Login</a>
+            <a href="#">Register</a>
+        </div>
+        
+        <img src="{{ url_for('main.static', filename='images/LogoPagina.jpg') }}" alt="Logo" width="100" height="70">
     </header>
 
     <nav>
@@ -98,16 +29,59 @@
 
     <!-- Zona de imágenes que cambian tipo cinta -->
     <div class="image-slider">
-        <img src="imagen1.jpg" alt="Imagen 1">
-        <img src="imagen2.jpg" alt="Imagen 2">
-        <img src="imagen3.jpg" alt="Imagen 3">
-        <!-- Agrega más imágenes según sea necesario -->
+        {% for image_url in image_urls %}
+            <img src="{{ image_url }}" alt="Imagen" width="50%">
+        {% endfor %}
+    </div>
+
+    <div id="info">
+        Encuentra tu pareja fuera de la burbuja
     </div>
 
     <!-- Recuadro con imagen y texto -->
     <div class="info-box">
-        <img src="otra_imagen.jpg" alt="Otra Imagen">
-        <p>Texto descriptivo aquí.</p>
+        <img src="https://media.istockphoto.com/id/483066716/es/foto/reci%C3%A9n-casados-feliz-pareja-abraz%C3%A1ndose-en-la-calle.jpg?s=612x612&w=0&k=20&c=yceLL1p-Ju9itkgB2DiPmqVoDIzvkGWM4VCSof_5kV4=" alt="Otra Imagen">
+        <div class="text-column">
+            <p>
+                El amor es un sentimiento profundo y poderoso que conecta a las personas en formas misteriosas. 
+            </p>
+        </div>
+        <div class="text-column">
+            <p>
+                El matrimonio, como un compromiso sagrado, es una celebración de ese amor, una unión de almas 
+                dispuestas a compartir la alegría y la tristeza, los éxitos y los desafíos, a medida que avanzan juntas 
+                por el hermoso viaje de la vida.
+            </p>
+        </div>
     </div>
+    <div class="warning-box">
+        <p><strong>¡Advertencia!</strong> Este es un mensaje importante.</p>
+        <p>
+            <em>"La plataforma AmorGlobalConnect se compromete a fomentar relaciones basadas en el amor y la compatibilidad genuina. Hacemos nuestro mayor esfuerzo para mantener la seguridad y la ética en nuestros servicios, 
+                implementando medidas de seguridad para proteger la privacidad de nuestros usuarios. Sin embargo, los usuarios deben reconocer que AmorGlobalConnect no puede garantizar el 100% de la autenticidad de las intenciones de todos los usuarios.
+            </em>
+        </p>
+        <p>
+            <em>
+                Al utilizar nuestros servicios, los usuarios aceptan el riesgo que conlleva conocer personas de otras culturas y regiones. Además, reconocen que a pesar de nuestros filtros, la honestidad de los usuarios y 
+                sus declaraciones pueden tener motivos ajenos o externos durante la sesión de 'Juntarse' y después del proceso de casamiento. La página siempre respalda el matrimonio basado en el amor y la confianza, y 
+                el uso de nuestros servicios con fines poco éticos, contrarios a la libertad y que buscan aprovecharse de otros, resultará en la eliminación y bloqueo del infractor.
+            </em>
+        </p>
+        <p>
+            <em>Recomendamos encarecidamente a nuestros usuarios que actúen con integridad y transparencia en todas las interacciones. Esperamos que disfruten de AmorGlobalConnect y les deseamos un feliz matrimonio."</em>
+        </p>
+    </div>
+    {% for item in info_list %}
+        <div class="info-box">
+            <img src="{{ item['image_url'] }}" alt="Otra Imagen">
+            <div class="text-column">
+                <p>{{ item['text1'] }}</p>
+            </div>
+            <div class="text-column">
+                <p>{{ item['text2'] }}</p>
+            </div>
+        </div>
+    {% endfor %}
 </body>
 </html>
