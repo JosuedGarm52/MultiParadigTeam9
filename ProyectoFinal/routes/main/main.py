@@ -20,3 +20,10 @@ def index():
     ]
     return render_template('main.html', image_urls=image_urls, info_list=info_list)
 
+@appmain.route('/login')
+def login():
+    return render_template('loginServer.html')#cambiar por el adaptado
+
+@appmain.route('/register')
+def registro():
+    return render_template('regisServer.html')#cambiar por el adaptado
