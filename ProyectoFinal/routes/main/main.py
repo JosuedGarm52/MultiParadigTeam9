@@ -1,28 +1,77 @@
 from flask import Flask, Blueprint,request,jsonify,render_template,redirect
 from auth import tokenCheck,verificar
 from app import db,bcrypt
-from models import Perfil, Cuenta
+from models import Perfil, Cuenta,Mod,Admin
 from sqlalchemy import exc 
+from utils import encode_auth_token, decode_auth_token
 
 app = Flask(__name__)
 
 appmain = Blueprint('main', __name__, template_folder='templates', static_folder='static', static_url_path='/main/static')
 
-@appmain.route('/')
+@appmain.route('/', methods=['GET','POST'])
 def index():
-    image_urls = [
-        "https://media.istockphoto.com/id/514472018/es/foto/hermosa-boda-par-abrazar-cerca-de-columnas.jpg?s=612x612&w=0&k=20&c=uNaI5B3WpsnZVff6l6jvyhZMXd-DIkQl7ZCjO2W92K0=",
-        "https://media.istockphoto.com/id/498477061/es/foto/siente-el-d%C3%ADa-de-su-boda-bliss.jpg?s=612x612&w=0&k=20&c=kYex3_JmNNEz6CdYfclcwKjxj2GGln-NU9QyXKdlb5Y=",
-        "https://media.istockphoto.com/id/530188882/es/foto/retrato-de-una-joven-pareja-de-novios.jpg?s=612x612&w=0&k=20&c=SeUr9mYN6ZJ1phUPg05577uSMtO8-u4bSgcda-DfAus="
-    ]
-    info_list = [
-        {
-            'image_url': 'https://media.istockphoto.com/id/1303804576/es/foto/nuestro-primer-baile.jpg?s=612x612&w=0&k=20&c=imONv7gNEBiPlOw-s_odejgfIaZ9QEI7eoBqmT0gVmM=',
-            'text1': 'El amor es el idioma que todos entendemos.',
-            'text2': 'El amor, esa fuerza mágica que impulsa a la humanidad, es un viaje intrincado de emociones, experiencias y compromisos. Va más allá de las palabras, manifestándose en pequeños gestos cotidianos y en los momentos extraordinarios que compartimos.'
-        },
-    ]
-    return render_template('main.html', image_urls=image_urls, info_list=info_list)
+    if request.method == "GET":
+        image_urls = [
+            "https://media.istockphoto.com/id/514472018/es/foto/hermosa-boda-par-abrazar-cerca-de-columnas.jpg?s=612x612&w=0&k=20&c=uNaI5B3WpsnZVff6l6jvyhZMXd-DIkQl7ZCjO2W92K0=",
+            "https://media.istockphoto.com/id/498477061/es/foto/siente-el-d%C3%ADa-de-su-boda-bliss.jpg?s=612x612&w=0&k=20&c=kYex3_JmNNEz6CdYfclcwKjxj2GGln-NU9QyXKdlb5Y=",
+            "https://media.istockphoto.com/id/530188882/es/foto/retrato-de-una-joven-pareja-de-novios.jpg?s=612x612&w=0&k=20&c=SeUr9mYN6ZJ1phUPg05577uSMtO8-u4bSgcda-DfAus="
+        ]
+        info_list = [
+            {
+                'image_url': 'https://media.istockphoto.com/id/1303804576/es/foto/nuestro-primer-baile.jpg?s=612x612&w=0&k=20&c=imONv7gNEBiPlOw-s_odejgfIaZ9QEI7eoBqmT0gVmM=',
+                'text1': 'El amor es el idioma que todos entendemos.',
+                'text2': 'El amor, esa fuerza mágica que impulsa a la humanidad, es un viaje intrincado de emociones, experiencias y compromisos. Va más allá de las palabras, manifestándose en pequeños gestos cotidianos y en los momentos extraordinarios que compartimos.'
+            },
+        ]
+        
+        return render_template('main.html', image_urls=image_urls, info_list=info_list)
+    else:
+        try:
+            token = request.json['cuenta_id']
+            usuario = request.json['usuario']
+            # Decodificar el token para obtener la información
+            decoded_token = decode_auth_token(token)
+
+            # Acceder al valor del campo "sub"
+            if 'sub' in decoded_token:
+                sub_value = decoded_token['sub']
+                cuenta_id = int(sub_value)
+            else:
+                raise ValueError('El campo "sub" no está presente en el token')
+
+        except ValueError as e:
+            return jsonify({'status': 'error', 'message': f'Error al desencriptar el token: {str(e)}'})
+
+        if cuenta_id:
+            # Consultar admin
+            admin = Admin.query.filter_by(cuenta_id=cuenta_id).first()
+            if admin:
+                return jsonify({
+                    'status': 'success',
+                    'rol': 'administrador',
+                    'email': admin.cuenta.email  # Obtén el email desde la cuenta asociada al admin
+                })
+
+            # Consultar mod
+            mod = Mod.query.filter_by(cuenta_id=cuenta_id).first()
+            if mod:
+                return jsonify({
+                    'status': 'success',
+                    'rol': 'moderador',
+                    'email': mod.cuenta.email  # Obtén el email desde la cuenta asociada al mod
+                })
+            
+            # Consultar el perfil
+            perfil = Perfil.query.filter_by(usuario = usuario).first()
+
+            if perfil:
+                return jsonify({
+                    'status': 'success',
+                    'rol': 'casanova',
+                    'email': perfil.usuario
+                })
+        return jsonify({'status': 'error', 'message': 'No se encontro el rol'})
 
 
 def verificar_credenciales(principal, contra):
@@ -39,7 +88,7 @@ def verificar_credenciales(principal, contra):
 @appmain.route('/login',methods=["GET","POST"])
 def login_post():
     if(request.method=="GET"):
-        token = request.args.get('token')
+        token = request.args.get('cuenta_id')
         if token:
             info = verificar(token)
             if(info['status']!="fail"):
@@ -56,23 +105,32 @@ def login_post():
             contra = request.json.get('contra')
 
             if not principal or not contra:
-                return jsonify({'message': 'Credenciales incompletas'}), 400
+                responseObject = {
+                    'status' : 'fail',
+                    'message': 'Credenciales incompletas'
+                }
+                return jsonify(responseObject), 403
 
             success, user = verificar_credenciales(principal, contra)
 
             if success:
-                auth_token = user.cuenta.encode_auth_token(user_id=user.id)
+                _id = user.cuenta.id_cuenta
+                auth_token = user.cuenta.encode_auth_token(user_id=_id)
                 responseObject = {
                     'status': 'success',
                     'login': 'Inicio de sesión exitoso',
-                    'auth_token': auth_token.decode()  # Decodificar el token si es necesario
+                    'auth_token': auth_token
                 }
-                return jsonify(responseObject), 200
+                return jsonify(responseObject), 203
             else:
                 # Usuario no encontrado o contraseña incorrecta
-                return jsonify({'message': 'Credenciales incorrectas'}), 401
+                responseObject = {
+                    'status' : 'fail',
+                    'message': 'Credenciales incorrectas'
+                }
+                return jsonify(responseObject), 403
         except Exception as e:
-            return jsonify({'message': str(e)}), 500
+            return jsonify({'message': str(e)}), 503
 
 @appmain.route('/register')
 def registro():

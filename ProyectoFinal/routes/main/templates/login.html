@@ -11,11 +11,13 @@
         <p>Usuario o correo</p>
         <input type="text" id="principal" name="principal">
         <p>Password</p>
-        <input type="text" id="contra" name="contra"> 
+        <input type="password" id="contra" name="contra"> 
         <br>
         <input type="submit" id="btn_login"
-        value="Ingresar" onclick="window.location.href = '/';"> 
+        value="Ingresar" > 
     </form>
+    <br>
+    <span id="errorLabel" style="display: none; color: red;"></span>
     <br>
     <a href="/register">¿Aun no estas registrado?</a>
     <br>
@@ -24,7 +26,9 @@
     <script>
         const loginForm = document.querySelector('#login_form')
         const loginButton = document.querySelector('#btn_login')
+        const errorLabel = document.getElementById('errorLabel');
         loginButton.addEventListener('click',(e)=>{
+            errorLabel.style.display = 'none';
             e.preventDefault();
             const principal = document.querySelector('#principal').value;
             const contra = document.querySelector('#contra').value;
@@ -40,9 +44,14 @@
                 })
             }).then(response => response.json())
             .then(data =>{
-                localStorage.setItem('token',data.auth_token)
-                console.log(data)
-                window.location
+                if(data.status == 'success'){
+                    localStorage.setItem('cuenta_id',data.auth_token)
+                    console.log(data)
+                    window.location.href = '/';
+                }else{
+                    errorLabel.textContent = 'Error: ' + data.message;
+                    errorLabel.style.display = 'inline';
+                }
             })
         })
     </script>
