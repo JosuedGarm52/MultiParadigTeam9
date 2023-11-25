@@ -90,7 +90,7 @@
         window.onload = peticion;
         function peticion() {
             
-            console.log(cuenta_id)
+            //console.log(cuenta_id)
             if(!cuenta_id){
                 contenedorMenu.innerHTML = `
                     <a href="/login">Login</a>
@@ -110,9 +110,10 @@
                 })
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data)
+                    //console.log(data)
                     if (data.status === 'success') {
-                        console.log("llego aqui 3")
+                        
+                        //console.log("llego aqui 3")
                         contenedorMenu.innerHTML = `
                             (${data.rol}) ${data.email}
                             <a href="/perfil">-Perfil-</a>
