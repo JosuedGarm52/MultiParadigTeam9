@@ -4,6 +4,7 @@ from auth import tokenCheck,verificar
 from app import db,bcrypt
 from sqlalchemy import exc 
 from sqlalchemy.orm.exc import NoResultFound
+from utils import decode_auth_token, encode_auth_token
 
 app = Flask(__name__)
 
@@ -19,9 +20,20 @@ def regis_perfil():
         return render_template('regisUser.html')  # cambiar al adaptado
     else:
         try:
-            cuenta_id = int(request.json['cuenta_id'])
+            token = request.json['cuenta_id']
+
+            # Decodificar el token para obtener la información
+            decoded_token = decode_auth_token(token)
+
+            # Acceder al valor del campo "sub"
+            if 'sub' in decoded_token:
+                sub_value = decoded_token['sub']
+                cuenta_id = int(sub_value)
+            else:
+                raise ValueError('El campo "sub" no está presente en el token')
         except ValueError:
             return jsonify({'status': 'error', 'message': 'El formato de cuenta_id no es válido'})
+
 
         # Verificar si la cuenta_id existe en la tabla Cuenta
         try:

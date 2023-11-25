@@ -30,8 +30,8 @@ class Cuenta(db.Model):
         ).decode()
         self.registered_on = datetime.datetime.now()
 
-
-    def encode_auth_token(self, user_id):
+    @staticmethod
+    def encode_auth_token(user_id):
         return encode_auth_token(user_id)
 
     @staticmethod

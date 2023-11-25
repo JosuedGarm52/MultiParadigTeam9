@@ -2,7 +2,7 @@ import jwt
 import datetime
 from config import BaseConf
 
-def encode_auth_token(self,user_id):
+def encode_auth_token(user_id):
         try:
             payload={
                 'exp':datetime.datetime.utcnow()+datetime.timedelta(hours=5),

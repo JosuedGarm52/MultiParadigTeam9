@@ -25,6 +25,16 @@ def index():
     return render_template('main.html', image_urls=image_urls, info_list=info_list)
 
 
+def verificar_credenciales(principal, contra):
+    # Buscar el usuario por nombre de usuario o correo electrónico
+    searchUser = Perfil.query.join(Perfil.cuenta).filter(
+        (Perfil.usuario == principal) | (Cuenta.email == principal)
+    ).first()
+
+    if searchUser and bcrypt.check_password_hash(searchUser.cuenta.password, contra):
+        return True, searchUser
+    else:
+        return False, None
 
 @appmain.route('/login',methods=["GET","POST"])
 def login_post():
@@ -42,27 +52,25 @@ def login_post():
         return render_template('login.html')
     else:
         try:
-            principal =request.json['principal']
-            contra=request.json['contra']
+            principal = request.json.get('principal')
+            contra = request.json.get('contra')
 
-            # Buscar el usuario por nombre de usuario o correo electrónico
-            searchUser = Perfil.query.join(Perfil.cuenta).filter(
-                (Perfil.usuario == principal) | (Cuenta.email == principal)
-            ).first()
+            if not principal or not contra:
+                return jsonify({'message': 'Credenciales incompletas'}), 400
 
-            if searchUser and bcrypt.check_password_hash(searchUser.cuenta.password, contra):
-                auth_token = searchUser.cuenta.encode_auth_token(user_id=searchUser.id)
+            success, user = verificar_credenciales(principal, contra)
+
+            if success:
+                auth_token = user.cuenta.encode_auth_token(user_id=user.id)
                 responseObject = {
                     'status': 'success',
-                    'login': 'Loggin exitoso',
+                    'login': 'Inicio de sesión exitoso',
                     'auth_token': auth_token.decode()  # Decodificar el token si es necesario
                 }
-
                 return jsonify(responseObject), 200
             else:
                 # Usuario no encontrado o contraseña incorrecta
-                return jsonify({'message': 'Credenciales invalidas'}), 401
-
+                return jsonify({'message': 'Credenciales incorrectas'}), 401
         except Exception as e:
             return jsonify({'message': str(e)}), 500
 
@@ -71,7 +79,7 @@ def registro():
     return render_template('registro.html')
 
 @appmain.route('/cuenta',methods=["GET","POST"])
-def logint_post():
+def registro_post():
     if request.method=="GET":
         return render_template('register.html')
     else:
@@ -95,10 +103,11 @@ def logint_post():
             try:
                 db.session.add(usuario)
                 db.session.commit()
+                auth_token = usuario.encode_auth_token(user_id=usuario.id_cuenta)
                 responseObject={
                     'status':'success',
                     'message':"Registro exitoso",
-                    'cuenta_id': usuario.id_cuenta
+                    'cuenta_id': auth_token
                 }
             except exc.SQLAlchemyError as e:
                 responseObject={
