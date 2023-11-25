@@ -65,7 +65,7 @@ nav {
 }
 
 .image-slider img {
-    height: 200px;
+    height: 300px;
     width: 50%;
     display: inline-block;
     animation: slide 5s infinite;

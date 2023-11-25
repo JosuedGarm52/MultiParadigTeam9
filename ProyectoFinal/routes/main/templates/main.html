@@ -28,7 +28,7 @@
     <!-- Zona de imágenes que cambian tipo cinta -->
     <div class="image-slider">
         {% for image_url in image_urls %}
-            <img src="{{ image_url }}" alt="Imagen" width="50%">
+            <img src="{{ image_url }}" alt="Imagen">
         {% endfor %}
     </div>
 
@@ -86,18 +86,14 @@
         const cuenta_id = localStorage.getItem('cuenta_id');
         const usuario = localStorage.getItem('usuario');
         const contenedorMenu = document.getElementById('cont-log');
-        //document.addEventListener('DOMContentLoaded', peticion() );
-        window.onload = peticion;
+        
         function peticion() {
-            
-            //console.log(cuenta_id)
-            if(!cuenta_id){
+            if (!cuenta_id) {
                 contenedorMenu.innerHTML = `
                     <a href="/login">Login</a>
                     <a href="/register">Register</a>
                 `;
-            }else{
-                
+            } else {
                 fetch('/', {
                     method: 'POST',
                     headers: {
@@ -110,15 +106,16 @@
                 })
                 .then(response => response.json())
                 .then(data => {
-                    //console.log(data)
                     if (data.status === 'success') {
-                        
-                        //console.log("llego aqui 3")
+                        localStorage.setItem('role',data.rol)
                         contenedorMenu.innerHTML = `
                             (${data.rol}) ${data.email}
-                            <a href="/perfil">-Perfil-</a>
-                            <a href="/salir">-Salir-</a>
+                            <a href="#" id="btnPerfil">-Perfil-</a>
+                            <a href="#" id="btnSalida">-Salir-</a>
                         `;
+                        
+                        // Llamada a la función que maneja eventos después de actualizar el DOM
+                        manejarEventos();
                     } else {
                         contenedorMenu.innerHTML = `
                             <a href="/login">Login</a>
@@ -128,10 +125,43 @@
                 })
                 .catch(error => {
                     console.error('Error en la solicitud:', error);
-                    // Manejar el error apropiadamente
                 });
             }
         }
+    
+        function manejarEventos() {
+            // Obtener referencia a los elementos <a>
+            const miPerfil = document.getElementById('btnPerfil');
+            const miSalida = document.getElementById('btnSalida');
+    
+            // Agregar evento al hacer clic en Perfil
+            miPerfil.addEventListener('click', function() {
+                const role = localStorage.getItem('role');
+                if (role === 'administrador') {
+                    window.location.href = '/admin/';
+                } else if (role === 'moderador') {
+                    window.location.href = '/mod/';
+                } else if (role === 'casanova') {
+                    window.location.href = '/usuarios/';
+                } else {
+                    console.error('Role no reconocido:', role);
+                }
+            });
+    
+            // Agregar evento al hacer clic en Salida
+            miSalida.addEventListener('click', function() {
+                // Borrar tokens del localStorage
+                localStorage.removeItem('role');
+                localStorage.removeItem('cuenta_id');
+    
+                // Recargar la página
+                location.reload();
+            });
+        }
+    
+        // Ejecutar la función peticion al cargar la ventana
+        window.onload = peticion;
     </script>
+    
 </body>
 </html>

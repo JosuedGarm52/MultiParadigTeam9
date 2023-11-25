@@ -63,14 +63,17 @@ def index():
                 })
             
             # Consultar el perfil
-            perfil = Perfil.query.filter_by(usuario = usuario).first()
-
-            if perfil:
-                return jsonify({
-                    'status': 'success',
-                    'rol': 'casanova',
-                    'email': perfil.usuario
-                })
+            cuenta = Cuenta.query.filter_by(id_cuenta = cuenta_id).first()
+            if cuenta:
+                perfil = Perfil.query.filter_by(cuenta_id = cuenta.id_cuenta).first()
+                
+                if perfil:
+                    return jsonify({
+                        'status': 'success',
+                        'rol': 'casanova',
+                        'email': perfil.usuario
+                    })
+                
         return jsonify({'status': 'error', 'message': 'No se encontro el rol'})
 
 
