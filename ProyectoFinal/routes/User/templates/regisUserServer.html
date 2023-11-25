@@ -55,7 +55,7 @@
 
         if (!cuenta_id) {
             // Si la ID no está presente, redirigir al usuario a la página anterior
-            window.location.href = '/register';
+            //window.location.href = '/register';
         }
 
         document.addEventListener("DOMContentLoaded", function() {
@@ -63,31 +63,22 @@
             const selectPais = document.getElementById("pais");
 
             // Ruta al archivo JSON
-            const jsonPath = "{{ url_for('user.static', filename='json/paises-del-mundo.json') }}";
-
-            // País predeterminado (México)
-            const paisPredeterminado = "MX"; // Código ISO2 de México
+            const jsonPath = "../static/json/paises-del-mundo.json"; // Ajusta la ruta según tu estructura
 
             // Realiza una solicitud para cargar el JSON
             fetch(jsonPath)
-            .then(response => response.json())
-            .then(data => {
+                .then(response => response.json())
+                .then(data => {
                 // Itera sobre los datos y agrega opciones al select
                 data.forEach(pais => {
                     const option = document.createElement("option");
-                    option.value = pais.ISO2;
-                    option.text = pais.shortName;
-                    // Establece como seleccionado si es México
-                    if (pais.ISO2 === paisPredeterminado) {
-                        option.selected = true;
-                    }
-                        
+                    option.value = pais.ISO2; 
+                    option.text = pais.shortName; 
                     selectPais.appendChild(option);
                 });
             })
             .catch(error => console.error("Error al cargar el JSON:", error));
         });
-
 
         const signButton = document.querySelector('#btn_create_profile');
         signButton.addEventListener('click', (e) => {
@@ -102,9 +93,9 @@
             const primerGenero = generoValues[0]?.value;
 
             // Obtener valores de los checkboxes
-            const busquedaValues = document.querySelectorAll('input[name="genero"]:checked');
-            const busqueda = Array.from(generoValues).map(checkbox => checkbox.value).filter(value => value !== 'HM').join(',');
-            //console.log(busqueda);
+            const busquedaValues = document.querySelectorAll('input[name="busqueda"]:checked');
+            const busqueda = Array.from(busquedaValues).map(checkbox => checkbox.value);
+            console.log(busqueda);
             const estadoCivil = document.querySelector('#estadoCivil').value;
 
             if(username.trim() === ""){
@@ -128,7 +119,7 @@
             else{
                 errorLabel.style.display = 'none';
 
-                fetch('registro', {
+                fetch('/registro', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -137,7 +128,7 @@
                         'cuenta_id': cuenta_id,
                         'username': username,
                         'pais': pais,
-                        'genero': busqueda,
+                        'genero': genero,
                         'busqueda': busqueda,
                         'estado_civil': estadoCivil
                     })
@@ -145,21 +136,13 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.status === 'success') {
-                        errorLabel.textContent = 'El post fue exitoso';
-                        errorLabel.style.display = 'inline';
                         // Almacenar la ID de la cuenta en localStorage
                         localStorage.setItem('usuario', username);
-                        if (data.redirect_url) {
-                            // Redirigir a la URL proporcionada
-                            window.location.href = data.redirect_url;
-                        } else {
-                            // Redirigir a la página predeterminada
-                            console.log('data redirect no fue encontrado')
-                            window.location.href = '/usuarios/';
-                        }
+
+                        // Redirigir a otra página
+                        window.location.href = 'usuarios/';
                     } else {
                         errorLabel.textContent = 'Error en el registro: ' + data.message;
-                        errorLabel.style.display = 'inline';
                     }
                 })
                 .catch(error => {

@@ -1,4 +1,8 @@
-from flask import Flask, render_template, Blueprint
+from flask import Flask, Blueprint,request,jsonify,render_template,redirect
+from auth import tokenCheck,verificar
+from app import db,bcrypt
+from models import Perfil, Cuenta
+from sqlalchemy import exc 
 
 app = Flask(__name__)
 
@@ -20,10 +24,90 @@ def index():
     ]
     return render_template('main.html', image_urls=image_urls, info_list=info_list)
 
-@appmain.route('/login')
-def login():
-    return render_template('loginServer.html')#cambiar por el adaptado
+
+
+@appmain.route('/login',methods=["GET","POST"])
+def login_post():
+    if(request.method=="GET"):
+        token = request.args.get('token')
+        if token:
+            info = verificar(token)
+            if(info['status']!="fail"):
+                responseObject={
+                    'status':"success",
+                    'message':'valid token',
+                    'info':info
+                }
+                return jsonify(responseObject)
+        return render_template('login.html')
+    else:
+        try:
+            principal =request.json['principal']
+            contra=request.json['contra']
+
+            # Buscar el usuario por nombre de usuario o correo electrónico
+            searchUser = Perfil.query.join(Perfil.cuenta).filter(
+                (Perfil.usuario == principal) | (Cuenta.email == principal)
+            ).first()
+
+            if searchUser and bcrypt.check_password_hash(searchUser.cuenta.password, contra):
+                auth_token = searchUser.cuenta.encode_auth_token(user_id=searchUser.id)
+                responseObject = {
+                    'status': 'success',
+                    'login': 'Loggin exitoso',
+                    'auth_token': auth_token.decode()  # Decodificar el token si es necesario
+                }
+
+                return jsonify(responseObject), 200
+            else:
+                # Usuario no encontrado o contraseña incorrecta
+                return jsonify({'message': 'Credenciales invalidas'}), 401
+
+        except Exception as e:
+            return jsonify({'message': str(e)}), 500
 
 @appmain.route('/register')
 def registro():
-    return render_template('regisServer.html')#cambiar por el adaptado
+    return render_template('registro.html')
+
+@appmain.route('/cuenta',methods=["GET","POST"])
+def logint_post():
+    if request.method=="GET":
+        return render_template('register.html')
+    else:
+        primer_nombre = request.json['pnombre']
+        otro_nombre = request.json['snombre'] #opcional
+        primer_apellido = request.json['papellido']
+        segundo_apellido = request.json['sapellido'] #opcional
+        fecha = request.json['fnacimiento']
+        email=request.json['correo']
+        telefono = request.json['Telef'] #opcional
+        password=request.json['password']
+        usuario = Cuenta(primer_nombre=primer_nombre,otros_nombres=otro_nombre, primer_apellido=primer_apellido, segundo_apellido= segundo_apellido, fecha_nacimiento=fecha, telefono= telefono, email=email, password=password)
+        userExists = Cuenta.query.filter_by(email=email).first()
+
+        # Verificar si hay valores None y cambiarlos a cadena vacía
+        otro_nombre = otro_nombre if otro_nombre is not None else ''
+        segundo_apellido = segundo_apellido if segundo_apellido is not None else ''
+        telefono = telefono if telefono is not None else ''
+
+        if not userExists:
+            try:
+                db.session.add(usuario)
+                db.session.commit()
+                responseObject={
+                    'status':'success',
+                    'message':"Registro exitoso",
+                    'cuenta_id': usuario.id_cuenta
+                }
+            except exc.SQLAlchemyError as e:
+                responseObject={
+                    'status':'error',
+                    'message':e
+                }
+        else:
+            responseObject={
+                'status':'error',
+                'message':'usuario existente'
+            }
+        return jsonify(responseObject)

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    <h1>LOGIN</h1>
+    <form id="login_form"></form>
+        <p>Usuario o correo</p>
+        <input type="text" id="principal" name="principal">
+        <p>Password</p>
+        <input type="text" id="contra" name="contra"> 
+        <br>
+        <input type="submit" id="btn_login"
+        value="Ingresar" onclick="window.location.href = '/';"> 
+    </form>
+    <br>
+    <a href="/register">¿Aun no estas registrado?</a>
+    <br>
+    <button onclick="window.location.href = '/';">Regresar</button>
+    
+    <script>
+        const loginForm = document.querySelector('#login_form')
+        const loginButton = document.querySelector('#btn_login')
+        loginButton.addEventListener('click',(e)=>{
+            e.preventDefault();
+            const principal = document.querySelector('#principal').value;
+            const contra = document.querySelector('#contra').value;
+            
+            fetch('/login',{
+                method:'POST',
+                headers:{
+                   'Content-Type':'application/json'
+                },
+                body: JSON.stringify({
+                    'principal': principal,
+                    'contra': contra
+                })
+            }).then(response => response.json())
+            .then(data =>{
+                localStorage.setItem('token',data.auth_token)
+                console.log(data)
+                window.location
+            })
+        })
+    </script>
+</body>
+</html>

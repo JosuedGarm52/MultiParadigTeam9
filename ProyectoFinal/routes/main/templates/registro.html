@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+</head>
+<body>
+    <h1>Registro</h1>
+    <form id="sign-form">
+        <p>Primer Nombre*:</p>
+        <input type="text" id="pnombre" name="pnombre" required>
+        <p>Otros Nombres (Opcional): </p>
+        <input type="text" id="snombre" name="snombre">
+        <p>Primer Apellido *:</p>
+        <input type="text" id="papellido" name="papellido" required>
+        <p>Segundo Apellido (Opcional):</p>
+        <input type="text" id="sapellido" name="sapellido">
+        <p>Fecha de Nacimiento *:</p>
+        <input type="date" id="fnacimiento" name="fnacimiento" required>
+        <p>Correo electronico *:</p>
+        <input type="email" id="correo" name="correo" required>
+        <p>Telefono (Opcional):</p>
+        <input type="text" id="Telef" name="Telef">
+        <p>Password *:</p>
+        <input type="password" id="contra1" name="contra1" required>
+        <p>Confirma Password *:</p>
+        <input type="password" id="contra2" name="contra2" required>
+        <label id="error-message" style="color: red;"></label>
+        <br>
+        <p>* Son obligatorios, recuerda rellenarlos.</p>
+        <br>
+        <input type="checkbox" id="acepto" name="acepto" required>
+        <label for="acepto">Acepto los <a href="terminos-y-condiciones.html">términos y condiciones</a></label>
+        <br>
+        <input type="submit" value="Registrarse" id="btn_sign">
+    </form>
+    <br>
+    <button onclick="window.location.href = '/';">Regresar</button>
+
+    <script>
+        const signForm=document.querySelector('#sign-form');
+        const signButton=document.querySelector('#btn_sign');
+        var errorLabel = document.getElementById('error-message');
+        signButton.addEventListener('click' ,(e)=>{
+            errorLabel.style.display = 'none';
+            e.preventDefault();
+            const pnombre = document.querySelector('#pnombre').value;
+            const snombre = document.querySelector('#snombre').value;
+            const papellido = document.querySelector('#papellido').value;
+            const sapellido = document.querySelector('#sapellido').value;
+            const fnacimiento = document.querySelector('#fnacimiento').value;
+            const correo = document.querySelector('#correo').value;
+            const Telef = document.querySelector('#Telef').value;
+            const contra1 = document.querySelector('#contra1').value;
+            const contra2 = document.querySelector('#contra2').value;
+            //console.log('contra1:', contra1);
+            //console.log('contra2:', contra2);
+            if(contra1 == contra2){
+                fetch('/cuenta',{
+                    method:'POST',
+                    headers:{
+                        'Content-Type':'application/json'
+                    },
+                    body:JSON.stringify({
+                        'pnombre':pnombre,
+                        'snombre':snombre,
+                        'papellido':papellido,
+                        'sapellido':sapellido,
+                        'fnacimiento':fnacimiento,
+                        'correo':correo,
+                        'Telef':Telef,
+                        'password':contra1
+                    })
+                })
+                .then(response => response.json())
+                .then(data=>{
+                    if (data.status === 'success') {
+                        // Almacenar la ID de la cuenta en localStorage
+                        localStorage.setItem('cuenta_id', data.cuenta_id);
+                        
+                        // Redirigir a otra página
+                        window.location.href = '/usuarios/registro';
+                    } else {
+                        errorLabel.textContent = 'Error en el registro: ' + data.message;
+                        errorLabel.style.display = 'inline';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error en la solicitud:', error);
+                    errorLabel.textContent = 'Error en la solicitud, por favor intenta de nuevo.';
+                    errorLabel.style.display = 'inline';
+                });
+            }else{
+                errorLabel.textContent = 'Las contraseñas no coinciden.';
+                errorLabel.style.display = 'inline';
+            }
+        })
+    </script>
+</body>
+</html>

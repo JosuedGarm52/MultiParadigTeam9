@@ -13,16 +13,18 @@ class Cuenta(db.Model):
     segundo_apellido = db.Column(db.String(255), nullable=True)
     fecha_nacimiento = db.Column(db.DateTime,nullable=False)#req
     telefono = db.Column(db.String(255), nullable=True)
-    password = db.Column(db.String(255),nullable = False)
+    email = db.Column(db.String(255), nullable=False)#req
+    password = db.Column(db.String(255),nullable = False)#req
     registered_on= db.Column(db.DateTime,nullable=False)
 
-    def __init__(self, primer_nombre, otros_nombres, primer_apellido, segundo_apellido, fecha_nacimiento, telefono, password) -> None:
+    def __init__(self, primer_nombre, otros_nombres, primer_apellido, segundo_apellido, fecha_nacimiento, telefono, email, password) -> None:
         self.primer_nombre = primer_nombre
         self.otros_nombres = otros_nombres
         self.primer_apellido = primer_apellido
         self.segundo_apellido = segundo_apellido
         self.fecha_nacimiento = fecha_nacimiento
         self.telefono = telefono
+        self.email = email
         self.password = bcrypt.generate_password_hash(
             password, BaseConf.BCRYPT_LOG_ROUNDS
         ).decode()
@@ -36,7 +38,7 @@ class Cuenta(db.Model):
     def decode_auth_token(auth_token):
         return decode_auth_token(auth_token)
 
-class Perfil(db.Models):
+class Perfil(db.Model):
     __tablename__="perfil"
     usuario = db.Column(db.String(255),primary_key = True)
     pais_origen = db.Column(db.String(255), nullable=False)#req
@@ -57,7 +59,7 @@ class Perfil(db.Models):
         self.estado_civil = estado_civil
         self.cuenta_id = cuenta_id
     
-class Foto(db.Models):
+class Foto(db.Model):
     __tablename__="foto"
     id_foto=db.Column(db.Integer,primary_key = True, autoincrement = True)
     link = db.Column(db.String(255), nullable=False)#req
@@ -66,9 +68,9 @@ class Foto(db.Models):
         self.id_foto = id_foto
         self.link = link
 
-class Perfil_Foto(db.Models):
+class Perfil_Foto(db.Model):
     __tablename__= "perfil_foto"
-    usuario_name = db.Column(db.Integer, db.ForeignKey('perfil.usuario'), primary_key=True)
+    usuario_name = db.Column(db.String(255), db.ForeignKey('perfil.usuario'), primary_key=True)
     foto_id = db.Column(db.Integer, db.ForeignKey('foto.id_foto'), primary_key=True)
     isperfil = db.Column(db.Boolean, nullable=False, default=True)#req
     
@@ -81,7 +83,7 @@ class Perfil_Foto(db.Models):
         self.foto_id = foto_id
         self.isperfil = isperfil
 
-class Admin(db.Models):
+class Admin(db.Model):
     __tablename__= "admin"
     id_admin = db.Column(db.Integer,primary_key = True, autoincrement = True)
     cuenta_id = db.Column(db.Integer, db.ForeignKey('cuenta.id_cuenta'), nullable=False)
@@ -90,12 +92,12 @@ class Admin(db.Models):
         self.id_admin = id_admin
         self.cuenta_id = cuenta_id
     
-class Mod(db.Models):
+class Mod(db.Model):
     __tablename__= "mod"
 
     id_mod = db.Column(db.Integer, primary_key=True, autoincrement=True)
     cuenta_id = db.Column(db.Integer, db.ForeignKey('cuenta.id_cuenta'), nullable=False)
-    cuenta = db.relationship('cuenta', backref=db.backref('mod', lazy=True))
+    cuenta = db.relationship('Cuenta', backref=db.backref('mod', lazy=True))
 
     def __init__(self, id_cuenta,cuenta) -> None:
         self.cuenta_id = id_cuenta #checar esta parte
@@ -111,8 +113,8 @@ class Mensaje(db.Model):
     isvisible = db.Column(db.Boolean, nullable=False, default=True)
     isread = db.Column(db.Boolean, nullable=False, default=False)
     
-    remitente = db.relationship('perfil', foreign_keys=[usuario_rem])
-    destinatario = db.relationship('perfil', foreign_keys=[usuario_dest])
+    remitente = db.relationship('Perfil', foreign_keys=[usuario_rem])
+    destinatario = db.relationship('Perfil', foreign_keys=[usuario_dest])
 
     def __init__(self, id_mensaje, usuario_rem, usuario_dest, fecha, contenido, isvisible, isread):
         self.id_mensaje = id_mensaje
@@ -126,8 +128,8 @@ class Mensaje(db.Model):
 class Chat(db.Model):
     __tablename__ = "chat"
 
-    mensaje_id = db.Column(db.Integer, db.ForeignKey('mensaje.id_mensaje'), nullable=False)
-    mod_id = db.Column(db.Integer, db.ForeignKey('mod.id_mod'), nullable=False)
+    mensaje_id = db.Column(db.Integer, db.ForeignKey('mensaje.id_mensaje'), primary_key=True)
+    mod_id = db.Column(db.Integer, db.ForeignKey('mod.id_mod'), primary_key=True)
 
     mensaje = db.relationship('Mensaje', backref=db.backref('chat', lazy=True))
     mod = db.relationship('Mod', backref=db.backref('chat', lazy=True))
@@ -136,14 +138,16 @@ class Chat(db.Model):
         self.mensaje_id = id_mensaje
         self.mod_id = id_mod
 
-class documento(db.Models):
-    usuario_name = db.Column(db.String(255), db.ForeignKey('perfil.usuario'), nullable=False)
-    link = db.Column(db.String(255), nullable=False)#req
+class Documento(db.Model):
+    usuario_name = db.Column(db.String(255), db.ForeignKey('perfil.usuario'), primary_key=True, nullable=False)
+    link = db.Column(db.String(255), nullable=False)  # req
     isaprobado = db.Column(db.Boolean, nullable=False, default=False)
-    tipo = db.Column(db.String(255), nullable=False)#req
+    tipo = db.Column(db.String(255), nullable=False)  # req
     mod_id = db.Column(db.Integer, db.ForeignKey('mod.id_mod'), nullable=False)
 
-    def __init__(self,usuario_name,link,isaprobado,tipo,mod_id):
+    mod = db.relationship('Mod', backref=db.backref('documentos', lazy=True))
+
+    def __init__(self, usuario_name, link, isaprobado, tipo, mod_id):
         self.usuario_name = usuario_name
         self.link = link
         self.isaprobado = isaprobado

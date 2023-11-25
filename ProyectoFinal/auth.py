@@ -1,19 +1,27 @@
-from models import User
+from models import Cuenta
 from functools import wraps 
 from flask import jsonify, request
 
 def obtenerInfo(token):
     if token:
-        resp = User.decode_auth_token(token)
-        user = User.query.filter_by(id=resp).first()
+        resp = Cuenta.decode_auth_token(token)
+        user = Cuenta.query.filter_by(id=resp).first()
         if user:
             usuario = {
                 'status':'success',
                 'data':{
-                    'user_id':user.id,
+                    'id_cuenta':user.id,
                     'email':user.email,
                     'admin':user.admin,
-                    'registered_on':user.registered_on 
+                    'pnombre':user.primer_nombre,
+                    'snombre':user.otro_nombre,
+                    'papellido':user.primer_apellido,
+                    'sapellido':user.segundo_apellido,
+                    'fnacimiento':user.fecha_nacimiento,
+                    'correo':user.email,
+                    'Telef':user.telefono,
+                    'password':user.password,
+                    'registered_on':user.registered_on
                 }
             }
             return usuario
