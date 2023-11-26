@@ -79,10 +79,12 @@ def index():
 
 def verificar_credenciales(principal, contra):
     # Buscar el usuario por nombre de usuario o correo electrónico
+    print(principal)
+    print(contra)
     searchUser = Perfil.query.join(Perfil.cuenta).filter(
-        (Perfil.usuario == principal) | (Cuenta.email == principal)
+        (Perfil.usuario == principal) | (Cuenta.email == principal.lower().strip())
     ).first()
-
+    print(searchUser)
     if searchUser and bcrypt.check_password_hash(searchUser.cuenta.password, contra):
         return True, searchUser
     else:
@@ -149,7 +151,7 @@ def registro_post():
         primer_apellido = request.json['papellido']
         segundo_apellido = request.json['sapellido'] #opcional
         fecha = request.json['fnacimiento']
-        email=request.json['correo']
+        email=request.json['correo'].lower().strip()
         telefono = request.json['Telef'] #opcional
         password=request.json['password']
         usuario = Cuenta(primer_nombre=primer_nombre,otros_nombres=otro_nombre, primer_apellido=primer_apellido, segundo_apellido= segundo_apellido, fecha_nacimiento=fecha, telefono= telefono, email=email, password=password)

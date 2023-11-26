@@ -4,7 +4,7 @@ from auth import tokenCheck,verificar
 from app import db,bcrypt
 from sqlalchemy import exc 
 from sqlalchemy.orm.exc import NoResultFound
-from utils import decode_auth_token, encode_auth_token
+from utils import decode_auth_token, encode_auth_token, verificarID
 from auth import obtenerInfo
 
 app = Flask(__name__)
@@ -32,7 +32,7 @@ def obtener_datos():
         "segundo_apellido": usercuenta['data']['sapellido'],
         "fecha_nacimiento": usercuenta['data']['fnacimiento'].strftime('%Y-%m-%d'),
         "telefono": usercuenta['data']['Telef'],
-        "correo_electronico": usercuenta['data']['correo'],
+        "correo_electronico": usercuenta['data']['correo'].toLowerCase().trim(),
         "usuario": userperfil.usuario,
         "pais":userperfil.pais_origen,
         "genero":userperfil.genero,
@@ -42,20 +42,7 @@ def obtener_datos():
     # Devolver los datos como respuesta JSON
     return jsonify(datos_usuario)
 
-def verificarID(valor):
-    try:
-        token = valor
-        # Decodificar el token para obtener la información
-        decoded_token = decode_auth_token(token)
-        # Acceder al valor del campo "sub"
-        if 'sub' in decoded_token:
-            sub_value = decoded_token['sub']
-            cuenta_id = int(sub_value)
-            return cuenta_id
-        else:
-            raise ValueError('El campo "sub" no está presente en el token')
-    except ValueError:
-        return jsonify({'status': 'error', 'message': 'El formato de cuenta_id no es válido'})
+
 
 @appuser.route('/registro',methods=["GET","POST"])
 def regis_perfil():
