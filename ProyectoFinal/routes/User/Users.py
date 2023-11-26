@@ -13,7 +13,7 @@ appuser = Blueprint('user', __name__, template_folder='templates', static_folder
 
 @appuser.route('/')
 def index():
-    return render_template('indexPerfilServer.html')#cambiar al adaptado
+    return render_template('indexPerfil.html')
 
 @appuser.route('/obtener_datos', methods = ["POST"])
 def obtener_datos():
@@ -47,7 +47,7 @@ def obtener_datos():
 @appuser.route('/registro',methods=["GET","POST"])
 def regis_perfil():
     if request.method == "GET":
-        return render_template('regisUser.html')  # cambiar al adaptado
+        return render_template('regisUser.html')  
     else:
         try:
             token = request.json['cuenta_id']
@@ -111,4 +111,4 @@ def regis_perfil():
 
 @appuser.route('/parejas')
 def parejas():
-    return render_template('SearchPareja.html')#cambiar al adaptado
+    return render_template('SearchPareja.html')

@@ -13,7 +13,7 @@ appmod = Blueprint('mod', __name__, template_folder='templates', static_folder='
 
 @appmod.route('/')
 def index():
-    return render_template('modServer.html')#cambiar al adaptado
+    return render_template('mod.html')
 
   
 @appmod.route('/obtener_chat',methods=["POST"])
