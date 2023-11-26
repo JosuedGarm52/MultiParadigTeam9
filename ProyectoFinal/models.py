@@ -108,7 +108,7 @@ class Mensaje(db.Model):
     id_mensaje = db.Column(db.Integer, primary_key=True)
     usuario_rem = db.Column(db.String(255), db.ForeignKey('perfil.usuario'), nullable=False)
     usuario_dest = db.Column(db.String(255), db.ForeignKey('perfil.usuario'), nullable=False)
-    fecha = db.Column(db.Date, nullable=False)
+    fecha = db.Column(db.DateTime, nullable=False)
     contenido = db.Column(db.String, nullable=False)
     isvisible = db.Column(db.Boolean, nullable=False, default=True)
     isread = db.Column(db.Boolean, nullable=False, default=False)

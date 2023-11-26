@@ -99,13 +99,13 @@
             const usernameInput = document.querySelector('#username');
             const username = usernameInput?.value ?? 'Empty';
             const paisInput = document.querySelector('#pais').value;
-            const pais = paisInput?.value ?? 'Empty';
+            const pais = paisInput ?? 'Empty';
             const generoValues = document.querySelectorAll('input[name="genero"]:checked');
             const primerGenero = generoValues[0]?.value;
 
             // Obtener valores de los checkboxes
             const busquedaValues = document.querySelectorAll('input[name="genero"]:checked');
-            const busqueda = Array.from(generoValues).map(checkbox => checkbox.value).filter(value => value !== 'HM').join(',');
+            const busqueda = Array.from(generoValues).map(checkbox => checkbox.value).filter(value => (value !== 'HM' && value !== 'MF')).join(',');
             //console.log(busqueda);
             const estadoCivil = document.querySelector('#estadoCivil').value;
 
@@ -119,6 +119,10 @@
                 return;
             }else if(busqueda.length === 0){
                 errorLabel.textContent = 'emmm, que estas buscando?';
+                errorLabel.style.display = 'inline';
+                return;
+            }else if(pais === "Empty"){
+                errorLabel.textContent = 'Vienes de otro mundo?';
                 errorLabel.style.display = 'inline';
                 return;
             }
