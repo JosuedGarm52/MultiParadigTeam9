@@ -78,17 +78,19 @@ def index():
 
 
 def verificar_credenciales(principal, contra):
-    # Buscar el usuario por nombre de usuario o correo electrónico
-    print(principal)
-    print(contra)
-    searchUser = Perfil.query.join(Perfil.cuenta).filter(
-        (Perfil.usuario == principal) | (Cuenta.email == principal.lower().strip())
+    cuenta = Cuenta.query.filter(
+        (Cuenta.email == principal.lower().strip())
     ).first()
-    print(searchUser)
-    if searchUser and bcrypt.check_password_hash(searchUser.cuenta.password, contra):
-        return True, searchUser
+
+    if cuenta and bcrypt.check_password_hash(cuenta.password, contra):
+        return True, cuenta
     else:
+        perfil = Perfil.query.filter_by(usuario = principal).first()
+        cuenta = Cuenta.query.filter_by(id_cuenta = perfil.cuenta_id).first()
+        if cuenta and bcrypt.check_password_hash(cuenta.password, contra):
+            return True, cuenta
         return False, None
+
 
 @appmain.route('/login',methods=["GET","POST"])
 def login_post():
@@ -116,11 +118,11 @@ def login_post():
                 }
                 return jsonify(responseObject), 403
 
-            success, user = verificar_credenciales(principal, contra)
+            success, cuenta = verificar_credenciales(principal, contra)
 
             if success:
-                _id = user.cuenta.id_cuenta
-                auth_token = user.cuenta.encode_auth_token(user_id=_id)
+                _id = cuenta.id_cuenta
+                auth_token = cuenta.encode_auth_token(user_id=_id)
                 responseObject = {
                     'status': 'success',
                     'login': 'Inicio de sesión exitoso',

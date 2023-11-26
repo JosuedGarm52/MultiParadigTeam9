@@ -1,6 +1,7 @@
 import jwt
 import datetime
 from config import BaseConf
+from flask import jsonify
 
 def encode_auth_token(user_id):
         try:
@@ -28,3 +29,18 @@ def decode_auth_token(auth_token):
         
         except jwt.InvalidTokenError as e:
             return 'Invalid Token'      
+        
+def verificarID(valor):
+    try:
+        token = valor
+        # Decodificar el token para obtener la información
+        decoded_token = decode_auth_token(token)
+        # Acceder al valor del campo "sub"
+        if 'sub' in decoded_token:
+            sub_value = decoded_token['sub']
+            cuenta_id = int(sub_value)
+            return cuenta_id
+        else:
+            raise ValueError('El campo "sub" no está presente en el token')
+    except ValueError:
+        return jsonify({'status': 'error', 'message': 'El formato de cuenta_id no es válido'})

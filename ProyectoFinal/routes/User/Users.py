@@ -24,7 +24,7 @@ def obtener_datos():
 
     usercuenta = obtenerInfo(token=cuenta_idtoken)
     userperfil = Perfil.query.filter_by(cuenta_id=cuenta_id).first()
-    
+    email = usercuenta['data']['correo']
     datos_usuario = {
         "primer_nombre": usercuenta['data']['pnombre'],
         "otros_nombres": usercuenta['data']['snombre'],
@@ -32,7 +32,7 @@ def obtener_datos():
         "segundo_apellido": usercuenta['data']['sapellido'],
         "fecha_nacimiento": usercuenta['data']['fnacimiento'].strftime('%Y-%m-%d'),
         "telefono": usercuenta['data']['Telef'],
-        "correo_electronico": usercuenta['data']['correo'].toLowerCase().trim(),
+        "correo_electronico": email.lower().strip(),
         "usuario": userperfil.usuario,
         "pais":userperfil.pais_origen,
         "genero":userperfil.genero,

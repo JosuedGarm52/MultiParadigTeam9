@@ -58,3 +58,4 @@ def verificar(token):
     except:
         return jsonify({'message':'error'})
     return info
+
