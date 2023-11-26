@@ -73,23 +73,46 @@ def index():
                         'rol': 'casanova',
                         'email': perfil.usuario
                     })
-                
+            cuenta = Cuenta.query.filter_by(id_cuenta = cuenta_id).first()
+            if cuenta:
+                    nombre_componentes = [
+                        cuenta.primer_nombre,
+                        cuenta.otros_nombres,
+                        cuenta.primer_apellido,
+                        cuenta.segundo_apellido,
+                    ]
+
+                    # Filtrar los componentes que no son None
+                    nombre_no_none = [componente for componente in nombre_componentes if componente is not None]
+
+                    # Unir los componentes con un espacio en blanco
+                    nombre_completo = " ".join(nombre_no_none)
+                    return jsonify({
+                        'status': 'success',
+                        'rol': 'pendiente',
+                        'email': nombre_completo
+                    })
         return jsonify({'status': 'error', 'message': 'No se encontro el rol'})
 
 
 def verificar_credenciales(principal, contra):
-    cuenta = Cuenta.query.filter(
-        (Cuenta.email == principal.lower().strip())
-    ).first()
+    # Buscar el usuario por correo electrónico en la tabla Cuenta
+    cuenta = Cuenta.query.filter_by(email=principal.lower().strip()).first()
 
     if cuenta and bcrypt.check_password_hash(cuenta.password, contra):
         return True, cuenta
     else:
-        perfil = Perfil.query.filter_by(usuario = principal).first()
-        cuenta = Cuenta.query.filter_by(id_cuenta = perfil.cuenta_id).first()
-        if cuenta and bcrypt.check_password_hash(cuenta.password, contra):
-            return True, cuenta
-        return False, None
+        # Si no se encontró en la tabla Cuenta, buscar en la tabla Perfil por usuario
+        perfil = Perfil.query.filter_by(usuario=principal).first()
+
+        if perfil and perfil.cuenta_id is not None:
+            # Si se encuentra el perfil y tiene un cuenta_id válido, obtener la cuenta
+            cuenta = Cuenta.query.filter_by(id_cuenta=perfil.cuenta_id).first()
+            if cuenta and bcrypt.check_password_hash(cuenta.password, contra):
+                return True, cuenta
+
+    return False, None
+
 
 
 @appmain.route('/login',methods=["GET","POST"])

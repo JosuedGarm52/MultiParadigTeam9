@@ -100,8 +100,7 @@
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        'cuenta_id': cuenta_id,
-                        'usuario': usuario
+                        'cuenta_id': cuenta_id
                     })
                 })
                 .then(response => response.json())
@@ -117,6 +116,7 @@
                         // Llamada a la función que maneja eventos después de actualizar el DOM
                         manejarEventos();
                     } else {
+                        console.log("Error (400 500?) = devolvio un fallo - " + data.message)
                         contenedorMenu.innerHTML = `
                             <a href="/login">Login</a>
                             <a href="/register">Register</a>
