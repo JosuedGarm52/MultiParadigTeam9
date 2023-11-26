@@ -88,7 +88,7 @@
             const usernameInput = document.querySelector('#username');
             const username = usernameInput?.value ?? 'Empty';
             const paisInput = document.querySelector('#pais').value;
-            const pais = usernameInput?.value ?? 'Empty';
+            const pais = paisInput?.value ?? 'Empty';
             const generoValues = document.querySelectorAll('input[name="genero"]:checked');
             const primerGenero = generoValues[0]?.value;
 
@@ -108,6 +108,10 @@
                 return;
             }else if(busqueda.length === 0){
                 errorLabel.textContent = 'emmm, que estas buscando?';
+                errorLabel.style.display = 'inline';
+                return;
+            }else if(pais === "Empty"){
+                errorLabel.textContent = 'Vienes de otro mundo?';
                 errorLabel.style.display = 'inline';
                 return;
             }
