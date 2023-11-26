@@ -5,6 +5,7 @@ from app import db,bcrypt
 from sqlalchemy import exc 
 from sqlalchemy.orm.exc import NoResultFound
 from utils import decode_auth_token, encode_auth_token
+from auth import obtenerInfo
 
 app = Flask(__name__)
 
@@ -12,7 +13,49 @@ appuser = Blueprint('user', __name__, template_folder='templates', static_folder
 
 @appuser.route('/')
 def index():
-    return render_template('indexPerfil.html')#cambiar al adaptado
+    return render_template('indexPerfilServer.html')#cambiar al adaptado
+
+@appuser.route('/obtener_datos', methods = ["POST"])
+def obtener_datos():
+    # Obtener datos de la solicitud JSON
+    datos_solicitud = request.json
+    cuenta_idtoken = datos_solicitud.get('cuenta_id')
+    cuenta_id = verificarID(cuenta_idtoken)
+
+    usercuenta = obtenerInfo(token=cuenta_idtoken)
+    userperfil = Perfil.query.filter_by(cuenta_id=cuenta_id).first()
+    
+    datos_usuario = {
+        "primer_nombre": usercuenta['data']['pnombre'],
+        "otros_nombres": usercuenta['data']['snombre'],
+        "primer_apellido": usercuenta['data']['papellido'],
+        "segundo_apellido": usercuenta['data']['sapellido'],
+        "fecha_nacimiento": usercuenta['data']['fnacimiento'].strftime('%Y-%m-%d'),
+        "telefono": usercuenta['data']['Telef'],
+        "correo_electronico": usercuenta['data']['correo'],
+        "usuario": userperfil.usuario,
+        "pais":userperfil.pais_origen,
+        "genero":userperfil.genero,
+        "busqueda":userperfil.busqueda,
+    }
+
+    # Devolver los datos como respuesta JSON
+    return jsonify(datos_usuario)
+
+def verificarID(valor):
+    try:
+        token = valor
+        # Decodificar el token para obtener la información
+        decoded_token = decode_auth_token(token)
+        # Acceder al valor del campo "sub"
+        if 'sub' in decoded_token:
+            sub_value = decoded_token['sub']
+            cuenta_id = int(sub_value)
+            return cuenta_id
+        else:
+            raise ValueError('El campo "sub" no está presente en el token')
+    except ValueError:
+        return jsonify({'status': 'error', 'message': 'El formato de cuenta_id no es válido'})
 
 @appuser.route('/registro',methods=["GET","POST"])
 def regis_perfil():

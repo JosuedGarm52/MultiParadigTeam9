@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil Home</title>
+</head>
+<body>
+    <a href="/">Home</a>
+    <h1>Perfil</h1>
+    <div>
+        <h2>Lista de chats</h2>
+        <div id="listaChat"></div>
+        <a href="#">Encuentra tu pareja</a>
+    </div>
+
+
+    <div>
+        <h2>Informacion Cuenta</h2>
+        <p>Primer Nombre</p>
+        <input type="text" id="pnombre" readonly> 
+        <p>Otros Nombres</p>
+        <input type="text" id="onombre" readonly> <input id="btnonombre" type="button" value="Editar">
+        <p>Primer Apellido</p>
+        <input type="text" id="papellido" readonly> 
+        <p>Segundo Apellido</p>
+        <input type="text" id="sapellido" readonly> <input id="btnsapellido" type="button" value="Editar">
+        <p>Fecha de Nacimiento</p>
+        <input type="date" id="fecha" readonly> <input id="btnfecha" type="button" value="Editar">
+        <p>Telefono</p>
+        <input type="text" id="telefono" readonly> <input id="btntelefono" type="button" value="Editar">
+        <p>Correo Electronico</p>
+        <input type="text" id="correo" readonly> <input id="btncorreo" type="button" value="Editar">
+        <p>Password</p>
+        <input type="password" id="contra1" readonly> <input id="btncontra" type="button" value="Editar">
+        <p>Confirma Password</p>
+        <input type="password" id="contra2" readonly>
+        <br>
+        <br>
+        <input type="button" id="btnGuardar1" value="Guardar"> 
+        <input type="button" id="btnDescartar1" value="Descartar">
+    </div>
+    <div>
+        <h2>Informacion perfil</h2>
+        <p>Nombre de Usuario:</p>
+        <input type="text" id="usuario" readonly> 
+        <p>Pais de origen:</p>
+        <input type="text" id="pais" readonly> 
+        <p>Genero:</p>
+        <input type="text" id="genero" readonly> 
+        <p>Genero: </p>
+        <p>Busco a... </p>
+        <input type="checkbox" id="masculino" name="busqueda" value="masculino" readonly>
+        <label for="masculino">Masculino</label>
+
+        <input type="checkbox" id="femenino" name="busqueda" value="femenino" readonly>
+        <label for="femenino">Femenino</label>
+
+        <input type="checkbox" id="otro" name="busqueda" value="otro" readonly>
+        <label for="otro">Otro</label>
+        
+        <input type="button" value="Editar" id="btnBusqueda">
+        <br>
+        <br>
+        <input type="button" value="Guardar" id="btnGuardar2"> 
+        <input type="button" value="Descartar" id="btnDescartar2">
+    </div>
+    <br>
+    <input type="button" value="Suspender Perfil" id="btnSuspender"> 
+    <input type="button" value="Eliminar Perfil" id="btnEliminar">
+    <button onclick="window.location.href = '/';">Regresar</button>
+
+    <script>
+        function Iniciar() {
+            //Habilitar campos
+            {
+            var mipnombre = document.getElementById('pnombre');
+            var mionombre = document.getElementById('onombre');
+            var mipapellido = document.getElementById('papellido');
+            var misapellido = document.getElementById('sapellido');
+            var mifecha = document.getElementById('fecha');
+            var mitelefono = document.getElementById('telefono');
+            var micorreo = document.getElementById('correo');
+            var micontra1 = document.getElementById('contra1');
+            var micontra2 = document.getElementById('contra2');
+            var miusuario = document.getElementById('usuario');
+            var mipais = document.getElementById('pais');
+            var migenero = document.getElementById('genero');
+            var mimasculino = document.getElementById('masculino');
+            var mifemenino = document.getElementById('femenino');
+            var miotro = document.getElementById('otro');
+
+            
+            var btnonombre = document.getElementById('btnonombre');
+            
+            var btnsapellido = document.getElementById('btnsapellido');
+            var btnfecha = document.getElementById('btnfecha');
+            var btntelefono = document.getElementById('btntelefono');
+            var btncorreo = document.getElementById('btncorreo');
+            var btncontra = document.getElementById('btncontra');
+
+            var btnBusqueda = document.getElementById('btnBusqueda');
+            var btnGuardar1 = document.getElementById('btnGuardar1');
+            var btnGuardar2 = document.getElementById('btnGuardar2');
+            var btnDescartar1 = document.getElementById('btnDescartar1');
+            var btnDescartar2 = document.getElementById('btnDescartar2');
+            var btnSuspender = document.getElementById('btnSuspender');
+            var btnEliminar = document.getElementById('btnEliminar');
+
+            
+            btnonombre.addEventListener('click', function() {
+                mionombre.readOnly = false;
+            });
+
+            btnsapellido.addEventListener('click', function() {
+                misapellido.readOnly = false;
+            });
+
+            btnfecha.addEventListener('click', function() {
+                mifecha.readOnly = false;
+            });
+
+            btntelefono.addEventListener('click', function() {
+                mitelefono.readOnly = false;
+            });
+
+            btncorreo.addEventListener('click', function() {
+                micorreo.readOnly = false;
+            });
+
+            btncontra.addEventListener('click', function() {
+                micontra1.readOnly = false;
+                micontra2.readOnly = false;
+            });
+            btnBusqueda.addEventListener('click', function() {
+                mimasculino.readOnly = false;
+                mifemenino.readOnly = false;
+                miotro.readOnly = false;
+            });
+            }
+            
+            function obtenerDatos() {
+                // Obtener el id de la cuenta del localStorage
+                const cuenta_id = localStorage.getItem('cuenta_id');
+
+                // Verificar si hay un id de cuenta antes de hacer la petición
+                if (cuenta_id) {
+                    // Configurar los datos para enviar en la petición
+                    const datos = {
+                        cuenta_id: cuenta_id,
+                    };
+
+                    // Configurar opciones de la petición
+                    const opciones = {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(datos),
+                    };
+
+                    // Hacer la petición al servidor
+                    fetch('obtener_datos', opciones)
+                        .then(response => response.json())
+                        .then(data => {
+                            // Llenar los campos con los datos obtenidos
+                            mipnombre.value = data.primer_nombre;
+                            mionombre.value = data.otros_nombres;
+                            mipapellido.value = data.primer_apellido;
+                            misapellido.value = data.segundo_apellido;
+                            mifecha.value = data.fecha_nacimiento;
+                            mitelefono.value = data.telefono;
+                            micorreo.value = data.correo_electronico;
+                            miusuario.value = data.usuario;
+                            mipais.value = data.pais;
+                            migenero.value = data.genero;
+                            let busco = data.busqueda;
+                                document.getElementById('masculino').checked = false;
+                                document.getElementById('femenino').checked = false;
+                                document.getElementById('otro').checked = false;
+
+                                // Marcar los checkboxes según los valores en data.busqueda
+                                if (busco.includes('masculino')) {
+                                    document.getElementById('masculino').checked = true;
+                                }
+                                if (busco.includes('femenino')) {
+                                    document.getElementById('femenino').checked = true;
+                                }
+                                if (busco.includes('otro')) {
+                                    document.getElementById('otro').checked = true;
+                                }
+                        })
+                        .catch(error => {
+                            console.error('Error al obtener los datos:', error);
+                        });
+                }else{
+
+                }
+            }
+            // Llamar a la función para obtener y llenar los datos
+            obtenerDatos();
+        };
+        window.onload = Iniciar;
+    </script>
+</body>
+</html>

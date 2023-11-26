@@ -5,16 +5,14 @@ from flask import jsonify, request
 def obtenerInfo(token):
     if token:
         resp = Cuenta.decode_auth_token(token)
-        user = Cuenta.query.filter_by(id=resp).first()
+        user = Cuenta.query.filter_by(id_cuenta=resp['sub']).first()
         if user:
             usuario = {
                 'status':'success',
                 'data':{
-                    'id_cuenta':user.id,
-                    'email':user.email,
-                    'admin':user.admin,
+                    'id_cuenta':user.id_cuenta,
                     'pnombre':user.primer_nombre,
-                    'snombre':user.otro_nombre,
+                    'snombre':user.otros_nombres,
                     'papellido':user.primer_apellido,
                     'sapellido':user.segundo_apellido,
                     'fnacimiento':user.fecha_nacimiento,

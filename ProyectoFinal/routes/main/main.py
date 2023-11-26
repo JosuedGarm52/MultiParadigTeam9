@@ -29,7 +29,7 @@ def index():
     else:
         try:
             token = request.json['cuenta_id']
-            usuario = request.json['usuario']
+
             # Decodificar el token para obtener la información
             decoded_token = decode_auth_token(token)
 
