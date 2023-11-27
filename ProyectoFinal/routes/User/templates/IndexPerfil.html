@@ -10,6 +10,7 @@
 <body>
     <a href="/">Home</a>
     <h1>Perfil</h1>
+    <img src="" alt="" id="imgPrin">
     <h2>Chats</h2>
     <div>
         <h2>Lista de chats</h2>
@@ -47,7 +48,18 @@
             <button onclick="verDocumento('pasaporte')">Ver Documento</button>
         </div>
     </div>
+    <br>
+    <h2>Imagenes</h2>
+    <div>
+        <div id="imagenesPerfil"></div>
 
+        <form action="/subir_foto" method="post">
+            <label for="nueva_foto">Nueva Foto:</label>
+            <input type="text" name="nueva_foto" id="nueva_foto" required>
+            <button type="submit">Subir Foto</button>
+        </form>
+    </div>
+    <br>
     <div>
         <h2>Informacion Cuenta</h2>
         <p>Primer Nombre</p>
@@ -108,6 +120,8 @@
         let comprobanteinfo;
         let ineinfo;
         let pasaporteinfo;
+        const imagenPrincipal= document.getElementById('imgPrin');
+        let primeraImagen = "https://previews.123rf.com/images/pavelstasevich/pavelstasevich1811/pavelstasevich181101032/112815935-no-hay-icono-de-imagen-disponible-ilustración-vectorial-plana.jpg"
         function Iniciar() {
             //Habilitar campos
             {
@@ -251,6 +265,36 @@
                         .catch(error => {
                             console.error('Error al obtener los datos:', error);
                         });
+
+                    // Hacer una solicitud Fetch para obtener el perfil con el cuenta_id
+                    fetch(`perfil/${cuenta_id}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            const imagenesDiv = document.getElementById('imagenesPerfil');
+                            if (data && data.fotos_perfil) {
+                                primeraImagen = data.fotos_perfil[0];
+
+                                // Iterar sobre las fotos del perfil y agregarlas al div
+                                data.fotos_perfil.forEach(foto => {
+                                    const imagen = document.createElement('img');
+                                    imagen.src = foto.link;
+                                    imagen.alt = 'Foto de perfil';
+
+                                    imagen.style.maxWidth = '25%';
+                                    imagen.style.height = 'auto';
+
+                                    imagenesDiv.appendChild(imagen);
+                                });
+
+                                // Asignar el src de la primera imagen al elemento existente
+                                imagenPrincipal.src = primeraImagen.link;
+                                imagenPrincipal.alt = 'Foto de perfil principal';
+                                imagenPrincipal.style.maxWidth = '40%';
+                                imagenPrincipal.style.height = 'auto';
+                            }
+                        })
+                        .catch(error => console.error('Error al obtener el perfil:', error));
+                    
                 }else{
 
                 }

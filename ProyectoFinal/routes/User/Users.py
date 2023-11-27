@@ -1,5 +1,5 @@
 from flask import Flask, render_template, Blueprint, redirect, url_for,request, jsonify, send_from_directory
-from models import Cuenta,Perfil,Documento
+from models import Cuenta,Perfil,Documento, Perfil_Foto, Foto
 from auth import tokenCheck,verificar
 from app import db,bcrypt
 from sqlalchemy import exc 
@@ -92,6 +92,28 @@ def obtener_datos():
     # Devolver los datos como respuesta JSON
     return jsonify(datos_usuario)
 
+@appuser.route('/perfil/<_id>', methods=['GET'])
+def obtener_perfil(_id):
+    cuenta_id = verificarID(_id)
+
+    usercuenta = Cuenta.query.filter_by(id_cuenta=cuenta_id).first()
+    userperfil = Perfil.query.filter_by(cuenta_id=usercuenta.id_cuenta).first()
+
+    # Obtener fotos asociadas al perfil
+    fotos_perfil = sorted(
+        [
+            {"link": foto.foto.link, "isperfil": foto.isperfil} for foto in userperfil.perfil_fotos
+        ],
+        key=lambda x: not x["isperfil"]  # Coloca True primero
+    )
+
+    # Crear el objeto con los datos a enviar como respuesta JSON
+    datos_perfil = {
+        "fotos_perfil": fotos_perfil,
+        # Puedes agregar más datos según sea necesario
+    }
+
+    return jsonify(datos_perfil)
 
 
 @appuser.route('/registro',methods=["GET","POST"])

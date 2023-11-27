@@ -12,3 +12,8 @@ body {
 .documento {
     margin-bottom: 15px;
 }
+
+.img {
+    max-width: 50%;
+    height: auto;
+}
