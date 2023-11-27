@@ -46,11 +46,12 @@ def index():
         if cuenta_id:
             # Consultar admin
             admin = Admin.query.filter_by(cuenta_id=cuenta_id).first()
+            cuentax = Cuenta.query.filter_by(id_cuenta = cuenta_id).first()
             if admin:
                 return jsonify({
                     'status': 'success',
                     'rol': 'administrador',
-                    'email': admin.cuenta.email  # Obtén el email desde la cuenta asociada al admin
+                    'email': cuentax.email  # Obtén el email desde la cuenta asociada al admin
                 })
 
             # Consultar mod
