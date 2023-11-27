@@ -3,12 +3,127 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Administrador</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
     <h1>Administrador</h1>
-    <p>Lista de Administradores</p>
+    <p>Lista de Moderadores</p>
+    <ul id="moderadores-list"></ul>
+    <br>
+    <div>
+        <label for="txtBusqueda">Buscar Cuenta:</label>
+        <input type="text" id="txtBusqueda" placeholder="Ingrese el nombre de la cuenta">
+        <button onclick="buscarCuentas()">Buscar</button>
+        <ul id="listaCuentas"></ul>
+    </div>
     <br>
     <button onclick="window.location.href = '/';">Regresar</button>
+
+    <script>
+        // Función para obtener y mostrar la lista de moderadores
+        async function cargarModeradores() {
+            try {
+                const response = await axios.get('obtener_mod');
+                const moderadores = response.data;
+
+                const moderadoresList = document.getElementById('moderadores-list');
+                moderadoresList.innerHTML = '';
+
+                moderadores.forEach(moderador => {
+                    const listItem = document.createElement('li');
+                    listItem.innerHTML = `
+                        ${moderador.primer_nombre} ${moderador.primer_apellido} ${moderador.correo}
+                        <button onclick="verModerador('${moderador.cuenta_id}')">Ver</button>
+                        <button onclick="quitarModerador('${moderador.cuenta_id}')">Quitar</button>
+                    `;
+                    moderadoresList.appendChild(listItem);
+                });
+            } catch (error) {
+                console.error('Error al cargar moderadores:', error);
+            }
+            buscarCuentas();
+        }
+
+        function verModerador(cuenta_id) {
+            console.log('Ver moderador con cuenta_id:', cuenta_id);
+        }
+
+        function quitarModerador(cuenta_id) {
+            const textoBusqueda = document.getElementById('txtBusqueda').value;
+            textoBusqueda.value = '';
+            fetch(`quitar_mod/${cuenta_id}`, {
+                method: 'POST',  
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('quitarMod: ', data.message);
+                buscarCuentas();
+                cargarModeradores();
+            })
+            .catch(error => console.error('Error al buscar cuentas:', error));
+        }
+        function buscarCuentas() {
+            // Obtén el valor del campo de búsqueda
+            const textoBusqueda = document.getElementById('txtBusqueda').value;
+
+            // Realiza una solicitud Fetch para buscar cuentas que coincidan con el texto de búsqueda
+            fetch(`buscar_cuentas?texto=${encodeURIComponent(textoBusqueda)}`)
+                .then(response => response.json())
+                .then(data => {
+                    // Obtén la lista de cuentas y el elemento de la lista en el HTML
+                    const listaCuentas = document.getElementById('listaCuentas');
+
+                    // Borra cualquier contenido existente en la lista
+                    listaCuentas.innerHTML = '';
+
+                    // Itera sobre las cuentas encontradas y crea elementos de lista
+                    data.cuentas.forEach(cuenta => {
+                        const itemLista = document.createElement('li');
+                        itemLista.textContent = `${cuenta.primer_nombre} ${cuenta.primer_apellido} ${cuenta.correo}`;
+
+                        // Agrega un botón de asignar a cada elemento de lista
+                        const btnAsignar = document.createElement('button');
+                        btnAsignar.textContent = 'Asignar';
+                        btnAsignar.onclick = function () {
+                            asignarCuenta(cuenta.cuenta_id);
+                        };
+
+                        // Agrega el botón al elemento de lista
+                        itemLista.appendChild(btnAsignar);
+
+                        // Agrega el elemento de lista a la lista en el HTML
+                        listaCuentas.appendChild(itemLista);
+                    });
+                })
+                .catch(error => console.error('Error al buscar cuentas:', error));
+        }
+        function asignarCuenta(cuenta_id) {
+            const textoBusqueda = document.getElementById('txtBusqueda').value;
+            textoBusqueda.value = '';
+            fetch(`asignar_cuenta/${cuenta_id}`, {
+                method: 'POST',  // O el método HTTP que prefieras
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('asignarCuenta: ', data.message);
+                buscarCuentas();
+                cargarModeradores();
+            })
+            .catch(error => {
+                console.error('Error al asignar la cuenta:', error);
+            });
+        }
+
+
+        // Llamar a la función para cargar moderadores cuando la página se cargue
+        window.onload = cargarModeradores;
+    </script>
 </body>
 </html>
