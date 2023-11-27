@@ -1,129 +1,14 @@
+/* Estilos básicos, puedes personalizar según tus necesidades */
 body {
     font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: rgb(182, 182, 107);
-    min-width: 100%;
-    min-height: 100%;
+    margin: 20px;
 }
 
-header {
-    background-color: #f0f0f0;
-    text-align: center;
-    padding: 20px;
-    position: relative;
+#documentos-container {
+    max-width: 600px;
+    margin: auto;
 }
 
-header img {
-    position: absolute;
-    top: 3px;
-    left: 20px;
-}
-
-header h1 {
-    display: inline-block;
-    margin: 0;
-}
-
-#cont-log{
-    position: absolute;
-    right: 0;
-    top: 70%;
-}
-#login{
-    position: relative;
-    right: 50px;
-    text-decoration: none;
-    color: #333;
-    font-weight: bold;
-}
-#reg{
-    position: absolute;
-    right: 20px;
-    text-decoration: none;
-    color: #333;
-    font-weight: bold;
-}
-
-nav {
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 10px;
-}
-
-.options {
-    display: flex;
-    justify-content: space-around;
-    padding: 20px;
-}
-
-.image-slider {
-    overflow: hidden;
-    white-space: nowrap;
-    background-color: lightblue;
-}
-
-.image-slider img {
-    height: 200px;
-    width: 50%;
-    display: inline-block;
-    animation: slide 5s infinite;
-}
-
-@keyframes slide {
-    0% { transform: translateX(100%); }
-    100% { transform: translateX(-100%); }
-}
-
-.info-box {
-    background-color: #8CC84B; /* Color verde hoja */
-    text-align: center;
-    padding: 20px;
-    display: flex; /* Configura el diseño como flex */
-    justify-content: space-around; /* Distribuye el espacio entre las columnas */
-    align-items: center; /* Centra verticalmente el contenido */
-    margin: 10px;
-}
-
-.info-box img {
-    width: 33%; /* La imagen ocupa un tercio del ancho */
-    max-width: 100%; /* Asegura que la imagen no supere el ancho del contenedor */
-}
-
-.text-column {
-    width: 33%; /* Cada columna de texto ocupa un tercio del ancho */
-    color: #fff; /* Texto blanco para contraste */
-}
-
-#info {
-    color: #000;
-    font-size: 24px;
-    font-weight: bold;
-    text-align: center; 
-    line-height: 1.5; 
-    background-color: red;
-}
-
-.warning-box {
-    background-color: #FFD700; /* Color dorado para mensajes de advertencia */
-    color: #333; /* Texto oscuro para contraste */
-    text-align: left;
-    padding: 20px;
-    margin: 20px 0;
-    border: 2px solid #FFA500; /* Borde naranja para mayor contraste */
-    border-radius: 8px; /* Esquinas redondeadas para un aspecto más suave */
-    line-height: 1.6; /* Espaciado entre líneas para mejorar la legibilidad */
-}
-
-.warning-box p {
-    margin-bottom: 15px; /* Espacio entre párrafos */
-}
-
-.warning-box strong {
-    font-weight: bold; /* Texto en negrita para resaltar */
-}
-
-.warning-box em {
-    font-style: italic; /* Texto en cursiva para resaltar */
+.documento {
+    margin-bottom: 15px;
 }

@@ -1,11 +1,12 @@
-from flask import Flask, render_template, Blueprint, redirect, url_for,request, jsonify
-from models import Cuenta,Perfil
+from flask import Flask, render_template, Blueprint, redirect, url_for,request, jsonify, send_from_directory
+from models import Cuenta,Perfil,Documento
 from auth import tokenCheck,verificar
 from app import db,bcrypt
 from sqlalchemy import exc 
 from sqlalchemy.orm.exc import NoResultFound
 from utils import decode_auth_token, encode_auth_token, verificarID
 from auth import obtenerInfo
+import os
 
 app = Flask(__name__)
 
@@ -14,6 +15,19 @@ appuser = Blueprint('user', __name__, template_folder='templates', static_folder
 @appuser.route('/')
 def index():
     return render_template('indexPerfil.html')
+
+@appuser.route('/default')
+def obtener_default_pdf():
+    # Ruta al directorio de documentos estáticos
+    directorio_documentos = 'pdf'  # No es necesario poner 'static/' aquí
+
+    # Devolver el archivo PDF predeterminado usando send_from_directory
+    ruta_pdf = url_for('user.static', filename='pdf/default.pdf')
+    return send_from_directory(directorio_documentos, 'default.pdf')
+
+@app.route('/ver_pdf/<filename>')
+def ver_pdf(filename):
+    return send_from_directory('pdf', filename)
 
 @appuser.route('/obtener_datos', methods = ["POST"])
 def obtener_datos():
@@ -24,7 +38,39 @@ def obtener_datos():
 
     usercuenta = obtenerInfo(token=cuenta_idtoken)
     userperfil = Perfil.query.filter_by(cuenta_id=cuenta_id).first()
+    userdocs = Documento.query.filter_by(usuario_name = userperfil.usuario).all()
     email = usercuenta['data']['correo']
+
+    listacta = []
+    listcomprobante = []
+    listine = []
+    listpasspord = []
+
+    for userdoc in userdocs:
+        if userdoc.tipo == "acta":
+            listacta.append({
+                "link": userdoc.link,
+                "isaprobado": userdoc.isaprobado,
+                "tipo": userdoc.tipo
+            })
+        elif userdoc.tipo == "comprobante":
+            listcomprobante.append({
+                "link": userdoc.link,
+                "isaprobado": userdoc.isaprobado,
+                "tipo": userdoc.tipo
+            })
+        elif userdoc.tipo == "ine":
+            listine.append({
+                "link": userdoc.link,
+                "isaprobado": userdoc.isaprobado,
+                "tipo": userdoc.tipo
+            })
+        elif userdoc.tipo == "passpord":
+            listpasspord.append({
+                "link": userdoc.link,
+                "isaprobado": userdoc.isaprobado,
+                "tipo": userdoc.tipo
+            })
     datos_usuario = {
         "primer_nombre": usercuenta['data']['pnombre'],
         "otros_nombres": usercuenta['data']['snombre'],
@@ -37,6 +83,10 @@ def obtener_datos():
         "pais":userperfil.pais_origen,
         "genero":userperfil.genero,
         "busqueda":userperfil.busqueda,
+        "acta":listacta,
+        "comprobante": listcomprobante,  
+        "ine":listine,
+        "passpord": listpasspord,
     }
 
     # Devolver los datos como respuesta JSON

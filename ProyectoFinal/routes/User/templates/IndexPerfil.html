@@ -4,16 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil Home</title>
+
+    <link rel="stylesheet" href="{{ url_for('main.static', filename='css/estilo1.css') }}">
 </head>
 <body>
     <a href="/">Home</a>
     <h1>Perfil</h1>
+    <h2>Chats</h2>
     <div>
         <h2>Lista de chats</h2>
         <div id="listaChat"></div>
         <a href="#">Encuentra tu pareja</a>
     </div>
+    <b></b>
+    <h2>Documentos</h2>
+    <div id="documentos-container">
+        <div class="documento">
+            <input type="checkbox" id="chkacta" readonly>
+            <label for="acta">Acta de Nacimiento</label>
+            <button onclick="subirDocumento('acta')">Subir Documento</button>
+            <button onclick="verDocumento('acta')">Ver Documento</button>
+        </div>
 
+        <div class="documento">
+            <input type="checkbox" id="chkdomicilio" readonly>
+            <label for="domicilio">Comprobante de Domicilio</label>
+            <button onclick="subirDocumento('domicilio')">Subir Documento</button>
+            <button onclick="verDocumento('domicilio')">Ver Documento</button>
+        </div>
+
+        <div class="documento">
+            <input type="checkbox" id="chkine" readonly>
+            <label for="ine">Documento INE</label>
+            <button onclick="subirDocumento('ine')">Subir Documento</button>
+            <button onclick="verDocumento('ine')">Ver Documento</button>
+        </div>
+
+        <div class="documento">
+            <input type="checkbox" id="chkpasaporte"  readonly>
+            <label for="pasaporte">Documento Pasaporte</label>
+            <button onclick="subirDocumento('pasaporte')">Subir Documento</button>
+            <button onclick="verDocumento('pasaporte')">Ver Documento</button>
+        </div>
+    </div>
 
     <div>
         <h2>Informacion Cuenta</h2>
@@ -71,6 +104,10 @@
     <button onclick="window.location.href = '/';">Regresar</button>
 
     <script>
+        let actainfo;
+        let comprobanteinfo;
+        let ineinfo;
+        let pasaporteinfo;
         function Iniciar() {
             //Habilitar campos
             {
@@ -189,6 +226,27 @@
                                 if (busco.includes('otro')) {
                                     document.getElementById('otro').checked = true;
                                 }
+                                //aqui va la info de doc
+                                if (data.acta && data.acta.length > 0) {
+                                    const acta = data.acta[0];  // Tomar el primer documento de tipo "acta"
+                                    actainfo = acta.link;
+                                    document.getElementById('chkacta').checked = acta.isaprobado;
+                                }
+                                if (data.comprobante && data.comprobante.length > 0) {
+                                    const comprobante = data.comprobante[0];
+                                    comprobanteinfo = comprobante.link;
+                                    document.getElementById('chkdomicilio').checked = comprobante.isaprobado;
+                                }
+                                if (data.ine && data.ine.length > 0) {
+                                    const ine = data.ine[0];
+                                    ineinfo = ine.link;
+                                    document.getElementById('chkine').checked = ine.isaprobado;
+                                }
+                                if (data.pasaporte && data.pasaporte.length > 0) {
+                                    const pasaporte = data.pasaporte[0];
+                                    pasaporteinfo = pasaporte.link;
+                                    document.getElementById('chkpasaporte').checked = pasaporte.isaprobado;
+                                }
                         })
                         .catch(error => {
                             console.error('Error al obtener los datos:', error);
@@ -199,8 +257,55 @@
             }
             // Llamar a la función para obtener y llenar los datos
             obtenerDatos();
+            function subirDocumento(tipoDocumento) {
+                // Aquí puedes implementar la lógica para abrir un menú o ventana de subida de documentos
+                // y solicitar la autorización del usuario.
+                console.log(`Subir documento de tipo ${tipoDocumento}`);
+            }
+
+            
+
         };
         window.onload = Iniciar;
+
+        function verDocumento(tipoDocumento) {
+            let documentoLink;
+            let documentoAprobado;
+            // Seleccionar la información correcta según el tipo de documento
+            switch (tipoDocumento) {
+                case 'acta':
+                    documentoLink = actainfo;
+                    documentoAprobado = document.getElementById('chkacta').checked;
+                    break;
+                case 'comprobante':
+                    documentoLink = comprobanteinfo;
+                    documentoAprobado = document.getElementById('chkdomicilio').checked;
+                    break;
+                case 'ine':
+                    documentoLink = ineinfo;
+                    documentoAprobado = document.getElementById('chkine').checked;
+                    break;
+                case 'pasaporte':
+                    documentoLink = pasaporteinfo;
+                    documentoAprobado = document.getElementById('chkpasaporte').checked;
+                    break;
+                default:
+                    console.error('Tipo de documento no reconocido');
+                    return;
+            }
+            // Verificar si hay un link para el documento
+            if (documentoLink) {
+                // Abrir el enlace en una nueva pestaña
+                window.open(documentoLink, '_blank');
+            } else {
+                // Si no hay link, abrir un PDF predeterminado o manejarlo según tus necesidades
+                console.log(`No hay link para el documento de tipo ${tipoDocumento}. Abriendo PDF predeterminado.`);
+                
+                // Aquí puedes abrir un PDF predeterminado o mostrar un mensaje al usuario
+                // Ejemplo: Abrir un PDF predeterminado en blanco
+                window.open('/usuarios/default', '_blank');
+            }
+        }
     </script>
 </body>
 </html>

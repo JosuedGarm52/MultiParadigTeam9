@@ -10,10 +10,17 @@ pip install pyjwt
 pip install flask-bcrypt
 pip install bcrypt
 pip install flask-cors
-pip install psycopg2
 
 comando inicial
 ---
 flask db init
 flask db migrate
 flask db upgrade
+
+pip install pyngrok
+
+ngrok http 80
+//correr local
+flask run
+//correr ngrok 
+ngrok http 5000
