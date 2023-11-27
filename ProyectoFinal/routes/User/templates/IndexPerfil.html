@@ -289,7 +289,7 @@
                                 // Asignar el src de la primera imagen al elemento existente
                                 imagenPrincipal.src = primeraImagen.link;
                                 imagenPrincipal.alt = 'Foto de perfil principal';
-                                imagenPrincipal.style.maxWidth = '40%';
+                                imagenPrincipal.style.maxWidth = '20%';
                                 imagenPrincipal.style.height = 'auto';
                             }
                         })
@@ -347,7 +347,9 @@
                 
                 // Aquí puedes abrir un PDF predeterminado o mostrar un mensaje al usuario
                 // Ejemplo: Abrir un PDF predeterminado en blanco
-                window.open('/usuarios/default', '_blank');
+                const urlPDF = 'obtener_pdf';
+                window.open(urlPDF, '_blank');
+                //window.location.href = urlPDF;
             }
         }
     </script>

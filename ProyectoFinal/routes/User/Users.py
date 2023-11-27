@@ -1,4 +1,4 @@
-from flask import Flask, render_template, Blueprint, redirect, url_for,request, jsonify, send_from_directory
+from flask import Flask, render_template, Blueprint, redirect, url_for,request, jsonify, send_from_directory, send_file
 from models import Cuenta,Perfil,Documento, Perfil_Foto, Foto
 from auth import tokenCheck,verificar
 from app import db,bcrypt
@@ -25,9 +25,20 @@ def obtener_default_pdf():
     ruta_pdf = url_for('user.static', filename='pdf/default.pdf')
     return send_from_directory(directorio_documentos, 'default.pdf')
 
-@app.route('/ver_pdf/<filename>')
+@appuser.route('/ver_pdf/<filename>')
 def ver_pdf(filename):
     return send_from_directory('pdf', filename)
+
+@appuser.route('/obtener_pdf')
+def obtener_pdf():
+    nombre_archivo = 'default.pdf'
+    ruta_pdf = f'routes/user/static/pdf/{nombre_archivo}'
+    return send_file(
+        ruta_pdf,
+        mimetype='application/pdf',
+        as_attachment=True,
+        download_name='nuevo_nombre.pdf'
+    )
 
 @appuser.route('/obtener_datos', methods = ["POST"])
 def obtener_datos():
