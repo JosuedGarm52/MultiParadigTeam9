@@ -7,6 +7,7 @@ from utils import encode_auth_token, decode_auth_token, verificarID
 import pandas as pd
 from datetime import datetime, timedelta
 import io
+from collections import defaultdict
 
 app = Flask(__name__)
 
@@ -297,14 +298,23 @@ def obtener_cantidad_mensajes_semana():
         func.count().label('cantidad')
     ).group_by('semana', Mensaje.usuario_rem, Mensaje.usuario_dest).all()
 
+    # Diccionario para almacenar la cantidad total de mensajes entre cada par de usuarios
+    cantidad_mensajes_por_usuario = defaultdict(int)
+
+    for mensaje in mensajes_semana:
+        # Crea una clave única para identificar la pareja de usuarios
+        clave_usuarios = frozenset([mensaje.usuario_rem, mensaje.usuario_dest])
+
+        # Agrega la cantidad de mensajes al total acumulado
+        cantidad_mensajes_por_usuario[clave_usuarios] += mensaje.cantidad
+
+    # Convierte el diccionario a una lista de diccionarios para el formato deseado
     mensajes_info = [
         {
-            'Semana': mensaje.semana,
-            'Remitente': mensaje.usuario_rem,
-            'Destinatario': mensaje.usuario_dest,
-            'Cantidad': mensaje.cantidad
+            'Cantidad de Mensajes': cantidad,
+            'Usuarios': ', '.join(usuarios)
         }
-        for mensaje in mensajes_semana
+        for usuarios, cantidad in cantidad_mensajes_por_usuario.items()
     ]
 
     return mensajes_info
@@ -319,14 +329,23 @@ def obtener_cantidad_mensajes_mes():
         func.count().label('cantidad')
     ).group_by('mes', Mensaje.usuario_rem, Mensaje.usuario_dest).all()
 
+    # Diccionario para almacenar la cantidad total de mensajes entre cada par de usuarios
+    cantidad_mensajes_por_usuario = defaultdict(int)
+
+    for mensaje in mensajes_mes:
+        # Crea una clave única para identificar la pareja de usuarios
+        clave_usuarios = frozenset([mensaje.usuario_rem, mensaje.usuario_dest])
+
+        # Agrega la cantidad de mensajes al total acumulado
+        cantidad_mensajes_por_usuario[clave_usuarios] += mensaje.cantidad
+
+    # Convierte el diccionario a una lista de diccionarios para el formato deseado
     mensajes_info = [
         {
-            'Mes': mensaje.mes,
-            'Remitente': mensaje.usuario_rem,
-            'Destinatario': mensaje.usuario_dest,
-            'Cantidad': mensaje.cantidad
+            'Cantidad de Mensajes': cantidad,
+            'Usuarios': ', '.join(usuarios)
         }
-        for mensaje in mensajes_mes
+        for usuarios, cantidad in cantidad_mensajes_por_usuario.items()
     ]
 
     return mensajes_info
