@@ -4,19 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link rel="stylesheet" href="../static/css/estilo2.css">
 </head>
 <body>
-    <h1>LOGIN</h1>
-    <p>Usuario o correo</p>
-    <input type="text">
-    <p>Password</p>
-    <input type="password">
-    <br>
-    <input type="button" value="Ingresar" onclick="window.location.href = '/';"> 
-    <br>
-    <a href="/register">¿Aun no estas registrado?</a>
-    <br>
-    <button onclick="window.location.href = '/';">Regresar</button>
-
+    <div class="formulario">
+        <br>
+        <center><img src="../static/images/LogoPagina.jpg" alt="Logo" width="150" height="110"></center>
+        <h1>Inicio de Sesión</h1>
+        <form id="login_form">
+            <div class="username">
+                <label>Nombre de usuario o correo electrónico</label>
+                <input type="text" id="principal" name="principal" required>
+            </div>
+            <div class="username">
+                <label>Contraseña / Password</label>
+                <input type="password" id="contra" name="contra" required>
+            </div>
+            <input type="submit" id="btn_login" value="Ingresar">
+        </form>
+        <br>
+        <span id="errorLabel" style="display: none; color: red;"></span>
+        <br>
+        <div class="registrarse">
+            ¿Aún no estás <a href="/register">registrado?</a>
+        </div>
+        <br>
+        <div class="regresar">
+        <center><button name="regresar" id="regresar" onclick="window.location.href = '/';">Regresar</button></center>
+        <br>
+        </div>
+    </div>
 </body>
 </html>
