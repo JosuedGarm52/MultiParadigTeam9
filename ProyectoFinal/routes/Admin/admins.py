@@ -1,10 +1,12 @@
-from flask import Flask, Blueprint,request,jsonify,render_template,redirect
+from flask import Flask, Blueprint,request,jsonify,render_template,redirect, send_file
 from auth import tokenCheck,verificar
 from app import db,bcrypt
-from models import Perfil, Cuenta,Mod,Admin
-from sqlalchemy import exc 
-from utils import encode_auth_token, decode_auth_token
-
+from models import Perfil, Cuenta,Mod,Admin, Mensaje, Chat
+from sqlalchemy import exc, func
+from utils import encode_auth_token, decode_auth_token, verificarID
+import pandas as pd
+from datetime import datetime, timedelta
+import io
 
 app = Flask(__name__)
 
@@ -151,3 +153,180 @@ def quitar_mod(_id):
             'message':'No se pudo quitar el permiso de mod'
         }
     return jsonify(responseObject)
+
+@appadmin.route('/csv_mod/<_id>')
+def generar_csv_mod(_id):
+    mod = Mod.query.filter_by(cuenta_id=_id).first()
+
+    if mod:
+        # Obtén los IDs de los chats moderados por el Mod
+        ids_chats_moderados = [chat.id_mensaje for chat in mod.chat]
+
+        # Realiza la consulta con SQLAlchemy
+        resultados = (
+            db.session.query(
+                func.least(Mensaje.usuario_rem, Mensaje.usuario_dest).label('persona_1'),
+                func.greatest(Mensaje.usuario_rem, Mensaje.usuario_dest).label('persona_2'),
+                func.count().label('cantidad_mensajes')
+            )
+            .filter(Mensaje.id_mensaje.in_(ids_chats_moderados))
+            .group_by('persona_1', 'persona_2')
+            .order_by('cantidad_mensajes', 'persona_1', 'persona_2')  # Ordena por cantidad de mensajes
+            .all()
+        )
+
+        # Crea un DataFrame con los resultados
+        df_chats_moderados = pd.DataFrame(resultados)
+
+        # Crea el archivo CSV y envíalo como respuesta
+        nombre_archivo = f'reporte_chats_mod_{_id}.csv'
+        df_chats_moderados.to_csv(nombre_archivo, index=False)
+
+        return send_file(nombre_archivo, as_attachment=True)
+
+    else:
+        return None
+
+#generar csv general
+@appadmin.route('/generar_csv')
+def generar_csv():
+    # Obtén los datos de la base de datos
+    datos_cuentas = obtener_cuentas_por_dia()
+    datos_cuentas_semana = obtener_cuentas_por_semana()
+    datos_moderador = obtener_cantidad_moderadores()
+    datos_cantidad_chat = obtener_cantidad_chats_creados()
+    datos_cantidad_mensaje_semana = obtener_cantidad_mensajes_semana()
+    datos_cantidad_mensaje_mes = obtener_cantidad_mensajes_mes()
+    
+    # Crea un DataFrame para cada conjunto de datos
+    df_cuentas = pd.DataFrame(datos_cuentas)
+    df_cuentas_semana = pd.DataFrame(datos_cuentas_semana)
+    df_moderador = pd.DataFrame(datos_moderador)
+    df_cantidad_chat = pd.DataFrame(datos_cantidad_chat)
+    df_cantidad_mensaje_semana = pd.DataFrame(datos_cantidad_mensaje_semana)
+    df_cantidad_mensaje_mes = pd.DataFrame(datos_cantidad_mensaje_mes)
+
+    # Convierte los DataFrames a archivos CSV en memoria
+    csv_cuentas = df_cuentas.to_csv(index=False)
+    csv_cuentas_semana = df_cuentas_semana.to_csv(index=False)
+    csv_moderador = df_moderador.to_csv(index=False)
+    csv_cantidad_chat = df_cantidad_chat.to_csv(index=False)
+    csv_cantidad_mensaje_semana = df_cantidad_mensaje_semana.to_csv(index=False)
+    csv_cantidad_mensaje_mes = df_cantidad_mensaje_mes.to_csv(index=False)
+
+    # Combina los archivos CSV en uno solo
+    csv_combinado = (
+        f'Cuentas al dia:\n{csv_cuentas}\n\n'
+        f'Cuentas a la semana:\n{csv_cuentas_semana}\n\n'
+        f'Moderadores:\n{csv_moderador}\n\n'
+        f'Cantidad de Chats:\n{csv_cantidad_chat}\n\n'
+        f'Cantidad de Mensajes (Semana):\n{csv_cantidad_mensaje_semana}\n\n'
+        f'Cantidad de Mensajes (Mes):\n{csv_cantidad_mensaje_mes}'
+    )
+
+    # Crea un objeto BytesIO para almacenar el CSV en memoria
+    csv_bytes = io.BytesIO(csv_combinado.encode('utf-8'))
+
+    # Devuelve el archivo CSV al navegador para su descarga
+    return send_file(
+        csv_bytes,
+        as_attachment=True,
+        download_name='reporte_csv.csv',
+        mimetype='text/csv'
+    )
+
+def obtener_cuentas_por_dia():
+    # Obtén las cuentas de la base de datos
+    cuentas = Cuenta.query.all()
+
+    # Crea un diccionario para almacenar la cantidad de cuentas por día
+    cuentas_por_dia = {}
+
+    # Itera sobre las cuentas y cuenta la cantidad por día
+    for cuenta in cuentas:
+        fecha_registro = cuenta.registered_on.date()  # Obtén solo la fecha sin la hora
+        cuentas_por_dia[fecha_registro] = cuentas_por_dia.get(fecha_registro, 0) + 1
+
+    # Convierte el diccionario a una lista de diccionarios
+    datos = [{'Fecha': fecha, 'Cantidad_Cuentas': cantidad} for fecha, cantidad in cuentas_por_dia.items()]
+
+    return datos
+
+def obtener_cuentas_por_semana():
+    # Obtén la fecha actual
+    fecha_actual = datetime.now()
+
+    # Resta 7 días a la fecha actual para obtener la fecha de inicio de la semana
+    fecha_inicio_semana = fecha_actual - timedelta(days=7)
+
+    # Consulta la base de datos para obtener la cantidad de cuentas por semana
+    datos_cuentas = (
+        Cuenta.query
+        .with_entities(
+            func.date_trunc('week', Cuenta.registered_on).label('semana'),
+            func.count().label('cantidad_cuentas')
+        )
+        .filter(Cuenta.registered_on >= fecha_inicio_semana)
+        .group_by('semana')
+        .all()
+    )
+
+    # Convierte los resultados en un formato adecuado para el DataFrame
+    datos_formateados = [{'Semana': str(fila.semana), 'Cantidad Cuentas': fila.cantidad_cuentas} for fila in datos_cuentas]
+
+    return datos_formateados
+
+def obtener_cantidad_moderadores():
+    moderadores = Mod.query.all()
+    moderadores_info = [{'ID': mod.id_mod, 'Nombre': mod.cuenta.primer_nombre} for mod in moderadores]
+    return moderadores_info
+
+def obtener_cantidad_chats_creados():
+    chats = Chat.query.all()
+    chats_info = [{'ID': f'{chat.mensaje_id}-{chat.mod_id}', 'Moderador': chat.mod.cuenta.primer_nombre} for chat in chats]
+    return chats_info
+
+
+
+def obtener_cantidad_mensajes_semana():
+    # Usa la función func.date_trunc para truncar las fechas al comienzo de la semana
+    mensajes_semana = db.session.query(
+        func.date_trunc('week', Mensaje.fecha).label('semana'),
+        Mensaje.usuario_rem,
+        Mensaje.usuario_dest,
+        func.count().label('cantidad')
+    ).group_by('semana', Mensaje.usuario_rem, Mensaje.usuario_dest).all()
+
+    mensajes_info = [
+        {
+            'Semana': mensaje.semana,
+            'Remitente': mensaje.usuario_rem,
+            'Destinatario': mensaje.usuario_dest,
+            'Cantidad': mensaje.cantidad
+        }
+        for mensaje in mensajes_semana
+    ]
+
+    return mensajes_info
+
+
+def obtener_cantidad_mensajes_mes():
+    # Usa la función func.date_trunc para truncar las fechas al comienzo del mes
+    mensajes_mes = db.session.query(
+        func.date_trunc('month', Mensaje.fecha).label('mes'),
+        Mensaje.usuario_rem,
+        Mensaje.usuario_dest,
+        func.count().label('cantidad')
+    ).group_by('mes', Mensaje.usuario_rem, Mensaje.usuario_dest).all()
+
+    mensajes_info = [
+        {
+            'Mes': mensaje.mes,
+            'Remitente': mensaje.usuario_rem,
+            'Destinatario': mensaje.usuario_dest,
+            'Cantidad': mensaje.cantidad
+        }
+        for mensaje in mensajes_mes
+    ]
+
+    return mensajes_info

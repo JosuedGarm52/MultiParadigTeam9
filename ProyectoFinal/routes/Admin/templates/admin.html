@@ -18,6 +18,8 @@
         <ul id="listaCuentas"></ul>
     </div>
     <br>
+    <button id="btnGenerarCSV">Generar cvs</button>
+    <br>
     <button onclick="window.location.href = '/';">Regresar</button>
 
     <script>
@@ -46,7 +48,20 @@
         }
 
         function verModerador(cuenta_id) {
-            console.log('Ver moderador con cuenta_id:', cuenta_id);
+            fetch(`asignar_cuenta/${cuenta_id}`)
+            .then(response => response.blob())
+            .then(blob => {
+                // Crear un enlace temporal para descargar el archivo
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'reporte_mod_csv.zip'; // Puedes cambiar el nombre del archivo si es necesario
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+            })
+            .catch(error => console.error('Error al generar o descargar el archivo CSV:', error));
         }
 
         function quitarModerador(cuenta_id) {
@@ -120,7 +135,22 @@
                 console.error('Error al asignar la cuenta:', error);
             });
         }
+        document.getElementById('btnGenerarCSV').addEventListener('click', function () {
+            // Realiza la solicitud GET al endpoint que genera el CSV
+            fetch('generar_csv')
+                .then(response => response.blob())
+                .then(blob => {
+                    // Crea un enlace (link) para descargar el archivo
+                    const url = window.URL.createObjectURL(new Blob([blob]));
 
+                    // Crea un elemento a y simula un clic para iniciar la descarga
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'reporte.csv';
+                    a.click();
+                })
+                .catch(error => console.error('Error al generar el CSV:', error));
+        });
 
         // Llamar a la función para cargar moderadores cuando la página se cargue
         window.onload = cargarModeradores;
