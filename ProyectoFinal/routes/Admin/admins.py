@@ -195,7 +195,6 @@ def generar_csv():
     datos_cuentas = obtener_cuentas_por_dia()
     datos_cuentas_semana = obtener_cuentas_por_semana()
     datos_moderador = obtener_cantidad_moderadores()
-    datos_cantidad_chat = obtener_cantidad_chats_creados()
     datos_cantidad_mensaje_semana = obtener_cantidad_mensajes_semana()
     datos_cantidad_mensaje_mes = obtener_cantidad_mensajes_mes()
     
@@ -203,7 +202,6 @@ def generar_csv():
     df_cuentas = pd.DataFrame(datos_cuentas)
     df_cuentas_semana = pd.DataFrame(datos_cuentas_semana)
     df_moderador = pd.DataFrame(datos_moderador)
-    df_cantidad_chat = pd.DataFrame(datos_cantidad_chat)
     df_cantidad_mensaje_semana = pd.DataFrame(datos_cantidad_mensaje_semana)
     df_cantidad_mensaje_mes = pd.DataFrame(datos_cantidad_mensaje_mes)
 
@@ -211,7 +209,6 @@ def generar_csv():
     csv_cuentas = df_cuentas.to_csv(index=False)
     csv_cuentas_semana = df_cuentas_semana.to_csv(index=False)
     csv_moderador = df_moderador.to_csv(index=False)
-    csv_cantidad_chat = df_cantidad_chat.to_csv(index=False)
     csv_cantidad_mensaje_semana = df_cantidad_mensaje_semana.to_csv(index=False)
     csv_cantidad_mensaje_mes = df_cantidad_mensaje_mes.to_csv(index=False)
 
@@ -219,8 +216,7 @@ def generar_csv():
     csv_combinado = (
         f'Cuentas al dia:\n{csv_cuentas}\n\n'
         f'Cuentas a la semana:\n{csv_cuentas_semana}\n\n'
-        f'Moderadores:\n{csv_moderador}\n\n'
-        f'Cantidad de Chats:\n{csv_cantidad_chat}\n\n'
+        f'Cantidad de Chats moderados:\n{csv_moderador}\n\n'
         f'Cantidad de Mensajes (Semana):\n{csv_cantidad_mensaje_semana}\n\n'
         f'Cantidad de Mensajes (Mes):\n{csv_cantidad_mensaje_mes}'
     )
@@ -279,13 +275,28 @@ def obtener_cuentas_por_semana():
 
 def obtener_cantidad_moderadores():
     moderadores = Mod.query.all()
-    moderadores_info = [{'ID': mod.id_mod, 'Nombre': mod.cuenta.primer_nombre} for mod in moderadores]
+
+    # Diccionario para almacenar la cantidad de chats por moderador
+    cantidad_chats_por_moderador = defaultdict(int)
+
+    for mod in moderadores:
+        # Obtiene la cantidad de chats en los que el moderador está involucrado
+        cantidad_chats = Chat.query.filter_by(mod_id=mod.id_mod).count()
+
+        # Agrega la información al diccionario
+        cantidad_chats_por_moderador[mod.cuenta.email] = cantidad_chats
+
+    # Convierte el diccionario a una lista de diccionarios para el formato deseado
+    moderadores_info = [
+        {
+            'Correo': correo,
+            'Numero de mensajes': cantidad_chats
+        }
+        for correo, cantidad_chats in cantidad_chats_por_moderador.items()
+    ]
+
     return moderadores_info
 
-def obtener_cantidad_chats_creados():
-    chats = Chat.query.all()
-    chats_info = [{'ID': f'{chat.mensaje_id}-{chat.mod_id}', 'Moderador': chat.mod.cuenta.primer_nombre} for chat in chats]
-    return chats_info
 
 
 
