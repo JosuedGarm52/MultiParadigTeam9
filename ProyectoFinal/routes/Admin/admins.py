@@ -58,7 +58,8 @@ def buscar_cuentas():
             # Realiza la búsqueda de cuentas en la base de datos según el texto
             cuentas_encontradas = Cuenta.query.filter(
                 (Cuenta.primer_nombre.ilike(f'%{texto_busqueda}%')) |
-                (Cuenta.primer_apellido.ilike(f'%{texto_busqueda}%'))
+                (Cuenta.primer_apellido.ilike(f'%{texto_busqueda}%'))|
+                (Cuenta.email.ilike(f'%{texto_busqueda}%'))
             ).all()
 
             # Crea una lista de diccionarios con la información de las cuentas encontradas
@@ -70,6 +71,8 @@ def buscar_cuentas():
                     'correo': cuenta.email,
                 }
                 for cuenta in cuentas_encontradas
+                # Verifica si la cuenta tiene relación con Perfil, Admin o Mod
+                if not tiene_relacion(cuenta)
             ]
         else:
             # Obtén todas las cuentas
@@ -78,17 +81,8 @@ def buscar_cuentas():
             for cuenta in todas_las_cuentas:
                 cuenta_id = cuenta.id_cuenta
 
-                # Verifica si existe una relación con el perfil
-                perfil = Perfil.query.filter_by(cuenta_id=cuenta_id).first()
-
-                # Verifica si existe una relación con el administrador
-                admin = Admin.query.filter_by(cuenta_id=cuenta_id).first()
-
-                # Verifica si existe una relación con el moderador
-                mod = Mod.query.filter_by(cuenta_id=cuenta_id).first()
-
-                # Si no tiene ninguna relación, agrega la información a la lista
-                if perfil is None and admin is None and mod is None:
+                # Verifica si la cuenta tiene relación con Perfil, Admin o Mod
+                if not tiene_relacion(cuenta):
                     cuentas_sin_relacion.append({
                         'cuenta_id': cuenta.id_cuenta,
                         'primer_nombre': cuenta.primer_nombre,
@@ -99,11 +93,17 @@ def buscar_cuentas():
 
         # Devuelve la lista de cuentas como respuesta JSON
         return jsonify({'cuentas': lista_cuentas if texto_busqueda else cuentas_sin_relacion})
-
     except Exception as e:
-        # Maneja cualquier error que pueda ocurrir durante la búsqueda
-        print(f"Error al buscar cuentas: {str(e)}")
-        return jsonify({'error': 'Error al buscar cuentas'}), 500
+        return jsonify({'error': str(e)}), 500
+
+def tiene_relacion(cuenta):
+    # Verifica si la cuenta tiene relación con Perfil, Admin o Mod
+    perfil = Perfil.query.filter_by(cuenta_id=cuenta.id_cuenta).first()
+    admin = Admin.query.filter_by(cuenta_id=cuenta.id_cuenta).first()
+    mod = Mod.query.filter_by(cuenta_id=cuenta.id_cuenta).first()
+
+    return perfil is not None or admin is not None or mod is not None
+
 
 @appadmin.route('/asignar_cuenta/<_id>', methods = ["POST"])
 def asignar_cuenta(_id):
