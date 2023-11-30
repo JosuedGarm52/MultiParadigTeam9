@@ -6,6 +6,7 @@ from sqlalchemy import exc
 from sqlalchemy.orm.exc import NoResultFound
 from utils import decode_auth_token, encode_auth_token, verificarID
 from auth import obtenerInfo
+import os
 
 app = Flask(__name__)
 
@@ -24,6 +25,7 @@ def obtener_chat():
     usercuenta = Cuenta.query.filter_by(id_cuenta=cuenta_id).first()
     if usercuenta:
         usermod = Mod.query.filter_by(cuenta_id = usercuenta.id_cuenta ).first()
+        link = usermod.linkcsv
         if usermod:
             lista_chats = obtener_chats_unicos(usermod)
             nombres = [
@@ -39,6 +41,7 @@ def obtener_chat():
             datos_usuario = {
                 "Nombre": nombre_completo,
                 "lista":lista_chats,
+                "link": link,
             }
             # Devolver los datos como respuesta JSON
             return jsonify(datos_usuario)
@@ -86,3 +89,72 @@ def obtener_chats_unicos(usermod):
                 combinaciones_unicas.add(combinacion_ordenada)
 
     return datos_chats
+
+def sanitize_local_link(enlace):
+    # Elimina caracteres no permitidos para enlaces locales, como \ / : * ? " < > |
+    caracteres_prohibidos = r'*"<>|'
+    enlace_saneado = ''.join(c for c in enlace if c not in caracteres_prohibidos)
+
+    # Añade el prefijo "file://" para indicar que es un enlace local
+    enlace_saneado = f'file:///{enlace_saneado}'
+
+    return enlace_saneado
+
+@appmod.route('/guardar_enlace', methods=['POST'])
+def guardar_enlace():
+    # Obtiene el enlace del cuerpo de la solicitud
+    data = request.get_json()
+    enlace = data.get('enlace')
+    _id = data.get('cuenta_id')
+    cuenta_id = verificarID(_id)
+    cuenta = Cuenta.query.filter_by(id_cuenta = cuenta_id).first()
+    mod = Mod.query.filter_by(cuenta_id = cuenta.id_cuenta).first()
+
+    if cuenta:
+        # Verifica si la cuenta tiene un moderador asociado
+        if mod:
+            enlace_saneado = sanitize_local_link(enlace)
+            # Verifica si el enlace tiene la extensión .csv
+            if enlace_saneado.lower().endswith('.csv'):
+                # Actualiza el campo linkcsv del moderador
+                mod.linkcsv = enlace_saneado
+
+                # Confirma los cambios en la base de datos
+                db.session.commit()
+
+                # Retorna una respuesta (puedes ajustar el contenido según tus necesidades)
+                return jsonify({'mensaje': 'Enlace guardado exitosamente'})
+            else:
+                return jsonify({'mensaje': 'La extensión del archivo debe ser .csv'})
+        else:
+            return jsonify({'mensaje': 'No se encontró un moderador asociado a la cuenta'})
+    else:
+        return jsonify({'mensaje': 'No se encontró la cuenta'})
+
+
+@appmod.route('/borrar_enlace', methods=['POST'])
+def borrar_enlace():
+    # Obtiene el ID de la cuenta y el enlace del cuerpo de la solicitud
+    data = request.get_json()
+    _id = data.get('cuenta_id')
+    cuenta_id = verificarID(_id)
+    
+    # Busca la cuenta y el moderador asociado
+    cuenta = Cuenta.query.get(cuenta_id)
+    mod = Mod.query.filter_by(cuenta_id=cuenta.id_cuenta).first()
+
+    if cuenta:
+        # Verifica si la cuenta tiene un moderador asociado
+        if mod:
+            # Establece el campo linkcsv del moderador como nulo
+            mod.linkcsv = None
+
+            # Confirma los cambios en la base de datos
+            db.session.commit()
+
+            # Retorna una respuesta (puedes ajustar el contenido según tus necesidades)
+            return jsonify({'mensaje': 'Enlace eliminado exitosamente'})
+        else:
+            return jsonify({'mensaje': 'No se encontró un moderador asociado a la cuenta'})
+    else:
+        return jsonify({'mensaje': 'No se encontró la cuenta'})

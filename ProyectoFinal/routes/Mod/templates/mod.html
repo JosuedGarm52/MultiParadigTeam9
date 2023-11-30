@@ -17,15 +17,30 @@
         </ul>
     </div>
 
+    <div class="container mt-4">
+        <h2>Manejo de Enlaces</h2>
+        <form id="enlaceForm">
+            <div class="mb-3">
+                <label for="enlaceInput" class="form-label">Enlace</label>
+                <input type="text" class="form-control" id="enlaceInput" placeholder="Ingrese el enlace" required>
+            </div>
+            <div id="mensajeError" class="alert alert-danger" style="display: none;"></div>
+            <button type="button" class="btn btn-primary" onclick="guardarEnlace()">Guardar</button>
+            <button type="button" class="btn btn-danger" onclick="borrarEnlace()">Borrar</button>
+        </form>
+    </div>
+
     <button onclick="window.location.href = '/';">Regresar</button>
     <script>
+        let cuenta_id;
+
         function redirectToChat(modId, remitente, destinatario) {
             const url = `/chat?mod_id=${modId}&remitente=${remitente}&destinatario=${destinatario}`;
             window.location.href = url;
         }
         
         function Iniciar() {
-            const cuenta_id = localStorage.getItem('cuenta_id');
+            cuenta_id = localStorage.getItem('cuenta_id');
             const letrero = document.getElementById('nombre');
 
             if (!cuenta_id) {
@@ -57,6 +72,12 @@
 
                     const listaChats = data.lista;
 
+                    if(data.link !== null){
+                        document.getElementById('enlaceInput').value = data.link;
+                    }else{
+                        document.getElementById('enlaceInput').value = '';
+                    }
+                    
                     // Obtén el elemento UL del list-group
                     const listGroup = document.querySelector('.list-group');
 
@@ -92,7 +113,51 @@
                 
         }
         window.onload = Iniciar;
-        
+        function guardarEnlace() {
+            document.getElementById('mensajeError').style.display = 'none';
+            // Obtén el valor del enlace desde el campo de entrada
+            var enlace = document.getElementById('enlaceInput').value;
+
+            // Realiza una solicitud al servidor Flask para guardar el enlace
+            fetch('guardar_enlace', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ enlace: enlace, cuenta_id : cuenta_id }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('mensajeError').innerText = data.mensaje;
+                document.getElementById('mensajeError').style.display = 'inline';
+            })
+            .catch(error => {
+                document.getElementById('mensajeError').innerText = error.mensaje;
+                document.getElementById('mensajeError').style.display = 'inline';
+            });
+        }
+
+        function borrarEnlace() {
+            document.getElementById('mensajeError').style.display = 'none';
+
+            fetch('borrar_enlace', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ cuenta_id : cuenta_id }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                ocument.getElementById('enlaceInput').value = "";
+                document.getElementById('mensajeError').innerText = data.mensaje;
+                document.getElementById('mensajeError').style.display = 'inline';
+            })
+            .catch(error => {
+                document.getElementById('mensajeError').innerText = error.mensaje;
+                document.getElementById('mensajeError').style.display = 'inline';
+            });
+        }
     </script>
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>

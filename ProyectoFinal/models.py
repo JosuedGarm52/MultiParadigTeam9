@@ -97,11 +97,13 @@ class Mod(db.Model):
 
     id_mod = db.Column(db.Integer, primary_key=True, autoincrement=True)
     cuenta_id = db.Column(db.Integer, db.ForeignKey('cuenta.id_cuenta'), nullable=False)
+    linkcsv = db.Column(db.String, nullable=True)
     cuenta = db.relationship('Cuenta', backref=db.backref('mod', lazy=True))
 
-    def __init__(self, id_cuenta,cuenta) -> None:
+    def __init__(self, id_cuenta, linkcsv, cuenta) -> None:
         self.cuenta_id = id_cuenta #checar esta parte
         self.cuenta = cuenta
+        self.linkcsv = linkcsv
 
 class Mensaje(db.Model):
     __tablename__ = "mensaje"
