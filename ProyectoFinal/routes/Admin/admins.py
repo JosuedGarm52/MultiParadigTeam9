@@ -187,6 +187,20 @@ def generar_csv_mod(_id):
 
     else:
         return None
+    
+@appadmin.route('/descargar_csv/<mod_id>')
+def descargar_csv(mod_id):
+    mod = Mod.query.filter_by(cuenta_id=mod_id).first()
+
+    if mod and mod.linkcsv:
+        # Puedes establecer el mimetype según el tipo de archivo que estás descargando
+        mimetype = 'text/csv'
+        # Utiliza send_file para enviar el archivo al cliente
+        return send_file(mod.linkcsv, mimetype=mimetype, as_attachment=True)
+    else:
+        # Retorna una respuesta adecuada si el mod o el enlace no existen
+        return jsonify({'mensaje': 'No se encontró el moderador o el enlace CSV'})
+    
 
 #generar csv general
 @appadmin.route('/generar_csv')

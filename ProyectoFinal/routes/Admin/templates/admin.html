@@ -36,7 +36,7 @@
                     const listItem = document.createElement('li');
                     listItem.innerHTML = `
                         ${moderador.primer_nombre} ${moderador.primer_apellido} ${moderador.correo}
-                        <button onclick="verModerador('${moderador.cuenta_id}')">Ver</button>
+                        <button onclick="verModerador('${moderador.cuenta_id}')">Ver csv</button>
                         <button onclick="quitarModerador('${moderador.cuenta_id}')">Quitar</button>
                     `;
                     moderadoresList.appendChild(listItem);
@@ -48,21 +48,23 @@
         }
 
         function verModerador(cuenta_id) {
-            fetch(`asignar_cuenta/${cuenta_id}`)
-            .then(response => response.blob())
-            .then(blob => {
-                // Crear un enlace temporal para descargar el archivo
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = 'reporte_mod_csv.zip'; // Puedes cambiar el nombre del archivo si es necesario
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                window.URL.revokeObjectURL(url);
-            })
-            .catch(error => console.error('Error al generar o descargar el archivo CSV:', error));
+            console.log('ver moderaodr')
+            fetch(`descargar_csv/${cuenta_id}`) 
+                .then(response => response.blob())
+                .then(blob => {
+                    // Crear un enlace temporal para descargar el archivo
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'reporte_mod_csv.csv'; // Puedes cambiar el nombre del archivo si es necesario
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    window.URL.revokeObjectURL(url);
+                })
+                .catch(error => console.error('Error al generar o descargar el archivo CSV:', error));
         }
+
 
         function quitarModerador(cuenta_id) {
             const textoBusqueda = document.getElementById('txtBusqueda').value;
