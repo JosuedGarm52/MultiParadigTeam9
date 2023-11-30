@@ -8,6 +8,18 @@
 </head>
 <body>
     <h1>Administrador</h1>
+    <p>Lista de noticias</p>
+    <div class="noticia-container" id="noticia-container">
+        <!-- Los elementos se cargarán aquí -->
+    </div>
+    <div class="noticia-form">
+        <input type="text" class="text1" placeholder="Encabezado">
+        <input type="text" class="text2" placeholder="Cuerpo">
+        <input type="text" class="url" placeholder="URL">
+        <button onclick="agregarNoticia()">Agregar Noticia</button>
+    </div>
+
+
     <p>Lista de Moderadores</p>
     <ul id="moderadores-list"></ul>
     <br>
@@ -48,7 +60,6 @@
         }
 
         function verModerador(cuenta_id) {
-            console.log('ver moderaodr')
             fetch(`descargar_csv/${cuenta_id}`) 
                 .then(response => response.blob())
                 .then(blob => {
@@ -117,7 +128,7 @@
                     });
                 })
                 .catch(error => console.error('Error al buscar cuentas:', error));
-        }
+            }
         function asignarCuenta(cuenta_id) {
             const textoBusqueda = document.getElementById('txtBusqueda').value;
             textoBusqueda.value = '';
@@ -154,8 +165,112 @@
                 .catch(error => console.error('Error al generar el CSV:', error));
         });
 
-        // Llamar a la función para cargar moderadores cuando la página se cargue
-        window.onload = cargarModeradores;
+        async function cargarNoticias() {
+            try {
+                const response = await fetch('noticias');
+                const data = await response.json();
+
+                if (data.noticias && Array.isArray(data.noticias)) {
+                    const noticiasContainer = document.getElementById('noticia-container');
+                    
+                    // Crea un div para cada noticia y agrega al contenedor
+                    data.noticias.forEach(noticia => {
+                        console.log('Noticia en forEach:', noticia);
+                        const noticiaDiv = crearNoticiaDiv(noticia);
+                        noticiasContainer.appendChild(noticiaDiv);
+                    });
+                } else {
+                    console.log('La respuesta del servidor no contiene datos de noticias.');
+                }
+            } catch (error) {
+                console.error('Error al cargar las noticias:', error);
+            }
+        }
+
+
+
+        // Función para crear un div de noticia
+        function crearNoticiaDiv(noticia) {
+            const noticiaDiv = document.createElement('div');
+            noticiaDiv.className = 'noticia';
+            
+            // Agrega campos de texto
+            noticiaDiv.innerHTML = `
+                <img src="${noticia.url || ''}" alt="Imagen" width="100" height="100">
+                <input type="text" class="text1" value="${noticia.text1 || ''}" placeholder="Texto 1">
+                <input type="text" class="text2" value="${noticia.text2 || ''}" placeholder="Texto 2">
+                <input type="text" class="url" value="${noticia.url || ''}" placeholder="URL">
+                <button onclick="guardarNoticia(this)">Guardar</button>
+                <button onclick="borrarNoticia(this)">Borrar</button>
+            `;
+
+            return noticiaDiv;
+        }
+
+
+        // Función para agregar una nueva noticia al contenedor
+        async function agregarNoticia() {
+            try {
+                const text1 = document.querySelector('.text1').value;
+                const text2 = document.querySelector('.text2').value;
+                const urlElement = document.querySelector('.url');
+                
+                if ((text1 != null || text2 != null || urlElement != null) && 
+                        (text1 != undefined || text2 != undefined || urlElement != undefined)){
+                    const url = urlElement.value.trim() || null;
+                    // Envía una solicitud al servidor para agregar la nueva noticia
+                    const response = await fetch('agregar_noticia', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            text1: text1,
+                            text2: text2,
+                            url: url,
+                        }),
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`Error en la solicitud: ${response.status}`);
+                    }
+
+                    const data = await response.json();
+                    console.log(data);
+
+                    // Vuelve a cargar las noticias después de agregar una nueva
+                    cargarNoticias();
+                }else{
+                    console.log("Todos los campos son nulos o undefined")
+                }
+                
+            } catch (error) {
+                console.error('Error al agregar la noticia:', error);
+            }
+        }
+
+
+        // Función para guardar una noticia
+        function guardarNoticia(button) {
+            const noticiaDiv = button.parentNode;
+            const text1 = noticiaDiv.querySelector('.text1').value;
+            const text2 = noticiaDiv.querySelector('.text2').value;
+            const url = noticiaDiv.querySelector('.url').value;
+
+            // Aquí puedes hacer una solicitud fetch para guardar la noticia en el servidor
+            // Ajusta la ruta del endpoint y la lógica del servidor según sea necesario
+        }
+
+        // Función para borrar una noticia
+        function borrarNoticia(button) {
+            const noticiaDiv = button.parentNode;
+            noticiaDiv.remove();  // Puedes hacer una solicitud fetch al servidor para borrar la noticia también
+        }
+        window.onload = function() {
+            cargarModeradores();
+            cargarNoticias(); 
+            crearNoticiaDiv();
+        };
     </script>
 </body>
 </html>

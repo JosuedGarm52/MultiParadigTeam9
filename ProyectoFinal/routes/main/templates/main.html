@@ -19,9 +19,9 @@
     <nav>
         <!-- Recuadro con varias opciones -->
         <div class="options">
-            <a href="/mod/">Procedimientos</a>
+            <a href="procedimientos">Procedimientos</a>
             <a href="/usuarios/parejas">Busca tu alma gemela</a>
-            <a href="/admin/">Condiciones legales</a>
+            <a href="terminos-y-condiciones">Condiciones legales</a>
         </div>
     </nav>
 
@@ -72,7 +72,7 @@
     </div>
     {% for item in info_list %}
         <div class="info-box">
-            <img src="{{ item['image_url'] }}" alt="Otra Imagen">
+            <img src="{{ item['image_url'] }}" alt="Otra Imagen" class="imgExtra">
             <div class="text-column">
                 <p>{{ item['text1'] }}</p>
             </div>

@@ -127,3 +127,11 @@ nav {
 .warning-box em {
     font-style: italic; /* Texto en cursiva para resaltar */
 }
+
+.imgExtra {
+    width: 50%; /* Ajusta el ancho al 100% del contenedor */
+    max-width: 100px; /* Establece un ancho máximo para evitar que las imágenes sean demasiado grandes */
+    height: auto; /* Permite que la altura se ajuste proporcionalmente al ancho */
+    display: block; /* Asegura que las imágenes se comporten como elementos de bloque */
+    margin: 0 auto; /* Centra las imágenes dentro de su contenedor */
+}

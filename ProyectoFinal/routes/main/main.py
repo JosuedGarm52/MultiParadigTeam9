@@ -1,7 +1,7 @@
 from flask import Flask, Blueprint,request,jsonify,render_template,redirect
 from auth import tokenCheck,verificar
 from app import db,bcrypt
-from models import Perfil, Cuenta,Mod,Admin
+from models import Perfil, Cuenta,Mod,Admin, Noticia
 from sqlalchemy import exc 
 from utils import encode_auth_token, decode_auth_token
 
@@ -17,12 +17,15 @@ def index():
             "https://media.istockphoto.com/id/498477061/es/foto/siente-el-d%C3%ADa-de-su-boda-bliss.jpg?s=612x612&w=0&k=20&c=kYex3_JmNNEz6CdYfclcwKjxj2GGln-NU9QyXKdlb5Y=",
             "https://media.istockphoto.com/id/530188882/es/foto/retrato-de-una-joven-pareja-de-novios.jpg?s=612x612&w=0&k=20&c=SeUr9mYN6ZJ1phUPg05577uSMtO8-u4bSgcda-DfAus="
         ]
+        noticias = Noticia.query.all()
         info_list = [
             {
-                'image_url': 'https://media.istockphoto.com/id/1303804576/es/foto/nuestro-primer-baile.jpg?s=612x612&w=0&k=20&c=imONv7gNEBiPlOw-s_odejgfIaZ9QEI7eoBqmT0gVmM=',
-                'text1': 'El amor es el idioma que todos entendemos.',
-                'text2': 'El amor, esa fuerza mágica que impulsa a la humanidad, es un viaje intrincado de emociones, experiencias y compromisos. Va más allá de las palabras, manifestándose en pequeños gestos cotidianos y en los momentos extraordinarios que compartimos.'
-            },
+                'image_url': noticia.url if noticia.url 
+                else 'https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png',
+                'text1': noticia.text1,
+                'text2': noticia.text2
+            }
+            for noticia in noticias
         ]
         
         return render_template('main.html', image_urls=image_urls, info_list=info_list)
@@ -209,3 +212,11 @@ def registro_post():
                 'message':'usuario existente'
             }
         return jsonify(responseObject)
+    
+@appmain.route('/terminos-y-condiciones',methods=["GET","POST"])
+def terminos():
+     return render_template('terminos-y-condiciones.html')
+
+@appmain.route('/procedimientos',methods=["GET","POST"])
+def proceso():
+     return render_template('procedimientos.html')

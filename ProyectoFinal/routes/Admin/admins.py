@@ -1,7 +1,7 @@
 from flask import Flask, Blueprint,request,jsonify,render_template,redirect, send_file
 from auth import tokenCheck,verificar
 from app import db,bcrypt
-from models import Perfil, Cuenta,Mod,Admin, Mensaje, Chat
+from models import Perfil, Cuenta,Mod,Admin, Mensaje, Chat, Noticia
 from sqlalchemy import exc, func
 from utils import encode_auth_token, decode_auth_token, verificarID
 import pandas as pd
@@ -16,6 +16,49 @@ appadmin = Blueprint('admin', __name__, template_folder='templates', static_fold
 @appadmin.route('/')
 def index():
     return render_template('admin.html')#cambiar al adaptado
+
+@appadmin.route('noticias')
+def obtener_noticias():
+    # Aquí obtienes las noticias de la base de datos (puedes adaptar según tu modelo)
+    noticias = Noticia.query.all()
+
+    # Creas una lista de diccionarios con los datos de cada noticia
+    lista_noticias = [
+        {
+            'id': noticia.id,
+            'text1': noticia.text1 if noticia.text1 else '',
+            'text2': noticia.text2 if noticia.text2 else '',
+            'url': noticia.url if noticia.url 
+            else 'https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png'
+        }
+        for noticia in noticias
+        # Puedes agregar más condiciones si necesitas verificar otros campos
+    ]
+
+    # Devuelves la lista de noticias como respuesta JSON
+    return jsonify({'noticias': lista_noticias})
+
+@appadmin.route('/agregar_noticia', methods=['POST'])
+def agregar_noticia():
+    try:
+        data = request.get_json()
+        text1 = request.json['text1']
+        text2 = data.get('text2')
+        url = data.get('url')
+
+        # Crea una instancia de Noticia permitiendo valores nulos
+        noticia = Noticia(text1=text1, text2=text2, url=url)
+
+        # Aquí puedes agregar la lógica para guardar la noticia en la base de datos
+        db.session.add(noticia)
+        db.session.commit()
+
+        # Retorna una respuesta (puedes ajustar el contenido según tus necesidades)
+        return jsonify({'mensaje': 'Noticia agregada exitosamente'})
+    except Exception as e:
+        print(f"Error al agregar noticia: {str(e)}")
+        return jsonify({'error': 'Ocurrió un error al procesar la solicitud'}), 500
+
 
 @appadmin.route('/obtener_mod')
 def obtener_mod():

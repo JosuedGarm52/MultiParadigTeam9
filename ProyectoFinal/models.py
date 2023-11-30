@@ -155,3 +155,14 @@ class Documento(db.Model):
         self.isaprobado = isaprobado
         self.tipo = tipo
         self.mod_id = mod_id
+
+class Noticia(db.Model):
+    id = db.Column(db.Integer,primary_key = True, autoincrement = True)
+    text1 = db.Column(db.Text, nullable=True)
+    text2 = db.Column(db.Text, nullable=True)
+    url = db.Column(db.String(255), nullable=True)
+
+    def __init__(self,text1,text2,url):
+        self.text1 = text1
+        self.text2 = text2
+        self.url = url
