@@ -13,9 +13,9 @@
         <!-- Los elementos se cargarán aquí -->
     </div>
     <div class="noticia-form">
-        <input type="text" class="text1" placeholder="Encabezado">
-        <input type="text" class="text2" placeholder="Cuerpo">
-        <input type="text" class="url" placeholder="URL">
+        <input type="text" id="est1" class="text1" placeholder="Encabezado">
+        <input type="text" id="est2" class="text2" placeholder="Cuerpo">
+        <input type="text" id="est3" class="url" placeholder="URL">
         <button onclick="agregarNoticia()">Agregar Noticia</button>
     </div>
 
@@ -173,6 +173,8 @@
                 if (data.noticias && Array.isArray(data.noticias)) {
                     const noticiasContainer = document.getElementById('noticia-container');
                     
+                    noticiasContainer.innerHTML = '';
+
                     // Crea un div para cada noticia y agrega al contenedor
                     data.noticias.forEach(noticia => {
                         console.log('Noticia en forEach:', noticia);
@@ -201,7 +203,7 @@
                 <input type="text" class="text2" value="${noticia.text2 || ''}" placeholder="Texto 2">
                 <input type="text" class="url" value="${noticia.url || ''}" placeholder="URL">
                 <button onclick="guardarNoticia(this)">Guardar</button>
-                <button onclick="borrarNoticia(this)">Borrar</button>
+                <button onclick="borrarNoticia(${noticia.id})">Borrar</button>
             `;
 
             return noticiaDiv;
@@ -236,10 +238,11 @@
                     }
 
                     const data = await response.json();
-                    console.log(data);
-
-                    // Vuelve a cargar las noticias después de agregar una nueva
-                    cargarNoticias();
+                    document.getElementById('est1').value="";
+                    document.getElementById('est2').value="";
+                    document.getElementById('est3').value="";
+                    //console.log(data);
+                    location.reload();
                 }else{
                     console.log("Todos los campos son nulos o undefined")
                 }
@@ -262,10 +265,27 @@
         }
 
         // Función para borrar una noticia
-        function borrarNoticia(button) {
-            const noticiaDiv = button.parentNode;
-            noticiaDiv.remove();  // Puedes hacer una solicitud fetch al servidor para borrar la noticia también
+        async function borrarNoticia(id) {
+            try {
+                // Realiza una solicitud al servidor para borrar la noticia con el ID especificado
+                const response = await fetch(`borrar_noticia/${id}`, {
+                    method: 'DELETE', // Utiliza el método HTTP DELETE para borrar la noticia
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Error en la solicitud: ${response.status}`);
+                }
+
+                const data = await response.json();
+                console.log(data);
+
+                // Vuelve a cargar las noticias después de borrar una noticia
+                cargarNoticias();
+            } catch (error) {
+                console.error('Error al borrar la noticia:', error);
+            }
         }
+
         window.onload = function() {
             cargarModeradores();
             cargarNoticias(); 

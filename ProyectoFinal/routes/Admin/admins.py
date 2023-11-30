@@ -59,6 +59,23 @@ def agregar_noticia():
         print(f"Error al agregar noticia: {str(e)}")
         return jsonify({'error': 'Ocurrió un error al procesar la solicitud'}), 500
 
+@appadmin.route('/borrar_noticia/<int:noticia_id>', methods=['DELETE'])
+def borrar_noticia(noticia_id):
+    try:
+        # Busca la noticia por su ID
+        noticia = Noticia.query.get(noticia_id)
+
+        if not noticia:
+            return jsonify({'error': 'Noticia no encontrada'}), 404
+
+        # Elimina la noticia de la base de datos
+        db.session.delete(noticia)
+        db.session.commit()
+
+        return jsonify({'message': 'Noticia borrada correctamente'})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
 
 @appadmin.route('/obtener_mod')
 def obtener_mod():
