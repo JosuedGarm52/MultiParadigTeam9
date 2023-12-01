@@ -56,7 +56,11 @@
             const contra2 = document.querySelector('#contra2').value;
             //console.log('contra1:', contra1);
             //console.log('contra2:', contra2);
-            if(contra1 == contra2){
+            var checkbox = document.getElementById("acepto");
+            if (!checkbox.checked ) {
+                errorLabel.textContent = 'Debes aceptar los acuerdos o no pasas';
+                errorLabel.style.display = 'inline';
+            } else if(contra1 == contra2){
                 fetch('/cuenta',{
                     method:'POST',
                     headers:{
