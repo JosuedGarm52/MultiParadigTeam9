@@ -16,28 +16,38 @@ appuser = Blueprint('user', __name__, template_folder='templates', static_folder
 def index():
     return render_template('indexPerfil.html')
 
-@appuser.route('/default')
-def obtener_default_pdf():
-    # Ruta al directorio de documentos estáticos
-    directorio_documentos = 'pdf'  # No es necesario poner 'static/' aquí
+@appuser.route('/descargar_pdf/<tipo>',methods=['GET', 'POST'])
+def descargar_pdf(tipo):
+    token = request.json['cuenta_id']
+    try:
+        cuenta_id = verificarID(token)
+    except Exception as e:
+        # Aquí puedes manejar la excepción como desees.
+        # Puedes imprimir un mensaje de depuración, registrar el error, etc.
+        print(f"Error al verificar ID: {str(e)}")
+        return jsonify({'status': 'error', 'message': 'Error al verificar ID'}),412
+    
+    perfil = Perfil.query.filter_by(cuenta_id = cuenta_id).first()
+    if perfil is None:
+        return jsonify({'status': 'error', 'message': 'Perfil no encontrado'}), 404
+    documento = Documento.query.filter_by(usuario_name=perfil.usuario, tipo = tipo).first()
+    if documento is None:
+        nombre_archivo = 'default.pdf'
+        ruta_pdf = f'routes/user/static/pdf/{nombre_archivo}'
+        return send_file(
+            ruta_pdf,
+            mimetype='application/pdf',
+            as_attachment=True,
+            download_name='default.pdf'
+        )
+    # Construir la ruta completa al archivo PDF local
+    ruta_pdf = documento.link
 
-    # Devolver el archivo PDF predeterminado usando send_from_directory
-    ruta_pdf = url_for('user.static', filename='pdf/default.pdf')
-    return send_from_directory(directorio_documentos, 'default.pdf')
-
-@appuser.route('/ver_pdf/<filename>')
-def ver_pdf(filename):
-    return send_from_directory('pdf', filename)
-
-@appuser.route('/obtener_pdf')
-def obtener_pdf():
-    nombre_archivo = 'default.pdf'
-    ruta_pdf = f'routes/user/static/pdf/{nombre_archivo}'
     return send_file(
         ruta_pdf,
         mimetype='application/pdf',
         as_attachment=True,
-        download_name='nuevo_nombre.pdf'
+        download_name=f'{perfil.usuario}_documento.pdf'
     )
 
 @appuser.route('/obtener_datos', methods = ["POST"])

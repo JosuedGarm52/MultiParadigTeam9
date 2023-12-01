@@ -122,6 +122,7 @@
         let pasaporteinfo;
         const imagenPrincipal= document.getElementById('imgPrin');
         let primeraImagen = "https://previews.123rf.com/images/pavelstasevich/pavelstasevich1811/pavelstasevich181101032/112815935-no-hay-icono-de-imagen-disponible-ilustración-vectorial-plana.jpg"
+        let cuenta_id = ''
         function Iniciar() {
             //Habilitar campos
             {
@@ -192,7 +193,7 @@
             
             function obtenerDatos() {
                 // Obtener el id de la cuenta del localStorage
-                const cuenta_id = localStorage.getItem('cuenta_id');
+                cuenta_id = localStorage.getItem('cuenta_id');
 
                 // Verificar si hay un id de cuenta antes de hacer la petición
                 if (cuenta_id) {
@@ -306,9 +307,6 @@
                 // y solicitar la autorización del usuario.
                 console.log(`Subir documento de tipo ${tipoDocumento}`);
             }
-
-            
-
         };
         window.onload = Iniciar;
 
@@ -318,39 +316,56 @@
             // Seleccionar la información correcta según el tipo de documento
             switch (tipoDocumento) {
                 case 'acta':
-                    documentoLink = actainfo;
+                    documentoLink = 'acta';
                     documentoAprobado = document.getElementById('chkacta').checked;
                     break;
                 case 'comprobante':
-                    documentoLink = comprobanteinfo;
+                    documentoLink = 'comprobante';
                     documentoAprobado = document.getElementById('chkdomicilio').checked;
                     break;
                 case 'ine':
-                    documentoLink = ineinfo;
+                    documentoLink = 'ine';
                     documentoAprobado = document.getElementById('chkine').checked;
                     break;
                 case 'pasaporte':
-                    documentoLink = pasaporteinfo;
+                    documentoLink = 'pasaporte';
                     documentoAprobado = document.getElementById('chkpasaporte').checked;
                     break;
                 default:
+                    documentoLink='error'
                     console.error('Tipo de documento no reconocido');
                     return;
             }
-            // Verificar si hay un link para el documento
-            if (documentoLink) {
-                // Abrir el enlace en una nueva pestaña
-                window.open(documentoLink, '_blank');
-            } else {
-                // Si no hay link, abrir un PDF predeterminado o manejarlo según tus necesidades
-                console.log(`No hay link para el documento de tipo ${tipoDocumento}. Abriendo PDF predeterminado.`);
-                
-                // Aquí puedes abrir un PDF predeterminado o mostrar un mensaje al usuario
-                // Ejemplo: Abrir un PDF predeterminado en blanco
-                const urlPDF = 'obtener_pdf';
-                window.open(urlPDF, '_blank');
-                //window.location.href = urlPDF;
-            }
+            const opciones = {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({cuenta_id : cuenta_id}),
+                    };
+            // Cambia la solicitud GET a POST y envía el token como parámetro en la URL
+            fetch(`descargar_pdf/${documentoLink}`,opciones)
+                .then(response => {
+                    if (!response.ok) {
+                    throw new Error(`Error al descargar PDF: ${response.status} - ${response.statusText}`);
+                    }
+                    return response.blob();
+                })
+                .then(blob => {
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `${documentoLink}_documento.pdf`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    window.URL.revokeObjectURL(url);
+                })
+                .catch(error => {
+                    console.error(error);
+                    // Manejar el error como desees
+                });
+
         }
     </script>
 </body>
