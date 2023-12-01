@@ -59,6 +59,30 @@ def agregar_noticia():
         print(f"Error al agregar noticia: {str(e)}")
         return jsonify({'error': 'Ocurrió un error al procesar la solicitud'}), 500
 
+@appadmin.route('/actualizar_noticia/<int:noticia_id>', methods=['PUT'])
+def actualizar_noticia(noticia_id):
+    try:
+        # Busca la noticia por su ID
+        noticia = Noticia.query.get(noticia_id)
+
+        if not noticia:
+            return jsonify({'error': 'Noticia no encontrada'}), 404
+
+        # Actualiza los datos de la noticia con los nuevos datos proporcionados en el cuerpo de la solicitud
+        nuevos_datos = request.get_json()
+        noticia.text1 = nuevos_datos.get('text1', noticia.text1)
+        noticia.text2 = nuevos_datos.get('text2', noticia.text2)
+        noticia.url = nuevos_datos.get('url', noticia.url)
+
+        # Guarda los cambios en la base de datos
+        db.session.commit()
+
+        return jsonify({'message': 'Noticia actualizada correctamente'})
+    except Exception as e:
+        print(f"Error en la actualización de la noticia: {str(e)}")
+        return jsonify({'error': 'Error interno del servidor'}), 500
+
+
 @appadmin.route('/borrar_noticia/<int:noticia_id>', methods=['DELETE'])
 def borrar_noticia(noticia_id):
     try:
