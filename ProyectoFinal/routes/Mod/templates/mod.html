@@ -18,6 +18,13 @@
     </div>
 
     <div class="container mt-4">
+        <h2>Lista de perfiles</h2>
+        <div id="contenedor-perfiles" class="lista-perfiles list-group">
+            <!-- Aquí se agregarán dinámicamente los divs de perfiles -->
+        </div>
+    </div>
+
+    <div class="container mt-4">
         <h2>Manejo de Enlaces</h2>
         <form id="enlaceForm">
             <div class="mb-3">
@@ -29,6 +36,7 @@
             <button type="button" class="btn btn-danger" onclick="borrarEnlace()">Borrar</button>
         </form>
     </div>
+
 
     <button onclick="window.location.href = '/';">Regresar</button>
     <script>
@@ -112,7 +120,6 @@
                 });
                 
         }
-        window.onload = Iniciar;
         function guardarEnlace() {
             document.getElementById('mensajeError').style.display = 'none';
             // Obtén el valor del enlace desde el campo de entrada
@@ -160,6 +167,65 @@
                 document.getElementById('mensajeError').style.display = 'inline';
             });
         }
+        function IniciarPerfiles(){
+            if(cuenta_id == null & cuenta_id == undefined ){
+                //return;
+            }
+            fetch('obtener_perfiles', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ cuenta_id: cuenta_id}),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    //console.log('Respuesta JSON recibida:', data);
+
+                    // Obtén el elemento UL para la lista de perfiles
+                    const listaPerfiles = document.querySelector('.lista-perfiles');
+
+                    // Elimina todos los elementos hijos existentes en la lista de perfiles
+                    listaPerfiles.innerHTML = '';
+                    console.log(data.length)
+                    // Verifica si la lista de perfiles existe y no está vacía
+                    if (data && data.perfiles && data.perfiles.length > 0) {
+                        // Itera sobre la lista de perfiles y crea elementos LI
+                        data.perfiles.forEach(perfil => {
+                            const listItem = document.createElement('li');
+                            listItem.className = 'perfil-item';
+
+                            // Crea el contenido del elemento LI con los datos del perfil
+                            listItem.innerHTML = `
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span>${perfil.nombre} ${perfil.apellido} ${perfil.usuario}</span>
+                                    <button class="btn btn-primary" onclick="verPerfil(${perfil.id},${true})">Ver</button>
+                                </div>
+                            `;
+
+                            // Agrega el elemento LI a la lista de perfiles
+                            listaPerfiles.appendChild(listItem);
+                        });
+                    } else {
+                        // Deja la lista de perfiles vacía si no hay perfiles
+                        console.log('La lista de perfiles está vacía o no está presente en la respuesta JSON.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error en la solicitud:', error);
+                });
+        }
+        function verPerfil(perfilId, blnT) {
+            if(blnT == true){
+                // Puedes redirigir a la página de perfil pasando el ID del perfil como parámetro
+                window.location.href = `/perfil/${perfilId}`;
+            }
+        }
+        window.onload = function() {
+            Iniciar();
+            IniciarPerfiles();
+            verPerfil(0,false);
+        };
     </script>
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>

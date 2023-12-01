@@ -159,3 +159,26 @@ def borrar_enlace():
             return jsonify({'mensaje': 'No se encontró un moderador asociado a la cuenta'})
     else:
         return jsonify({'mensaje': 'No se encontró la cuenta'})
+
+@appmod.route('/obtener_perfiles', methods=['POST'])
+def obtener_perfiles():
+    try:
+        perfiles = Perfil.query.all()
+
+        # Convierte la lista de perfiles a un formato JSON
+        lista_perfiles = [
+            {
+                
+                "id": perfil.cuenta.id_cuenta,
+                "nombre": perfil.cuenta.primer_nombre,
+                "apellido": perfil.cuenta.primer_apellido,
+                "usuario": perfil.usuario,
+            }
+            for perfil in perfiles
+        ]
+
+        # Devuelve la lista de perfiles como respuesta JSON
+        return jsonify({"perfiles": lista_perfiles})
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 503
