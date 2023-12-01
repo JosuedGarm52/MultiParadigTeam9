@@ -21,30 +21,35 @@
     <h2>Documentos</h2>
     <div id="documentos-container">
         <div class="documento">
-            <input type="checkbox" id="chkacta" readonly>
+            <input type="checkbox" id="chkacta" class="docchk" readonly>
             <label for="acta">Acta de Nacimiento</label>
+            <input type="text" id="urlActa" placeholder="Ingrese la URL del documento">
             <button onclick="subirDocumento('acta')">Subir Documento</button>
-            <button onclick="verDocumento('acta')">Ver Documento</button>
+            <button onclick="verDocumento('acta')">Ver Documento</button><input type="file" class="archivo-input" data-tipo-documento="acta" style="display: none;" onchange="manejarCambioArchivo(event)">
         </div>
 
         <div class="documento">
-            <input type="checkbox" id="chkdomicilio" readonly>
+            <input type="checkbox" id="chkdomicilio" class="docchk" readonly>
             <label for="domicilio">Comprobante de Domicilio</label>
-            <button onclick="subirDocumento('domicilio')">Subir Documento</button>
+            <input type="text" id="urlDomicio" placeholder="Ingrese la URL del documento">
+            <button onclick="subirDocumento('domicilio')" id="subirDomBtn">Subir Documento</button>
             <button onclick="verDocumento('domicilio')">Ver Documento</button>
+            <!--<input type="file" class="archivo-input" data-tipo-documento="domicilio" style="display: none;" onchange="manejarCambioArchivo(event)"-->
         </div>
 
         <div class="documento">
-            <input type="checkbox" id="chkine" readonly>
+            <input type="checkbox" id="chkine" class="docchk" readonly>
             <label for="ine">Documento INE</label>
-            <button onclick="subirDocumento('ine')">Subir Documento</button>
+            <input type="text" id="urlIne" placeholder="Ingrese la URL del documento">
+            <button onclick="subirDocumento('ine')" id="subirIneBtn">Subir Documento</button>
             <button onclick="verDocumento('ine')">Ver Documento</button>
-        </div>
+            </div>
 
         <div class="documento">
-            <input type="checkbox" id="chkpasaporte"  readonly>
+            <input type="checkbox" id="chkpasaporte" class="docchk" readonly>
             <label for="pasaporte">Documento Pasaporte</label>
-            <button onclick="subirDocumento('pasaporte')">Subir Documento</button>
+            <input type="text" id="urlPass" placeholder="Ingrese la URL del documento">
+            <button onclick="subirDocumento('pasaporte')" id="subirPassBtn">Subir Documento</button>
             <button onclick="verDocumento('pasaporte')">Ver Documento</button>
         </div>
     </div>
@@ -116,6 +121,8 @@
     <button onclick="window.location.href = '/';">Regresar</button>
 
     <script>
+        
+        
         let actainfo;
         let comprobanteinfo;
         let ineinfo;
@@ -302,13 +309,60 @@
             }
             // Llamar a la función para obtener y llenar los datos
             obtenerDatos();
-            function subirDocumento(tipoDocumento) {
-                // Aquí puedes implementar la lógica para abrir un menú o ventana de subida de documentos
-                // y solicitar la autorización del usuario.
-                console.log(`Subir documento de tipo ${tipoDocumento}`);
-            }
+            
         };
         window.onload = Iniciar;
+
+        function subirDocumento(tipo) {
+            let text;
+            let inputId;
+            
+            // Seleccionar el ID del campo de entrada y obtener su valor
+            switch (tipo) {
+                case 'acta':
+                    inputId = 'urlActa';
+                    break;
+                case 'domicilio':
+                    inputId = 'urlDomicio';
+                    break;
+                case 'ine':
+                    inputId = 'urlIne';
+                    break;
+                case 'pasaporte':
+                    inputId = 'urlPass';
+                    break;
+                default:
+                    throw new Error(`El tipo del documento no es uno convencional - subirDocumento()`);
+            }
+
+            text = document.getElementById(inputId).value;
+            if(text == null || text == ''){
+                throw new Error(`El entry esta vacio`);
+            }
+            const opciones = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    cuenta_id: cuenta_id,
+                    link: text,
+                    tipo: tipo,
+                }),
+            };
+
+            // Realizar la solicitud Fetch
+            fetch('save_pdf', opciones)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data); // Puedes manejar la respuesta del servidor aquí
+                })
+                .catch(error => {
+                    console.error(error);
+                    // Manejar el error como desees
+                });
+        }
+
 
         function verDocumento(tipoDocumento) {
             let documentoLink;
@@ -319,8 +373,8 @@
                     documentoLink = 'acta';
                     documentoAprobado = document.getElementById('chkacta').checked;
                     break;
-                case 'comprobante':
-                    documentoLink = 'comprobante';
+                case 'domicilio':
+                    documentoLink = 'domicilio';
                     documentoAprobado = document.getElementById('chkdomicilio').checked;
                     break;
                 case 'ine':

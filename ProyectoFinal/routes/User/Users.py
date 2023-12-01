@@ -1,10 +1,10 @@
 from flask import Flask, render_template, Blueprint, redirect, url_for,request, jsonify, send_from_directory, send_file, abort
-from models import Cuenta,Perfil,Documento, Perfil_Foto, Foto
+from models import Cuenta,Perfil,Documento, Perfil_Foto, Foto, Mod
 from auth import tokenCheck,verificar
 from app import db,bcrypt
-from sqlalchemy import exc 
+from sqlalchemy import exc , func
 from sqlalchemy.orm.exc import NoResultFound
-from utils import decode_auth_token, encode_auth_token, verificarID
+from utils import decode_auth_token, encode_auth_token, verificarID, sanitize_local_link
 from auth import obtenerInfo
 import os
 
@@ -223,3 +223,44 @@ def regis_perfil():
 @appuser.route('/parejas')
 def parejas():
     return render_template('SearchPareja.html')
+
+@appuser.route('/save_pdf', methods=['POST'])
+def save_pdf():
+    # Obtiene el enlace del cuerpo de la solicitud
+    token = request.json['cuenta_id']
+    enlace = request.json['link']
+    tipo = request.json['tipo']
+    try:
+        cuenta_id = verificarID(token)
+    except Exception as e:
+        # Aquí puedes manejar la excepción como desees.
+        # Puedes imprimir un mensaje de depuración, registrar el error, etc.
+        print(f"Error al verificar ID: {str(e)}")
+        return jsonify({'status': 'error', 'message': 'Error al verificar ID'}),412
+    
+    #cuenta = Cuenta.query.filter_by(id_cuenta = cuenta_id).first()
+    perfil = Perfil.query.filter_by(cuenta_id = cuenta_id).first()
+    if perfil:
+        mod_asignado = Documento.query.filter_by(usuario_name=perfil.usuario).first()
+        # Verifica si la cuenta tiene un moderador asociado
+        if mod_asignado:
+
+            id_del_mod = mod_asignado.id_mod
+        else:
+            mod_aleatorio = Mod.query.order_by(func.random()).first()
+            id_del_mod = mod_aleatorio.id_mod
+        enlace_saneado = sanitize_local_link(enlace)
+        # Verifica si el enlace tiene la extensión .csv
+        if enlace_saneado.lower().endswith('.pdf'):
+            documento = Documento(usuario_name = perfil.usuario, 
+                          link = enlace_saneado, isaprobado = False, tipo = tipo, mod_id = id_del_mod)
+            
+            db.session.add(documento)
+            db.session.commit()
+            # Retorna una respuesta (puedes ajustar el contenido según tus necesidades)
+            return jsonify({'mensaje': 'Enlace guardado exitosamente'})
+        else:
+            return jsonify({'mensaje': 'La extension del archivo debe ser .pdf'})
+        
+    else:
+        return jsonify({'mensaje': 'No se encontro el perfil'})

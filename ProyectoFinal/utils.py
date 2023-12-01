@@ -48,3 +48,14 @@ def verificarID(valor):
         return jsonify({'status': 'error', 'message': f'Error de token: {str(e)}'})
     except ValueError as e:
         return jsonify({'status': 'error', 'message': f'El formato de cuenta_id no es válido: {str(e)}'})
+    
+def sanitize_local_link(enlace):
+    # Elimina caracteres no permitidos para enlaces locales
+    caracteres_prohibidos = r'*"<>|'
+    enlace_saneado = ''.join(c for c in enlace if c not in caracteres_prohibidos)
+
+    # Asegúrate de que no tenga el prefijo "file:///"
+    if enlace_saneado.lower().startswith('file:///'):
+        enlace_saneado = enlace_saneado[len('file:///'):]
+
+    return enlace_saneado
