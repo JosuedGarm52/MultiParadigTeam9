@@ -42,5 +42,9 @@ def verificarID(valor):
             return cuenta_id
         else:
             raise ValueError('El campo "sub" no está presente en el token')
-    except ValueError:
-        return jsonify({'status': 'error', 'message': 'El formato de cuenta_id no es válido'})
+    except jwt.ExpiredSignatureError as e:
+        return jsonify({'status': 'error', 'message': f'Error de token: {str(e)}'})
+    except jwt.InvalidTokenError as e:
+        return jsonify({'status': 'error', 'message': f'Error de token: {str(e)}'})
+    except ValueError as e:
+        return jsonify({'status': 'error', 'message': f'El formato de cuenta_id no es válido: {str(e)}'})

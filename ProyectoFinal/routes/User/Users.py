@@ -1,4 +1,4 @@
-from flask import Flask, render_template, Blueprint, redirect, url_for,request, jsonify, send_from_directory, send_file
+from flask import Flask, render_template, Blueprint, redirect, url_for,request, jsonify, send_from_directory, send_file, abort
 from models import Cuenta,Perfil,Documento, Perfil_Foto, Foto
 from auth import tokenCheck,verificar
 from app import db,bcrypt
@@ -45,12 +45,24 @@ def obtener_datos():
     # Obtener datos de la solicitud JSON
     datos_solicitud = request.json
     cuenta_idtoken = datos_solicitud.get('cuenta_id')
-    cuenta_id = verificarID(cuenta_idtoken)
+    try:
+        cuenta_id = verificarID(cuenta_idtoken)
+    except Exception as e:
+        # Aquí puedes manejar la excepción como desees.
+        # Puedes imprimir un mensaje de depuración, registrar el error, etc.
+        print(f"Error al verificar ID: {str(e)}")
+        return jsonify({'status': 'error', 'message': 'Error al verificar ID'}),412
+    
+    usercuenta = Cuenta.query.filter_by(id_cuenta = cuenta_id).first()
+    if usercuenta is None:
+            abort(404, description="Usuario no encontrado")
 
-    usercuenta = obtenerInfo(token=cuenta_idtoken)
     userperfil = Perfil.query.filter_by(cuenta_id=cuenta_id).first()
+    if userperfil is None:
+            abort(404, description="Perfil de usuario no encontrado")
+
     userdocs = Documento.query.filter_by(usuario_name = userperfil.usuario).all()
-    email = usercuenta['data']['correo']
+    email = usercuenta.email
 
     listacta = []
     listcomprobante = []
@@ -83,12 +95,12 @@ def obtener_datos():
                 "tipo": userdoc.tipo
             })
     datos_usuario = {
-        "primer_nombre": usercuenta['data']['pnombre'],
-        "otros_nombres": usercuenta['data']['snombre'],
-        "primer_apellido": usercuenta['data']['papellido'],
-        "segundo_apellido": usercuenta['data']['sapellido'],
-        "fecha_nacimiento": usercuenta['data']['fnacimiento'].strftime('%Y-%m-%d'),
-        "telefono": usercuenta['data']['Telef'],
+        "primer_nombre": usercuenta.primer_nombre,
+        "otros_nombres": usercuenta.otros_nombres,
+        "primer_apellido": usercuenta.primer_apellido,
+        "segundo_apellido": usercuenta.segundo_apellido,
+        "fecha_nacimiento": usercuenta.fecha_nacimiento.strftime('%Y-%m-%d'),
+        "telefono": usercuenta.telefono,
         "correo_electronico": email.lower().strip(),
         "usuario": userperfil.usuario,
         "pais":userperfil.pais_origen,
@@ -105,7 +117,13 @@ def obtener_datos():
 
 @appuser.route('/perfil/<_id>', methods=['GET'])
 def obtener_perfil(_id):
-    cuenta_id = verificarID(_id)
+    try:
+        cuenta_id = verificarID(_id)
+    except Exception as e:
+        # Aquí puedes manejar la excepción como desees.
+        # Puedes imprimir un mensaje de depuración, registrar el error, etc.
+        print(f"Error al verificar ID: {str(e)}")
+        return jsonify({'status': 'error', 'message': 'Error al verificar ID'}),412
 
     usercuenta = Cuenta.query.filter_by(id_cuenta=cuenta_id).first()
     userperfil = Perfil.query.filter_by(cuenta_id=usercuenta.id_cuenta).first()

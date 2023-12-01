@@ -20,7 +20,13 @@ def index():
 @appmod.route('/obtener_chat',methods=["POST"])
 def obtener_chat():
     token = request.json['cuenta_id']
-    cuenta_id = verificarID(token)
+    try:
+        cuenta_id = verificarID(token)
+    except Exception as e:
+        # Aquí puedes manejar la excepción como desees.
+        # Puedes imprimir un mensaje de depuración, registrar el error, etc.
+        print(f"Error al verificar ID: {str(e)}")
+        return jsonify({'status': 'error', 'message': 'Error al verificar ID'}) ,412
 
     usercuenta = Cuenta.query.filter_by(id_cuenta=cuenta_id).first()
     if usercuenta:
@@ -107,7 +113,14 @@ def guardar_enlace():
     data = request.get_json()
     enlace = data.get('enlace')
     _id = data.get('cuenta_id')
-    cuenta_id = verificarID(_id)
+    try:
+        cuenta_id = verificarID(_id)
+    except Exception as e:
+        # Aquí puedes manejar la excepción como desees.
+        # Puedes imprimir un mensaje de depuración, registrar el error, etc.
+        print(f"Error al verificar ID: {str(e)}")
+        return jsonify({'status': 'error', 'message': 'Error al verificar ID'}),412
+    
     cuenta = Cuenta.query.filter_by(id_cuenta = cuenta_id).first()
     mod = Mod.query.filter_by(cuenta_id = cuenta.id_cuenta).first()
 
@@ -138,7 +151,13 @@ def borrar_enlace():
     # Obtiene el ID de la cuenta y el enlace del cuerpo de la solicitud
     data = request.get_json()
     _id = data.get('cuenta_id')
-    cuenta_id = verificarID(_id)
+    try:
+        cuenta_id = verificarID(_id)
+    except Exception as e:
+        # Aquí puedes manejar la excepción como desees.
+        # Puedes imprimir un mensaje de depuración, registrar el error, etc.
+        print(f"Error al verificar ID: {str(e)}")
+        return jsonify({'status': 'error', 'message': 'Error al verificar ID'}),412
     
     # Busca la cuenta y el moderador asociado
     cuenta = Cuenta.query.get(cuenta_id)
