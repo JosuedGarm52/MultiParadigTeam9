@@ -299,3 +299,36 @@ def manejar_solicitud_de_prueba():
         # Manejar cualquier error que pueda ocurrir durante el procesamiento
         print(f"Error al manejar la solicitud de prueba: {str(e)}")
         return jsonify({'error': 'Error interno del servidor'}), 500
+    
+@appmod.route('/cambiar_estado', methods=['POST'])
+def cambiar_estado():
+    try:
+        # Obtener datos de la solicitud JSON
+        datos_solicitud = request.json
+        perfil_id = datos_solicitud.get('perfil_id')
+        estado = datos_solicitud.get('tipo')
+        valor = datos_solicitud.get('check')
+        usercuenta = Cuenta.query.filter_by(id_cuenta = perfil_id).first()
+        if usercuenta is None:
+                abort(404, description="Usuario no encontrado")
+        userperfil = Perfil.query.filter_by(cuenta_id=perfil_id).first()
+        if userperfil is None:
+                abort(404, description="Perfil de usuario no encontrado")
+        # Obtener el documento de la base de datos
+        documento = Documento.query.filter_by(usuario_name=userperfil.usuario, tipo=estado).first()
+
+        # Verificar si el documento existe
+        if documento is not None:
+            # Actualizar el estado del documento
+            documento.isaprobado = valor
+            db.session.commit()
+
+            # Devolver una respuesta exitosa
+            return jsonify({'status': 'success', 'message': f'Estado del {estado} actualizado correctamente'})
+        else:
+            return jsonify({'status': 'error', 'message': 'Documento no encontrado'}), 404
+    
+    except Exception as e:
+        # Manejar cualquier error que pueda ocurrir durante el procesamiento
+        print(f"Error al actualizar el estado del documento: {str(e)}")
+        return jsonify({'status': 'error', 'message': 'Error interno del servidor'}), 500
