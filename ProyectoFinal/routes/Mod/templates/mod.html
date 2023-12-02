@@ -218,7 +218,7 @@
         function verPerfil(perfilId, blnT) {
             if(blnT == true){
                 // Puedes redirigir a la página de perfil pasando el ID del perfil como parámetro
-                window.location.href = `/perfil/${perfilId}`;
+                window.location.href = `perfil?id=${perfilId}`;
             }
         }
         window.onload = function() {

@@ -11,47 +11,69 @@
     <h2>Documentos</h2>
     <div id="documentos-container">
         <div class="documento">
-            <input type="checkbox" id="chkacta" readonly>
+            <input type="checkbox" id="chkacta" class="docchk" readonly>
             <label for="acta">Acta de Nacimiento</label>
-            <button onclick="subirDocumento('acta')">Subir Documento</button>
-            <button onclick="verDocumento('acta')">Ver Documento</button>
+            <button onclick="verDocumento('acta')">Ver Documento</button><input type="file" class="archivo-input" data-tipo-documento="acta" style="display: none;" onchange="manejarCambioArchivo(event)">
         </div>
 
         <div class="documento">
-            <input type="checkbox" id="chkdomicilio" readonly>
+            <input type="checkbox" id="chkdomicilio" class="docchk" readonly>
             <label for="domicilio">Comprobante de Domicilio</label>
-            <button onclick="subirDocumento('domicilio')">Subir Documento</button>
             <button onclick="verDocumento('domicilio')">Ver Documento</button>
         </div>
 
         <div class="documento">
-            <input type="checkbox" id="chkine" readonly>
+            <input type="checkbox" id="chkine" class="docchk" readonly>
             <label for="ine">Documento INE</label>
-            <button onclick="subirDocumento('ine')">Subir Documento</button>
             <button onclick="verDocumento('ine')">Ver Documento</button>
-        </div>
+            </div>
 
         <div class="documento">
-            <input type="checkbox" id="chkpasaporte"  readonly>
+            <input type="checkbox" id="chkpasaporte" class="docchk" readonly>
             <label for="pasaporte">Documento Pasaporte</label>
-            <button onclick="subirDocumento('pasaporte')">Subir Documento</button>
             <button onclick="verDocumento('pasaporte')">Ver Documento</button>
         </div>
     </div>
-    <button onclick="window.location.href = '/mod/';"></button>
+    <button onclick="window.location.href = '/mod/';">Regresar a mod</button>
 
     <script>
+        let perfilId;
+        let cuenta_id;
         function Iniciar() {
+            perfilId = "{{ perfil_id }}"
             
             function obtenerDatos() {
+                const opcionesPrueba = {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                };
+                // Hacer la petición al servidor
+                fetch('prueba', opcionesPrueba)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`Error en la solicitud: ${response.status} ${response.statusText}`);
+                        }
+                        // Retornar la promesa de response.json()
+                        return response.json();
+                    })
+                    .then(data => {
+                        // Manejar los datos recibidos (aquí puedes imprimirlos en la consola o realizar acciones específicas)
+                        console.log('Datos de prueba:', data);
+                    })
+                    .catch(error => {
+                        console.error('Error al realizar la solicitud de prueba:', error);
+                    });
                 // Obtener el id de la cuenta del localStorage
-                const cuenta_id = localStorage.getItem('cuenta_id');
+                cuenta_id = localStorage.getItem('cuenta_id');
 
                 // Verificar si hay un id de cuenta antes de hacer la petición
                 if (cuenta_id) {
                     // Configurar los datos para enviar en la petición
                     const datos = {
-                        cuenta_id: cuenta_id,
+                        mod_id: cuenta_id,
+                        perfil_id: perfilId
                     };
 
                     // Configurar opciones de la petición
@@ -64,10 +86,18 @@
                     };
 
                     // Hacer la petición al servidor
-                    fetch('obtener_doc', opciones)
-                        .then(response => response.json())
-                        .then(data => {
-                            //aqui va la info de doc
+                    fetch('obtener_datos', opciones)
+                    .then(response => {
+                            if (!response.ok) {
+                                throw new Error(`Error en la solicitud: ${response.status} ${response.statusText}`);
+                            }
+                            // Retornar la promesa de response.json()
+                            return response.json();
+                        })
+                    .then(data => {
+                        if (data && data.usuario) {
+                            document.getElementById('hname').innerHTML = `Estas viendo a: ${data.usuario ? data.usuario : ''} - ${data.primer_nombre ? data.primer_nombre : ''} ${data.otrosNombres ? data.otrosNombres : ''} ${data.primer_apellido ? data.primer_apellido : ''} ${data.segundo_apellido ? data.segundo_apellido : ''}`;
+ 
                             if (data.acta && data.acta.length > 0) {
                                 const acta = data.acta[0];  // Tomar el primer documento de tipo "acta"
                                 actainfo = acta.link;
@@ -88,11 +118,14 @@
                                 pasaporteinfo = pasaporte.link;
                                 document.getElementById('chkpasaporte').checked = pasaporte.isaprobado;
                             }
-                               
-                        })
-                        .catch(error => {
-                            console.error('Error al obtener los datos:', error);
-                        });
+                        } else {
+                            console.error('Error: El objeto data no tiene la propiedad "usuario" definida.');
+                        }
+                           
+                    })
+                    .catch(error => {
+                        console.error('Error al obtener los datos:', error);
+                    });
                     
                 }else{
 
@@ -100,51 +133,65 @@
             }
             // Llamar a la función para obtener y llenar los datos
             obtenerDatos();
-            function subirDocumento(tipoDocumento) {
-                // Aquí puedes implementar la lógica para abrir un menú o ventana de subida de documentos
-                // y solicitar la autorización del usuario.
-                console.log(`Subir documento de tipo ${tipoDocumento}`);
-            }
+            
         };
         window.onload = Iniciar;
         function verDocumento(tipoDocumento) {
             let documentoLink;
             let documentoAprobado;
+            // Seleccionar la información correcta según el tipo de documento
             switch (tipoDocumento) {
                 case 'acta':
-                    documentoLink = actainfo;
+                    documentoLink = 'acta';
                     documentoAprobado = document.getElementById('chkacta').checked;
                     break;
-                case 'comprobante':
-                    documentoLink = comprobanteinfo;
+                case 'domicilio':
+                    documentoLink = 'domicilio';
                     documentoAprobado = document.getElementById('chkdomicilio').checked;
                     break;
                 case 'ine':
-                    documentoLink = ineinfo;
+                    documentoLink = 'ine';
                     documentoAprobado = document.getElementById('chkine').checked;
                     break;
                 case 'pasaporte':
-                    documentoLink = pasaporteinfo;
+                    documentoLink = 'pasaporte';
                     documentoAprobado = document.getElementById('chkpasaporte').checked;
                     break;
                 default:
+                    documentoLink='error'
                     console.error('Tipo de documento no reconocido');
                     return;
             }
-            // Verificar si hay un link para el documento
-            if (documentoLink) {
-                // Abrir el enlace en una nueva pestaña
-                window.open(documentoLink, '_blank');
-            } else {
-                // Si no hay link, abrir un PDF predeterminado o manejarlo según tus necesidades
-                console.log(`No hay link para el documento de tipo ${tipoDocumento}. Abriendo PDF predeterminado.`);
-                
-                // Aquí puedes abrir un PDF predeterminado o mostrar un mensaje al usuario
-                // Ejemplo: Abrir un PDF predeterminado en blanco
-                const urlPDF = 'obtener_pdf';
-                window.open(urlPDF, '_blank');
-                //window.location.href = urlPDF;
-            }
+            const opciones = {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({perfil_id : perfilId}),
+                    };
+            // Cambia la solicitud GET a POST y envía el token como parámetro en la URL
+            fetch(`descargar_pdf/${documentoLink}`,opciones)
+                .then(response => {
+                    if (!response.ok) {
+                    throw new Error(`Error al descargar PDF: ${response.status} - ${response.statusText}`);
+                    }
+                    return response.blob();
+                })
+                .then(blob => {
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `${documentoLink}_documento.pdf`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    window.URL.revokeObjectURL(url);
+                })
+                .catch(error => {
+                    console.error(error);
+                    // Manejar el error como desees
+                });
+
         }
     </script>
 </body>

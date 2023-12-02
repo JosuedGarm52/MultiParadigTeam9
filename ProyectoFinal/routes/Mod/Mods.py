@@ -1,5 +1,5 @@
-from flask import Flask, render_template, Blueprint, redirect, url_for,request, jsonify
-from models import Cuenta,Perfil,Mod,Chat,Mensaje
+from flask import Flask, render_template, Blueprint, redirect, url_for,request, jsonify, send_file,abort
+from models import Cuenta,Perfil,Mod,Chat,Mensaje,Documento
 from auth import tokenCheck,verificar
 from app import db,bcrypt
 from sqlalchemy import exc 
@@ -191,3 +191,111 @@ def obtener_perfiles():
 
     except Exception as e:
         return jsonify({'error': str(e)}), 503
+    
+@appmod.route('/perfil', methods=['POST','GET'])
+def abrir_userView():
+    perfil_id = request.args.get('id')  # Obtén el ID del perfil de los parámetros de consulta
+    return render_template('userView.html', perfil_id=perfil_id)
+
+@appmod.route('/descargar_pdf/<tipo>',methods=['GET', 'POST'])
+def descargar_pdf(tipo):
+    
+    token = request.json['perfil_id']
+    
+    
+    perfil = Perfil.query.filter_by(cuenta_id = token).first()
+    if perfil is None:
+        return jsonify({'status': 'error', 'message': 'Perfil no encontrado'}), 404
+    documento = Documento.query.filter_by(usuario_name=perfil.usuario, tipo = tipo).first()
+    if documento is None:
+        nombre_archivo = 'default.pdf'
+        ruta_pdf = f'routes/user/static/pdf/{nombre_archivo}'
+        return send_file(
+            ruta_pdf,
+            mimetype='application/pdf',
+            as_attachment=True,
+            download_name='default.pdf'
+        )
+    # Construir la ruta completa al archivo PDF local
+    ruta_pdf = documento.link
+
+    return send_file(
+        ruta_pdf,
+        mimetype='application/pdf',
+        as_attachment=True,
+        download_name=f'{perfil.usuario}_documento.pdf'
+    )
+
+@appmod.route('/obtener_datos', methods = ["POST"])
+def obtener_datos():
+    # Obtener datos de la solicitud JSON
+    datos_solicitud = request.json
+    perfil_id = datos_solicitud.get('perfil_id')
+    cuenta_idtoken = datos_solicitud.get('mod_id')
+
+    usercuenta = Cuenta.query.filter_by(id_cuenta = perfil_id).first()
+    if usercuenta is None:
+            abort(404, description="Usuario no encontrado")
+    userperfil = Perfil.query.filter_by(cuenta_id=perfil_id).first()
+    if userperfil is None:
+            abort(404, description="Perfil de usuario no encontrado")
+
+    userdocs = Documento.query.filter_by(usuario_name = userperfil.usuario).all()
+
+    listacta = []
+    listcomprobante = []
+    listine = []
+    listpasspord = []
+
+    for userdoc in userdocs:
+        if userdoc.tipo == "acta":
+            listacta.append({
+                "link": userdoc.link,
+                "isaprobado": userdoc.isaprobado,
+                "tipo": userdoc.tipo
+            })
+        elif userdoc.tipo == "comprobante":
+            listcomprobante.append({
+                "link": userdoc.link,
+                "isaprobado": userdoc.isaprobado,
+                "tipo": userdoc.tipo
+            })
+        elif userdoc.tipo == "ine":
+            listine.append({
+                "link": userdoc.link,
+                "isaprobado": userdoc.isaprobado,
+                "tipo": userdoc.tipo
+            })
+        elif userdoc.tipo == "passpord":
+            listpasspord.append({
+                "link": userdoc.link,
+                "isaprobado": userdoc.isaprobado,
+                "tipo": userdoc.tipo
+            })
+    datos_usuario = {
+        "primer_nombre": usercuenta.primer_nombre,
+        "otros_nombres": usercuenta.otros_nombres,
+        "primer_apellido": usercuenta.primer_apellido,
+        "segundo_apellido": usercuenta.segundo_apellido,
+        "usuario": userperfil.usuario,
+        "acta":listacta,
+        "comprobante": listcomprobante,  
+        "ine":listine,
+        "passpord": listpasspord,
+    }
+
+    # Devolver los datos como respuesta JSON
+    return jsonify(datos_usuario)
+
+@appmod.route('/prueba', methods=['POST'])
+def manejar_solicitud_de_prueba():
+    try:
+        # Ejemplo de respuesta (reemplaza con la respuesta adecuada para tu caso)
+        respuesta = {'mensaje': 'Solicitud de prueba recibida exitosamente'}
+
+        return jsonify(respuesta)
+
+    except Exception as e:
+        # Manejar cualquier error que pueda ocurrir durante el procesamiento
+        print(f"Error al manejar la solicitud de prueba: {str(e)}")
+        return jsonify({'error': 'Error interno del servidor'}), 500
