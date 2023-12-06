@@ -59,3 +59,5 @@ def sanitize_local_link(enlace):
         enlace_saneado = enlace_saneado[len('file:///'):]
 
     return enlace_saneado
+
+

@@ -14,27 +14,27 @@
             <div class="image-holder">
                 <img src="../static/Images/51qXxaMW6OL._AC_UF894,1000_QL80_.jpg">
             </div>
-            <form action>
+            <form action id="sign-form">
                 <h1>REGISTRO</h1>
                 <div class="form-group">
-                    <input type="text" placeholder="Primer Nombre *" class="form-control" required>
-                    <input type="text" placeholder="Otros Nombres (Opcional)" class="form-control">
+                    <input type="text" placeholder="Primer Nombre *" class="form-control" id="pnombre" name="pnombre" required>
+                    <input type="text" placeholder="Otros Nombres (Opcional)" class="form-control" id="snombre" name="snombre">
                 </div>
                 <div class="form-group">
-                    <input type="text" placeholder="Primer Apellido *" class="form-control" required>
-                    <input type="text" placeholder="Segundo Apellido (Opcional)" class="form-control">
+                    <input type="text" placeholder="Primer Apellido *" class="form-control" id="papellido" name="papellido" required>
+                    <input type="text" placeholder="Segundo Apellido (Opcional)" class="form-control" id="sapellido" name="sapellido">
                 </div>
                 <div class="form-wrapper">
                     <p>Fecha de Nacimiento *:</p>
-                    <input type="date" class="form-control" required>
+                    <input type="date" class="form-control" id="fnacimiento" name="fnacimiento" required>
                 </div>
                 <div class="form-group">
-                    <input type="text" placeholder="Correo Electrónico *" class="form-control" required>
-                    <input type="text" placeholder="Teléfono (Opcional)" class="form-control">
+                    <input type="text" placeholder="Correo Electrónico *" class="form-control" id="correo" name="correo" required required>
+                    <input type="text" placeholder="Teléfono (Opcional)" class="form-control" id="Telef" name="Telef">
                 </div>
                 <div class="form-group">
-                    <input type="text" placeholder="Contraseña *" class="form-control" required>
-                    <input type="text" placeholder="Confirmar Contraseña *" class="form-control" required>
+                    <input type="text" placeholder="Contraseña *" class="form-control" id="contra1" name="contra1" required>
+                    <input type="text" placeholder="Confirmar Contraseña *" class="form-control" id="contra2" name="contra2" required>
                 </div>
                 <p>* Son obligatorios, recuerda llenarlos.</p>
                 <input type="checkbox" id="acepto" name="acepto">

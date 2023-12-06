@@ -209,7 +209,7 @@ def registro_post():
         else:
             responseObject={
                 'status':'error',
-                'message':'usuario existente'
+                'message':'usuario existente con ese correo'
             }
         return jsonify(responseObject)
     

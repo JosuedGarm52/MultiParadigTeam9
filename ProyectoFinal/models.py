@@ -64,8 +64,7 @@ class Foto(db.Model):
     id_foto=db.Column(db.Integer,primary_key = True, autoincrement = True)
     link = db.Column(db.String(255), nullable=False)#req
 
-    def __init__(self, id_foto, link) -> None:
-        self.id_foto = id_foto
+    def __init__(self, link) -> None:
         self.link = link
 
 class Perfil_Foto(db.Model):
@@ -82,6 +81,19 @@ class Perfil_Foto(db.Model):
         self.usuario_name = usuario_name
         self.foto_id = foto_id
         self.isperfil = isperfil
+    
+    @classmethod
+    def existe_perfil(cls, usuario_name):
+        """
+        Verifica si ya existe un registro con el mismo usuario y isperfil=True.
+            
+        Args:
+        usuario_name (str): El nombre de usuario a verificar.
+
+        Returns:
+            bool: True si ya existe un registro, False en caso contrario.
+        """
+        return cls.query.filter_by(usuario_name=usuario_name, isperfil=True).first() is not None
 
 class Admin(db.Model):
     __tablename__= "admin"

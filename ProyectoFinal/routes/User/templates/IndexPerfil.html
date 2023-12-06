@@ -58,11 +58,18 @@
     <div>
         <div id="imagenesPerfil"></div>
 
-        <form action="/subir_foto" method="post">
+        <form action="subir_foto" method="post">
             <label for="nueva_foto">Nueva Foto:</label>
             <input type="text" name="nueva_foto" id="nueva_foto" required>
+            <input type="hidden" id="tokenImg" name="token" value="tu_token_aqui">
             <button type="submit">Subir Foto</button>
         </form>
+        <br>
+        <div>
+            <button onclick="cambiarImagen()">Actualizar</button>
+            <button onclick="borrarImagen()">Borrar</button>
+            <span id="mensajeError" style="color: red; display: none;"></span>
+        </div>
     </div>
     <br>
     <div>
@@ -121,8 +128,6 @@
     <button onclick="window.location.href = '/';">Regresar</button>
 
     <script>
-        
-        
         let actainfo;
         let comprobanteinfo;
         let ineinfo;
@@ -130,6 +135,7 @@
         const imagenPrincipal= document.getElementById('imgPrin');
         let primeraImagen = "https://previews.123rf.com/images/pavelstasevich/pavelstasevich1811/pavelstasevich181101032/112815935-no-hay-icono-de-imagen-disponible-ilustración-vectorial-plana.jpg"
         let cuenta_id = ''
+        let infoImagen;
         function Iniciar() {
             //Habilitar campos
             {
@@ -201,7 +207,7 @@
             function obtenerDatos() {
                 // Obtener el id de la cuenta del localStorage
                 cuenta_id = localStorage.getItem('cuenta_id');
-
+                document.getElementById('tokenImg').value = cuenta_id;
                 // Verificar si hay un id de cuenta antes de hacer la petición
                 if (cuenta_id) {
                     // Configurar los datos para enviar en la petición
@@ -291,6 +297,10 @@
                                     imagen.style.maxWidth = '25%';
                                     imagen.style.height = 'auto';
 
+                                    imagen.onclick = function() {
+                                        infoImagen = foto;
+                                    };
+
                                     imagenesDiv.appendChild(imagen);
                                 });
 
@@ -306,10 +316,10 @@
                 }else{
 
                 }
+                
             }
             // Llamar a la función para obtener y llenar los datos
             obtenerDatos();
-            
         };
         window.onload = Iniciar;
 
@@ -420,6 +430,56 @@
                     // Manejar el error como desees
                 });
 
+        }
+        
+        function cambiarImagen(){
+            document.getElementById('mensajeError').style.display = 'none';
+            document.getElementById('mensajeError').innerText = '';
+            if(infoImagen == undefined || infoImagen == null || infoImagen == ''){
+                document.getElementById('mensajeError').innerText = 'No has pulsado una imagen';
+                document.getElementById('mensajeError').style.display = 'block';
+            }else{
+                let noc = document.getElementById('nueva_foto')
+
+                if(noc != undefined && noc != null && noc.value != ''){
+                    console.log('aqui empieza')
+                    fetch('modificar_img', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            cuenta_id: cuenta_id,
+                            nueva_imagen: noc.value
+                        })
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`Error en la solicitud: ${response.status} ${response.statusText}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        // Manejar la respuesta del servidor
+                        console.log('Respuesta del servidor:', data);
+                    })
+                    .catch(error => {
+                        console.error('Error al realizar la solicitud:', error);
+                    });
+                }else{
+                    document.getElementById('mensajeError').innerText = 'No has colocado un texto en el entry';
+                    document.getElementById('mensajeError').style.display = 'block';
+                }
+            }
+        }
+        function borrarImagen(){
+            document.getElementById('mensajeError').style.display = 'none';
+            if(infoImagen == undefined || infoImagen == null || infoImagen == ''){
+                document.getElementById('mensajeError').innerText = 'No has pulsado una imagen';
+                document.getElementById('mensajeError').style.display = 'block';
+            }else{
+                
+            }
         }
     </script>
 </body>

@@ -4,40 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro</title>
+    <link rel="stylesheet" href="{{ url_for('main.static', filename='css/estilo3.css') }}">
 </head>
 <body>
-    <h1>Registro</h1>
-    <form id="sign-form">
-        <p>Primer Nombre*:</p>
-        <input type="text" id="pnombre" name="pnombre" required>
-        <p>Otros Nombres (Opcional): </p>
-        <input type="text" id="snombre" name="snombre">
-        <p>Primer Apellido *:</p>
-        <input type="text" id="papellido" name="papellido" required>
-        <p>Segundo Apellido (Opcional):</p>
-        <input type="text" id="sapellido" name="sapellido">
-        <p>Fecha de Nacimiento *:</p>
-        <input type="date" id="fnacimiento" name="fnacimiento" required>
-        <p>Correo electronico *:</p>
-        <input type="email" id="correo" name="correo" required>
-        <p>Telefono (Opcional):</p>
-        <input type="text" id="Telef" name="Telef">
-        <p>Password *:</p>
-        <input type="password" id="contra1" name="contra1" required>
-        <p>Confirma Password *:</p>
-        <input type="password" id="contra2" name="contra2" required>
-        <label id="error-message" style="color: red;"></label>
-        <br>
-        <p>* Son obligatorios, recuerda rellenarlos.</p>
-        <br>
-        <input type="checkbox" id="acepto" name="acepto" required>
-        <label for="acepto">Acepto los <a href="terminos-y-condiciones.html">términos y condiciones</a></label>
-        <br>
-        <input type="submit" value="Registrarse" id="btn_sign">
-    </form>
-    <br>
-    <button onclick="window.location.href = '/';">Regresar</button>
-
+    <div class="wrapper">
+        <div class="inner">
+            <div class="image-holder">
+                <img src="{{ url_for('main.static', filename='images/51qXxaMW6OL._AC_UF894,1000_QL80_.jpg') }}">
+            </div>
+            <form action id="sign-form">
+                <h1>REGISTRO</h1>
+                <div class="form-group">
+                    <input type="text" placeholder="Primer Nombre *" class="form-control" id="pnombre" name="pnombre" required>
+                    <input type="text" placeholder="Otros Nombres (Opcional)" class="form-control" id="snombre" name="snombre">
+                </div>
+                <div class="form-group">
+                    <input type="text" placeholder="Primer Apellido *" class="form-control" id="papellido" name="papellido" required>
+                    <input type="text" placeholder="Segundo Apellido (Opcional)" class="form-control" id="sapellido" name="sapellido">
+                </div>
+                <div class="form-wrapper">
+                    <p>Fecha de Nacimiento *:</p>
+                    <input type="date" class="form-control" id="fnacimiento" name="fnacimiento" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" placeholder="Correo Electrónico *" class="form-control" id="correo" name="correo" required>
+                    <input type="text" placeholder="Teléfono (Opcional)" class="form-control" id="Telef" name="Telef">
+                </div>
+                <div class="form-group">
+                    <input type="password" placeholder="Contraseña *" class="form-control" id="contra1" name="contra1" required>
+                    <input type="password" placeholder="Confirmar Contraseña *" class="form-control" id="contra2" name="contra2" required>
+                </div>
+                <label id="error-message" style="color: red;"></label>
+                <p>* Son obligatorios, recuerda llenarlos.</p>
+                <input type="checkbox" id="acepto" name="acepto">
+                <label for="acepto">Acepto los <a href="terminos-y-condiciones.html">términos y condiciones</a></label>
+                <button type="submit" value="Registrarse" id="btn_sign">Registrarse</button>
+                <button onclick="window.location.href = '/';">Regresar</button>
+            </form>
+        </div>
+    </div>
     <script>
         const signForm=document.querySelector('#sign-form');
         const signButton=document.querySelector('#btn_sign');
@@ -60,46 +65,55 @@
             if (!checkbox.checked ) {
                 errorLabel.textContent = 'Debes aceptar los acuerdos o no pasas';
                 errorLabel.style.display = 'inline';
-            } else if(contra1 == contra2){
-                fetch('/cuenta',{
-                    method:'POST',
-                    headers:{
-                        'Content-Type':'application/json'
-                    },
-                    body:JSON.stringify({
-                        'pnombre':pnombre,
-                        'snombre':snombre,
-                        'papellido':papellido,
-                        'sapellido':sapellido,
-                        'fnacimiento':fnacimiento,
-                        'correo':correo,
-                        'Telef':Telef,
-                        'password':contra1
+            } else if(textoValido(pnombre) && textoValido(papellido) && textoValido(fnacimiento) && textoValido(correo) 
+                    && textoValido(Telef) && textoValido(contra1) && textoValido(contra2)){
+                if(contra1 == contra2){
+                    fetch('/cuenta',{
+                        method:'POST',
+                        headers:{
+                            'Content-Type':'application/json'
+                        },
+                        body:JSON.stringify({
+                            'pnombre':pnombre,
+                            'snombre':snombre,
+                            'papellido':papellido,
+                            'sapellido':sapellido,
+                            'fnacimiento':fnacimiento,
+                            'correo':correo,
+                            'Telef':Telef,
+                            'password':contra1
+                        })
                     })
-                })
-                .then(response => response.json())
-                .then(data=>{
-                    if (data.status === 'success') {
-                        // Almacenar la ID de la cuenta en localStorage
-                        localStorage.setItem('cuenta_id', data.cuenta_id);
-                        
-                        // Redirigir a otra página
-                        window.location.href = '/usuarios/registro';
-                    } else {
-                        errorLabel.textContent = 'Error en el registro: ' + data.message;
+                    .then(response => response.json())
+                    .then(data=>{
+                        if (data.status === 'success') {
+                            // Almacenar la ID de la cuenta en localStorage
+                            localStorage.setItem('cuenta_id', data.cuenta_id);
+                            
+                            // Redirigir a otra página
+                            window.location.href = '/usuarios/registro';
+                        } else {
+                            errorLabel.textContent = 'Error en el registro: ' + data.message;
+                            errorLabel.style.display = 'inline';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error en la solicitud:', error);
+                        errorLabel.textContent = 'Error en la solicitud, por favor intenta de nuevo.';
                         errorLabel.style.display = 'inline';
-                    }
-                })
-                .catch(error => {
-                    console.error('Error en la solicitud:', error);
-                    errorLabel.textContent = 'Error en la solicitud, por favor intenta de nuevo.';
+                    });
+                }else{
+                    errorLabel.textContent = 'Las contraseñas no coinciden.';
                     errorLabel.style.display = 'inline';
-                });
+                }
             }else{
-                errorLabel.textContent = 'Las contraseñas no coinciden.';
+                errorLabel.textContent = 'Los campos obligatorios no deben estar vacios';
                 errorLabel.style.display = 'inline';
             }
         })
+        function textoValido(string) {
+            return !(string === undefined || string === null || string.trim() === '');
+        }
     </script>
 </body>
 </html>

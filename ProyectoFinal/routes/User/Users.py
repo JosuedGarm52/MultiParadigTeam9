@@ -141,7 +141,7 @@ def obtener_perfil(_id):
     # Obtener fotos asociadas al perfil
     fotos_perfil = sorted(
         [
-            {"link": foto.foto.link, "isperfil": foto.isperfil} for foto in userperfil.perfil_fotos
+            {"link": foto.foto.link, "isperfil": foto.isperfil, "id":foto.foto.id_foto} for foto in userperfil.perfil_fotos
         ],
         key=lambda x: not x["isperfil"]  # Coloca True primero
     )
@@ -264,3 +264,84 @@ def save_pdf():
         
     else:
         return jsonify({'mensaje': 'No se encontro el perfil'})
+    
+@appuser.route('/subir_foto', methods=['POST'])
+def subir_foto():
+    try:
+        # Obtener la nueva foto del formulario
+        nueva_foto = request.form.get('nueva_foto')
+        token = request.form.get('token')
+        
+        try:
+            cuenta_id = verificarID(token)
+        except Exception as e:
+            # Aquí puedes manejar la excepción como desees.
+            # Puedes imprimir un mensaje de depuración, registrar el error, etc.
+            print(f"Error al verificar ID: {str(e)}")
+            return jsonify({'status': 'error', 'message': 'Error al verificar ID'}),412
+        
+        cuenta = Cuenta.query.filter_by(id_cuenta = cuenta_id).first()
+        perfil = Perfil.query.filter_by(cuenta_id = cuenta.id_cuenta).first()
+        if cuenta and perfil:
+            usuario_existente = Perfil_Foto.existe_perfil(usuario_name=perfil.usuario)
+            if usuario_existente:
+                esPerfil = False
+            else:
+                esPerfil = True
+            foto = Foto(link=nueva_foto)
+            db.session.add(foto)
+            db.session.commit()
+            dir_foto = Perfil_Foto(usuario_name=perfil.usuario, foto_id= foto.id_foto, isperfil=esPerfil)
+            
+            db.session.add(dir_foto)
+            db.session.commit()
+            # Devolver una respuesta exitosa
+            return jsonify({'status': 'ok', 'message': 'Se añadio una foto'}),204    
+        else:
+            #agregar pagina error
+            return jsonify({'status': 'error', 'message': 'Error no encontro cuenta y perfil'}),412
+
+    except Exception as e:
+        # Manejar cualquier error que pueda ocurrir durante el procesamiento
+        print(f"Error al subir la foto: {str(e)}")
+        return jsonify({'status': 'error', 'message': 'Error ' + str(e)}),500
+        #agregar pagina error
+
+@appuser.route('/modificar_img', methods = ['POST','DELETE'])
+def modificar_img():
+    if request.method == "POST":
+        datos_solicitud = request.json
+        cuenta_idtoken = datos_solicitud.get('cuenta_id')
+        url = datos_solicitud.get('nueva_imagen')
+        try:
+            cuenta_id = verificarID(cuenta_idtoken)
+        except Exception as e:
+            # Aquí puedes manejar la excepción como desees.
+            # Puedes imprimir un mensaje de depuración, registrar el error, etc.
+            print(f"Error al verificar ID: {str(e)}")
+            return jsonify({'status': 'error', 'message': 'Error al verificar ID'}),412
+        
+        cuenta = Cuenta.query.filter_by(id_cuenta = cuenta_id).first()
+        perfil = Perfil.query.filter_by(cuenta_id = cuenta.id_cuenta).first()
+
+        if cuenta and perfil:
+            pfoto = Perfil_Foto.query.filter_by(usuario_name = perfil.usuario).first()
+            if pfoto:
+                foto = Foto.query.filter_by(id_foto = pfoto.foto_id)
+                if foto:
+                    foto.link = url
+                    db.session.commit()
+                    # Devolver una respuesta exitosa
+                    return jsonify({'status': 'ok', 'message': 'Se modifico la foto'}),204    
+                else:
+                    return jsonify({'status': 'error', 'message': 'Error no encontro la foto'}),412
+            else:
+                return jsonify({'status': 'error', 'message': 'Error no encontro la relacion perfil foto'}),412
+        else:
+            return jsonify({'status': 'error', 'message': 'Error no encontro cuenta y perfil'}),412
+
+    elif request.method == "DELETE":
+        pass
+    else:
+        # Manejar otros métodos si es necesario
+        return jsonify({'status': 'error', 'message': 'Método no permitido'}), 405
