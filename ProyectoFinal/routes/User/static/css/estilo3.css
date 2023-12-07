@@ -1,0 +1,105 @@
+*, ::before, ::after
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body
+{
+    width: 100%;
+    height: 100vh;
+    font-family: Arial;
+}
+
+.left-form
+{
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    float: left;
+    background: #fff url('../Images/il_1588xN.4426788746_6mqe.jpg') no-repeat center;
+    background-size: cover;
+}
+
+.right-form
+{
+    width: 50%;
+    height: 100%;
+    margin: 0;
+    float: left;
+    background-color: #FFF;
+    display: flex;
+    justify-content: center;
+}
+
+.right-form form
+{
+    height: 100%;
+    width: 55%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.right-form h1
+{
+    font-size: 2em;
+    color: #f44336;
+    margin: 10px 0;
+    font-weight: bold;
+}
+
+.right-form form > input
+{
+    width: 100%;
+    padding: 5px 0;
+    font-size: 1.2em;
+}
+
+.right-form label, p
+{
+    width: 100%;
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.check, .radio
+{
+    width: 100%;
+    margin: 5px 0;
+    font-size: 18px;
+}
+
+.right-form select
+{
+    width: 60%;
+    margin: 10px 0;
+    font-size: 18px;
+}
+
+.right-form input[type="button"]
+{
+    width: 100%;
+    background-color: #f44336;
+    color: #FFF;
+    border: none;
+    font-size: 18px;
+    padding: 8px 30px;
+}
+
+.right-form button
+{
+    width: 100%;
+    background-color: black;
+    color: #FFF;
+    border: none;
+    font-size: 18px;
+    padding: 8px 30px;
+}
+
+.right-form a
+{
+    margin: 10px 0;
+}

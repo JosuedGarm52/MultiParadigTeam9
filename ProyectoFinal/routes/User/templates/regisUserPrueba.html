@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Completar usuario</title>
+    <link rel="stylesheet" href="../static/css/estilo3.css">
+</head>
+<body>
+    <section class="left-form">
+
+    </section>
+    <section class="right-form">
+        <form id="sign-form">
+            <h1>Completa tu usuario</h1>
+            <p>Nombre de Usuario:</p>
+            <input type="text" name="username" id="username">
+            <p>Pais de origen: </p>
+            <select id="pais" name="pais">
+                <!--Se cargaran de un json-->
+            </select>
+            <p>Genero:</p>
+            <div class="radio">
+                <input type="radio" id="masculino" name="genero" value="HM">
+                <span>Masculino</span>
+            </div>
+            
+            <div class="radio">
+                <input type="radio" id="femenino" name="genero" value="MF">
+                <span>Femenino</span>
+            </div>
+
+            <div class="radio">
+                <input type="radio" id="otro" name="genero" value="XX">
+                <span>Otro</span>
+            </div>
+
+            <p>Busco a... </p>
+            <div class="check">
+                <input type="checkbox" id="masculino" name="genero" value="masculino">
+                <span>Masculino</span>
+            </div>
+            
+            <div class="check">
+                <input type="checkbox" id="femenino" name="genero" value="femenino">
+                <span>Femenino</span>
+            </div>
+            
+            <div class="check">
+                <input type="checkbox" id="otro" name="genero" value="otro">
+                <span>Otro</span>
+            </div>
+            
+            <br>
+            <p>Estado civil:</p>
+            <select id="estadoCivil" name="estadoCivil">
+                <option value="soltero">Soltero</option>
+                <option value="casado">Casado</option>
+                <option value="divorciado">Divorciado</option>
+                <option value="viudo">Viudo</option>
+                <option value="libre">Relacion Libre</option>
+            </select>
+            <br>
+            <span id="errorLabel" style="display: none; color: red;"></span>
+            <br>
+            <input type="button" value="Crear Perfil" id="btn_create_profile">
+            <a href="/">No quiero crear un perfil</a>
+            <br>
+            <button onclick="window.location.href = '/';">Regresar</button>
+        </form>
+    </section>
+    
+    <script>
+        const cuenta_id = localStorage.getItem('cuenta_id');
+        const errorLabel = document.getElementById('errorLabel');
+
+        if (!cuenta_id) {
+            // Si la ID no está presente, redirigir al usuario a la página anterior
+            window.location.href = '/register';
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            // Obtén el elemento select
+            const selectPais = document.getElementById("pais");
+
+            // Ruta al archivo JSON
+            const jsonPath = "{{ url_for('user.static', filename='json/paises-del-mundo.json') }}";
+
+            // País predeterminado (México)
+            const paisPredeterminado = "MX"; // Código ISO2 de México
+
+            // Realiza una solicitud para cargar el JSON
+            fetch(jsonPath)
+            .then(response => response.json())
+            .then(data => {
+                // Itera sobre los datos y agrega opciones al select
+                data.forEach(pais => {
+                    const option = document.createElement("option");
+                    option.value = pais.ISO2;
+                    option.text = pais.shortName;
+                    // Establece como seleccionado si es México
+                    if (pais.ISO2 === paisPredeterminado) {
+                        option.selected = true;
+                    }
+                        
+                    selectPais.appendChild(option);
+                });
+            })
+            .catch(error => console.error("Error al cargar el JSON:", error));
+        });
+
+
+        const signButton = document.querySelector('#btn_create_profile');
+        signButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            // Obtener valores del formulario
+            const usernameInput = document.querySelector('#username');
+            const username = usernameInput?.value ?? 'Empty';
+            const paisInput = document.querySelector('#pais').value;
+            const pais = paisInput ?? 'Empty';
+            const generoValues = document.querySelectorAll('input[name="genero"]:checked');
+            const primerGenero = generoValues[0]?.value;
+
+            // Obtener valores de los checkboxes
+            const busquedaValues = document.querySelectorAll('input[name="genero"]:checked');
+            const busqueda = Array.from(generoValues).map(checkbox => checkbox.value).filter(value => (value !== 'HM' && value !== 'MF')).join(',');
+            //console.log(busqueda);
+            const estadoCivil = document.querySelector('#estadoCivil').value;
+
+            if(username.trim() === ""){
+                errorLabel.textContent = 'Como te llamamos?, te parece notch?';
+                errorLabel.style.display = 'inline';
+                return;
+            }else if(generoValues.length === 0){
+                errorLabel.textContent = 'Eres de los que no tienen género, eh?.';
+                errorLabel.style.display = 'inline';
+                return;
+            }else if(busqueda.length === 0){
+                errorLabel.textContent = 'emmm, que estas buscando?';
+                errorLabel.style.display = 'inline';
+                return;
+            }else if(pais === "Empty"){
+                errorLabel.textContent = 'Vienes de otro mundo?';
+                errorLabel.style.display = 'inline';
+                return;
+            }
+            else if(estadoCivil == "casado"){
+                errorLabel.textContent = 'Perdona, que hace un casado aqui?';
+                errorLabel.style.display = 'inline';
+                return;
+            }
+            else{
+                errorLabel.style.display = 'none';
+
+                fetch('registro', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        'cuenta_id': cuenta_id,
+                        'username': username,
+                        'pais': pais,
+                        'genero': primerGenero,
+                        'busqueda': busqueda,
+                        'estado_civil': estadoCivil
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        errorLabel.textContent = 'El post fue exitoso';
+                        errorLabel.style.display = 'inline';
+                        // Almacenar la ID de la cuenta en localStorage
+                        localStorage.setItem('usuario', username);
+                        if (data.redirect_url) {
+                            // Redirigir a la URL proporcionada
+                            window.location.href = data.redirect_url;
+                        } else {
+                            // Redirigir a la página predeterminada
+                            console.log('data redirect no fue encontrado')
+                            window.location.href = '/usuarios/';
+                        }
+                    } else {
+                        errorLabel.textContent = 'Error en el registro: ' + data.message;
+                        errorLabel.style.display = 'inline';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error en la solicitud:', error);
+                    // Manejar el error apropiadamente
+                });
+            }
+            
+        });
+    </script>
+</body>
+</html>
