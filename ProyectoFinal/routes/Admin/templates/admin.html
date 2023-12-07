@@ -4,36 +4,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administrador</title>
+    <!-- Enlace a Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
-<body>
-    <h1>Administrador</h1>
-    <p>Lista de noticias</p>
-    <div class="noticia-container" id="noticia-container">
-        <!-- Los elementos se cargarán aquí -->
-    </div>
-    <div class="noticia-form">
-        <input type="text" id="est1" class="text1" placeholder="Encabezado">
-        <input type="text" id="est2" class="text2" placeholder="Cuerpo">
-        <input type="text" id="est3" class="url" placeholder="URL">
-        <button onclick="agregarNoticia()">Agregar Noticia</button>
+<body class="container">
+    <h1 class="mt-5">Administrador</h1>
+
+    <div class="mt-4">
+        <h2>Lista de noticias</h2>
+        <div class="noticia-container" id="noticia-container">
+            <!-- Los elementos se cargarán aquí -->
+        </div>
+        <div class="noticia-form mt-3">
+            <input type="text" id="est1" class="form-control mb-2" placeholder="Encabezado">
+            <input type="text" id="est2" class="form-control mb-2" placeholder="Cuerpo">
+            <input type="text" id="est3" class="form-control mb-2" placeholder="URL">
+            <button class="btn btn-primary" onclick="agregarNoticia()">Agregar Noticia</button>
+        </div>
     </div>
 
+    <div class="mt-4">
+        <h2>Lista de Moderadores</h2>
+        <ul class="list-group" id="moderadores-list"></ul>
+    </div>
 
-    <p>Lista de Moderadores</p>
-    <ul id="moderadores-list"></ul>
-    <br>
-    <div>
+    <div class="mt-4">
         <label for="txtBusqueda">Buscar Cuenta:</label>
-        <input type="text" id="txtBusqueda" placeholder="Ingrese el nombre de la cuenta">
-        <button onclick="buscarCuentas()">Buscar</button>
-        <ul id="listaCuentas"></ul>
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" id="txtBusqueda" placeholder="Ingrese el nombre de la cuenta">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button" onclick="buscarCuentas()">Buscar</button>
+            </div>
+        </div>
+        <ul class="list-group" id="listaCuentas"></ul>
     </div>
-    <br>
-    <button id="btnGenerarCSV">Generar cvs</button>
-    <br>
-    <button onclick="window.location.href = '/';">Regresar</button>
 
+    <div class="mt-4">
+        <button class="btn btn-success" id="btnGenerarCSV">Generar CSV</button>
+    </div>
+
+    <div class="mt-4">
+        <button class="btn btn-secondary" onclick="window.location.href = '/';">Regresar</button>
+    </div>
+
+    <!-- Scripts de Bootstrap (jQuery y Popper.js) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script>
         // Función para obtener y mostrar la lista de moderadores
         async function cargarModeradores() {

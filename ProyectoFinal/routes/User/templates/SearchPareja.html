@@ -4,23 +4,79 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buscador de parejas</title>
-    <link rel="stylesheet" href="../static/css/estilo2.css">
+
+    <!-- Enlace a Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <!-- Estilos personalizados -->
+    <style>
+        body {
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #3498db;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            margin: 20px 0;
+        }
+
+        input[type="button"] {
+            margin: 5px;
+        }
+    </style>
 </head>
 <body>
-
-    <section class="search-pareja">
+    <div class="container">
         <h1>Buscador</h1>
-        <img src="" alt="Imagen" class="img">
+        <img src="https://via.placeholder.com/400" alt="Imagen">
         <br>
-        <input class="button" type="button" value="<3">
+        <button type="button" class="btn btn-success">&#10084; Me gusta</button>
+        <button type="button" class="btn btn-danger">RECHAZAR</button>
         <br>
-        <input class="button" type="button" value="RECHAZAR">
-        <br>
-        <input class="button" type="button" value="HOME" onclick="window.location.href = '/';">
-    </section>
+        <a href="/" class="btn btn-primary">HOME</a>
+    </div>
 
+    <!-- Scripts de Bootstrap (jQuery y Popper.js) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script>
-        
+        let cuenta_id;
+        document.addEventListener("DOMContentLoaded", function() {
+            cuenta_id = localStorage.getItem('cuenta_id');
+            if(cuenta_id == null || cuenta_id == undefined || cuenta_id == ''){
+                window.location.href = '/register';
+            }
+            // Esta función se ejecutará cuando la página haya cargado completamente
+            enviarData('cargar_pagina');
+        });
+
+        async function enviarData(accion) {
+            try {
+                const response = await fetch('verificarp', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ cuenta_id: cuenta_id }),
+                });
+
+                const data = await response.json();
+
+                if (data.status === 'success') {
+                    console.log('Éxito:', data.message);
+                } else {
+                    console.error('Error:', data.message);
+                }
+            } catch (error) {
+                console.error('Error en la solicitud:', error);
+            }
+        }
     </script>
 </body>
 </html>
