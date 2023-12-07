@@ -169,7 +169,7 @@
         }
         function IniciarPerfiles(){
             if(cuenta_id == null & cuenta_id == undefined ){
-                //return;
+                return;
             }
             fetch('obtener_perfiles', {
                     method: 'POST',

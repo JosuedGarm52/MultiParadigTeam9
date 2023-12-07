@@ -4,53 +4,78 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Completar usuario</title>
+    <!-- Agrega la CDN de Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
-<body>
-    <h1>Completa tu usuario</h1>
-    <form id="sign-form">
-        <p>Nombre de Usuario:</p>
-        <input type="text" name="username" id="username">
-        <p>Pais de origen: </p>
-        <select id="pais" name="pais">
-            <!--Se cargaran de un json-->
-        </select>
-        <p>Genero:</p>
-        <input type="radio" id="masculino" name="genero" value="HM">
-        <label for="masculino">Masculino</label>
+<body class="bg-light">
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Completa tu usuario</h1>
+        <form id="sign-form">
+            <div class="form-group">
+                <label for="username">Nombre de Usuario:</label>
+                <input type="text" class="form-control" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="pais">Pais de origen:</label>
+                <select class="form-control" id="pais" name="pais" required>
+                    <!--Se cargaran de un json-->
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Genero:</label>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" id="masculino" name="genero" value="HM" required>
+                    <label class="form-check-label" for="masculino">Masculino</label>
+                </div>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" id="femenino" name="genero" value="MF" required>
+                    <label class="form-check-label" for="femenino">Femenino</label>
+                </div>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" id="otro" name="genero" value="XX" required>
+                    <label class="form-check-label" for="otro">Otro</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Busco a...</label>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="buscaMasculino" name="busqueda" value="masculino">
+                    <label class="form-check-label" for="buscaMasculino">Masculino</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="buscaFemenino" name="busqueda" value="femenino">
+                    <label class="form-check-label" for="buscaFemenino">Femenino</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="buscaOtro" name="busqueda" value="otro">
+                    <label class="form-check-label" for="buscaOtro">Otro</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="estadoCivil">Estado civil:</label>
+                <select class="form-control" id="estadoCivil" name="estadoCivil" required>
+                    <option value="soltero">Soltero</option>
+                    <option value="casado">Casado</option>
+                    <option value="divorciado">Divorciado</option>
+                    <option value="viudo">Viudo</option>
+                    <option value="libre">Relación Libre</option>
+                </select>
+            </div>
+            <span id="errorLabel" class="text-danger"></span>
+            <br>
+            <button type="button" class="btn btn-primary" id="btn_create_profile">Crear Perfil</button>
+        </form>
+        <br>
+        <a href="/" class="text-dark">No quiero crear un perfil</a>
+        <br>
+        <button class="btn btn-secondary" onclick="window.location.href = '/';">Regresar</button>
+    </div>
 
-        <input type="radio" id="femenino" name="genero" value="MF">
-        <label for="femenino">Femenino</label>
+    <!-- Agrega la CDN de Bootstrap (jQuery y Popper.js son necesarios para Bootstrap) -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-        <input type="radio" id="otro" name="genero" value="XX">
-        <label for="otro">Otro</label>
-        <p>Busco a... </p>
-        <input type="checkbox" id="masculino" name="genero" value="masculino">
-        <label for="masculino">Masculino</label>
-        
-        <input type="checkbox" id="femenino" name="genero" value="femenino">
-        <label for="femenino">Femenino</label>
-        
-        <input type="checkbox" id="otro" name="genero" value="otro">
-        <label for="otro">Otro</label>
-        <br>
-        <p>Estado civil:</p>
-        <select id="estadoCivil" name="estadoCivil">
-            <option value="soltero">Soltero</option>
-            <option value="casado">Casado</option>
-            <option value="divorciado">Divorciado</option>
-            <option value="viudo">Viudo</option>
-            <option value="libre">Relacion Libre</option>
-        </select>
-        <br>
-        <span id="errorLabel" style="display: none; color: red;"></span>
-        <br>
-        <input type="button" value="Crear Perfil" id="btn_create_profile">
-    </form>
-    <br>
-    <a href="/">No quiero crear un perfil</a>
-    <br>
-    <button onclick="window.location.href = '/';">Regresar</button>
-    
     <script>
         const cuenta_id = localStorage.getItem('cuenta_id');
         const errorLabel = document.getElementById('errorLabel');

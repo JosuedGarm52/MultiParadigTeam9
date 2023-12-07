@@ -4,40 +4,79 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vista previa usuario</title>
+
+    <!-- Enlace a Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <!-- Estilos personalizados -->
+    <style>
+        body {
+            text-align: left;
+            padding: 20px;
+        }
+
+        h1, h2 {
+            color: #3498db;
+        }
+
+        .documento {
+            margin-bottom: 10px;
+        }
+
+        .archivo-input {
+            margin-top: 10px;
+        }
+
+        #mensaje-error {
+            display: none;
+            color: red;
+        }
+
+        button {
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Vista Previa</h1>
-    <h2 id="hname">Estas viendo a: Usuario</h2>
-    <h2>Documentos</h2>
-    <div id="documentos-container">
-        <div class="documento">
-            <input type="checkbox" id="chkacta" class="docchk" onclick="ver(this)">
-            <label for="acta">Acta de Nacimiento</label>
-            <button onclick="verDocumento('acta')">Ver Documento</button><input type="file" class="archivo-input" data-tipo-documento="acta" style="display: none;" onchange="manejarCambioArchivo(event)">
-        </div>
-
-        <div class="documento">
-            <input type="checkbox" id="chkdomicilio" class="docchk" onclick="ver(this)">
-            <label for="domicilio">Comprobante de Domicilio</label>
-            <button onclick="verDocumento('domicilio')">Ver Documento</button>
-        </div>
-
-        <div class="documento">
-            <input type="checkbox" id="chkine" class="docchk" onclick="ver(this)">
-            <label for="ine">Documento INE</label>
-            <button onclick="verDocumento('ine')">Ver Documento</button>
+    <div class="container">
+        <h1>Vista Previa</h1>
+        <h2 id="hname">Estás viendo a: Usuario</h2>
+        <h2>Documentos</h2>
+        <div id="documentos-container">
+            <div class="documento">
+                <input type="checkbox" id="chkacta" class="docchk" onclick="ver(this)">
+                <label for="acta">Acta de Nacimiento</label>
+                <button class="btn btn-primary" onclick="verDocumento('acta')">Ver Documento</button><input type="file" class="archivo-input" data-tipo-documento="acta" style="display: none;" onchange="manejarCambioArchivo(event)">
             </div>
 
-        <div class="documento">
-            <input type="checkbox" id="chkpasaporte" class="docchk" onclick="ver(this)">
-            <label for="pasaporte">Documento Pasaporte</label>
-            <button onclick="verDocumento('pasaporte')">Ver Documento</button>
+            <div class="documento">
+                <input type="checkbox" id="chkdomicilio" class="docchk" onclick="ver(this)">
+                <label for="domicilio">Comprobante de Domicilio</label>
+                <button class="btn btn-primary" onclick="verDocumento('domicilio')">Ver Documento</button>
+            </div>
+
+            <div class="documento">
+                <input type="checkbox" id="chkine" class="docchk" onclick="ver(this)">
+                <label for="ine">Documento INE</label>
+                <button class="btn btn-primary" onclick="verDocumento('ine')">Ver Documento</button>
+            </div>
+
+            <div class="documento">
+                <input type="checkbox" id="chkpasaporte" class="docchk" onclick="ver(this)">
+                <label for="pasaporte">Documento Pasaporte</label>
+                <button class="btn btn-primary" onclick="verDocumento('pasaporte')">Ver Documento</button>
+            </div>
         </div>
+        <span id="mensaje-error">
+            <!-- Contenido del mensaje de error -->
+        </span>
+        <button class="btn btn-secondary" onclick="window.location.href = '/mod/';">Regresar a mod</button>
     </div>
-    <span id="mensaje-error" style="display: none; color: red;">
-        <!-- Contenido del mensaje de error -->
-    </span>
-    <button onclick="window.location.href = '/mod/';">Regresar a mod</button>
+
+    <!-- Scripts de Bootstrap (jQuery y Popper.js) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
     <script>
         let perfilId;

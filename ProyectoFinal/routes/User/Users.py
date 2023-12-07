@@ -345,3 +345,29 @@ def modificar_img():
     else:
         # Manejar otros métodos si es necesario
         return jsonify({'status': 'error', 'message': 'Método no permitido'}), 405
+
+@appuser.route('/verificarp', methods=['GET','POST'])
+def verificarp():
+    token = request.json['cuenta_id']
+    try:
+        cuenta_id = verificarID(token)
+        print("error: ",cuenta_id)
+    except Exception as e:
+        # Aquí puedes manejar la excepción como desees.
+        # Puedes imprimir un mensaje de depuración, registrar el error, etc.
+        print(f"Error al verificar ID: {str(e)}")
+        return jsonify({'status': 'error', 'message': 'Error al verificar ID'}),412
+
+    usercuenta = Cuenta.query.filter_by(id_cuenta=cuenta_id).first()
+    userperfil = Perfil.query.filter_by(cuenta_id=usercuenta.id_cuenta).first()
+
+    if userperfil:
+        # Aquí deberías construir la respuesta JSON con los datos del perfil
+        # Puedes acceder a las propiedades de user_perfil para obtener la información necesaria
+        response_data = {
+            'status': 'success',
+            'message': 'Perfil encontrado'
+        }
+        return jsonify(response_data)
+    else:
+        return jsonify({'status': 'error', 'message': 'Perfil no encontrado'}), 404
