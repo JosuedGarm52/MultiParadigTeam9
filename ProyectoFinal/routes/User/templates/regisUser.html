@@ -24,15 +24,15 @@
             <div class="form-group">
                 <label>Genero:</label>
                 <div class="form-check">
-                    <input type="radio" class="form-check-input" id="masculino" name="genero" value="HM" required>
+                    <input type="radio" class="form-check-input" id="masculino" name="genero" value="Masculino" required>
                     <label class="form-check-label" for="masculino">Masculino</label>
                 </div>
                 <div class="form-check">
-                    <input type="radio" class="form-check-input" id="femenino" name="genero" value="MF" required>
+                    <input type="radio" class="form-check-input" id="femenino" name="genero" value="Femenino" required>
                     <label class="form-check-label" for="femenino">Femenino</label>
                 </div>
                 <div class="form-check">
-                    <input type="radio" class="form-check-input" id="otro" name="genero" value="XX" required>
+                    <input type="radio" class="form-check-input" id="otro" name="genero" value="otro" required>
                     <label class="form-check-label" for="otro">Otro</label>
                 </div>
             </div>
@@ -131,7 +131,7 @@
             // Obtener valores de los checkboxes
             const busquedaValues = document.querySelectorAll('input[name="genero"]:checked');
             const busqueda = Array.from(generoValues).map(checkbox => checkbox.value).filter(value => (value !== 'HM' && value !== 'MF')).join(',');
-            //console.log(busqueda);
+            console.log(busqueda);
             const estadoCivil = document.querySelector('#estadoCivil').value;
 
             if(username.trim() === ""){
