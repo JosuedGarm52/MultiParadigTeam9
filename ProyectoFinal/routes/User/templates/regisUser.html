@@ -131,7 +131,7 @@
             // Obtener valores de los checkboxes
             const busquedaValues = document.querySelectorAll('input[name="genero"]:checked');
             const busqueda = Array.from(generoValues).map(checkbox => checkbox.value).filter(value => (value !== 'HM' && value !== 'MF')).join(',');
-            console.log(busqueda);
+            //console.log(busqueda);
             const estadoCivil = document.querySelector('#estadoCivil').value;
 
             if(username.trim() === ""){
